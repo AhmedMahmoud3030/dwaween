@@ -263,7 +263,7 @@ class _DwaweenScreenState extends State<DwaweenScreen> {
                                         return kafya;
                                       }
 
-                                      Provider.of<DewanDetailsProvider>(context,
+                                      Provider.of<BaseProvider>(context,
                                               listen: false)
                                           .kafya = listOfKafya();
 

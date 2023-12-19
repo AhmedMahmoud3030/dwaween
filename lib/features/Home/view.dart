@@ -12,7 +12,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-
 class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -85,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                     suffixIcon: Visibility(
-                      visible: provider?.searchController.text.length > 0,
+                      visible: provider.searchController.text.length > 0,
                       child: IconButton(
                         icon: const Icon(
                           Icons.clear,
@@ -274,8 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     onTap: () {
-                                      Provider.of<
-                                      >(context,
+                                      Provider.of<BaseProvider>(context,
                                                   listen: false)
                                               .dawawen =
                                           provider.dewanBody!.dawawen![index];
@@ -293,7 +291,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         return kafya;
                                       }
 
-                                      Provider.of<DewanDetailsProvider>(context,
+                                      Provider.of<BaseProvider>(context,
                                               listen: false)
                                           .kafya = listOfKafya();
 

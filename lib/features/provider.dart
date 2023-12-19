@@ -13,7 +13,7 @@ import 'package:flutter/services.dart';
 class BaseProvider extends ChangeNotifier {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-   TextEditingController searchController = TextEditingController();
+  TextEditingController searchController = TextEditingController();
   String searchValue = "";
 
   List<groupByClass> groupedBy = [];
@@ -97,7 +97,6 @@ class BaseProvider extends ChangeNotifier {
 
     notifyListeners();
   }
-
 }
 
 class groupByClass {

@@ -15,8 +15,6 @@ class DwaweenScreen extends StatefulWidget {
 }
 
 class _DwaweenScreenState extends State<DwaweenScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
@@ -164,12 +162,13 @@ class _DwaweenScreenState extends State<DwaweenScreen> {
                                 padding: EdgeInsets.zero,
                                 physics: BouncingScrollPhysics(),
                                 shrinkWrap: true,
-                                itemCount: provider.dewanBody?.dawawen?.length ?? 0,
+                                itemCount:
+                                    provider.dewanBody?.dawawen?.length ?? 0,
                                 itemBuilder: (BuildContext context, index) {
                                   return InkWell(
                                     child: Visibility(
-                                      visible: provider.dewanBody!.dawawen![index]
-                                          .kasaed!.isNotEmpty,
+                                      visible: provider.dewanBody!
+                                          .dawawen![index].kasaed!.isNotEmpty,
                                       child: Padding(
                                         padding: const EdgeInsets.all(4.0),
                                         child: Container(
@@ -249,7 +248,6 @@ class _DwaweenScreenState extends State<DwaweenScreen> {
                                       Provider.of<BaseProvider>(context,
                                                   listen: false)
                                               .dawawen =
-
                                           provider.dewanBody!.dawawen![index];
 
                                       List<String> kafya = [];

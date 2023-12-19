@@ -37,6 +37,8 @@ dependencies:
   screenshot: ^2.1.0
   share: ^2.0.4
   provider: ^6.1.1
+  easy_localization: ^3.0.3
+  collection: ^1.17.2
 
 dev_dependencies:
   flutter_test:
@@ -59,8 +61,8 @@ flutter:
 
   assets:
      - assets/ 
-     - assets/images/paintings
-     - assets/images/icons
+     - assets/images/paintings/
+     - assets/images/icons/
      - assets/img/
      - assets/ico/
      - assets/json/

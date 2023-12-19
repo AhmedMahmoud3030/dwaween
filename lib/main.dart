@@ -1,70 +1,63 @@
-import 'package:dwaween/Test/TestShare.dart';
-import 'package:dwaween/core/constants.dart';
-import 'package:dwaween/core/help/app_localization/app_local.dart';
-import 'package:dwaween/splash_screen/splash.dart';
+import 'package:dwaween/features/Base/provider.dart';
+import 'package:dwaween/features/Dwaween/provider.dart';
+import 'package:dwaween/features/Home/provider.dart';
+import 'package:dwaween/features/Splash/splash.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  //final dir = await path.getApplicationDocumentsDirectory();
-  // await Hive.initFlutter('hive_db');
-  // (Hive
-  //   ..init(dir.path)
-  //   ..registerAdapter<Favourite>(FavouriteAdapter())
-  //   ..registerAdapter<Notes>(NotesAdapter()));
-  //
-  // boxFavourite = await Hive.openBox<Favourite>("favouriteBox");
-  // boxNotes = await Hive.openBox<Notes>("notesBox");
-  // boxSettings = await Hive.openBox<Notes>("settingsBox");
-  runApp(const MyApp());
+
+  runApp(
+    EasyLocalization(
+      child: MyApp(),
+      supportedLocales: [
+        Locale('en'),
+        Locale('ar'),
+      ],
+      startLocale: Locale('ar'),
+      path: 'assets/lang',
+      fallbackLocale: Locale('ar'),
+      useOnlyLangCode: true,
+    ),
+  );
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Dwaween',
-        theme: ThemeData(
-          scaffoldBackgroundColor: const Color.fromARGB(255, 250, 250, 234),
-          fontFamily: 'Cairo',
-          colorScheme: ColorScheme.fromSeed(seedColor: Constants.primary),
-          textTheme: Theme.of(context).textTheme.apply(
-            bodyColor: Color.fromARGB(255, 0, 0, 0),
-            displayColor: Color.fromARGB(255, 0, 0, 0),
-          ),
-          useMaterial3: true,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => BaseProvider(),
         ),
-        debugShowCheckedModeBanner: false,
-        locale: Locale("en"),
+        ChangeNotifierProvider(
+          create: (context) => HomeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DwaweenProvider(),
+        )
+      ],
+      child: MaterialApp(
         localizationsDelegates: [
-          AppLocale.delegate,
           GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          EasyLocalization.of(context)!.delegate,
         ],
-        supportedLocales: [
-          Locale("ar",""),
-          Locale("en",""),
-        ],
-        localeResolutionCallback: (currentLocal,supportedLocal){
-        },
-        // home: TDI()
-         home: splash()
-        // home: TestShare()
+        supportedLocales: EasyLocalization.of(context)!.supportedLocales,
+        locale: EasyLocalization.of(context)!.locale,
+        debugShowCheckedModeBanner: false,
+        home: Splash(),
+      ),
     );
   }
 }
-

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dwaween/core/constants.dart';
 import 'package:dwaween/core/nav.dart';
 import 'package:flutter/gestures.dart';
@@ -5,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'dart:convert';
+
+import '../../../features/Dwaween/view.dart';
 import '../../Knanish/KasayedDetails/KasydaDetails.dart';
-import '../dlistview.dart';
 
 class DewanTeserWsol extends StatefulWidget {
   const DewanTeserWsol({super.key});
@@ -16,9 +18,7 @@ class DewanTeserWsol extends StatefulWidget {
   State<DewanTeserWsol> createState() => _DewanTeserWsolState();
 }
 
-
 class _DewanTeserWsolState extends State<DewanTeserWsol> {
-
   TextEditingController _searchController = TextEditingController();
 
   String SearchValue = "";
@@ -37,7 +37,6 @@ class _DewanTeserWsolState extends State<DewanTeserWsol> {
 
   String selector = "";
   bool _first = true;
-
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +67,9 @@ class _DewanTeserWsolState extends State<DewanTeserWsol> {
                 Row(
                   children: [
                     Spacer(),
-                    SizedBox(width: width/18,),
+                    SizedBox(
+                      width: width / 18,
+                    ),
                     const SizedBox(
                       height: 58,
                       child: Text("ديوان تيسير الوصول",
@@ -81,9 +82,17 @@ class _DewanTeserWsolState extends State<DewanTeserWsol> {
                     ),
                     Spacer(),
                     InkWell(
-                        onTap: (){navigateBack(context);},
-                        child: Icon(Icons.arrow_forward,color: Colors.white,size: 30,)),
-                    SizedBox(width: width/20,)
+                        onTap: () {
+                          navigateBack(context);
+                        },
+                        child: Icon(
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                          size: 30,
+                        )),
+                    SizedBox(
+                      width: width / 20,
+                    )
                   ],
                 ),
                 Container(
@@ -113,7 +122,9 @@ class _DewanTeserWsolState extends State<DewanTeserWsol> {
                         borderSide: BorderSide(width: 3, color: Colors.white),
                         borderRadius: BorderRadius.circular(20.0),
                       ),
-                      hintStyle: TextStyle(fontFamily: 'Cairo',),
+                      hintStyle: TextStyle(
+                        fontFamily: 'Cairo',
+                      ),
 
                       // Add a clear button to the search bar
                       suffixIcon: IconButton(
@@ -181,7 +192,9 @@ class _DewanTeserWsolState extends State<DewanTeserWsol> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 Align(
                   alignment: Alignment.centerRight,
                   child: Row(
@@ -189,7 +202,7 @@ class _DewanTeserWsolState extends State<DewanTeserWsol> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Visibility(
-                        visible: selector!="",
+                        visible: selector != "",
                         child: IconButton(
                           icon: const Icon(Icons.clear),
                           onPressed: () {
@@ -199,9 +212,8 @@ class _DewanTeserWsolState extends State<DewanTeserWsol> {
                           },
                         ),
                       ),
-
                       SizedBox(
-                        width:  selector!=""?230:260,
+                        width: selector != "" ? 230 : 260,
                         child: Divider(
                           color: Colors.teal,
                           thickness: 1.5,
@@ -216,7 +228,7 @@ class _DewanTeserWsolState extends State<DewanTeserWsol> {
                               fontFamily: "Cairo",
                               fontWeight: FontWeight.bold)),
                       SvgPicture.asset(
-                        "assets/ico/ic_ksaed.svg",
+                        "assets/images/icons/ic_ksaed.svg",
                         height: 25,
                         width: 25,
                       ),
@@ -226,7 +238,9 @@ class _DewanTeserWsolState extends State<DewanTeserWsol> {
                     ],
                   ),
                 ),
-                SizedBox(height: 5,),
+                SizedBox(
+                  height: 5,
+                ),
                 // القوافى
                 Container(
                   width: 350,
@@ -866,7 +880,9 @@ class _DewanTeserWsolState extends State<DewanTeserWsol> {
                   ),
                 ),
                 //Alphacard(),
-                SizedBox(height: 5,),
+                SizedBox(
+                  height: 5,
+                ),
                 // القصائد
                 Align(
                   alignment: Alignment.centerRight,
@@ -874,10 +890,8 @@ class _DewanTeserWsolState extends State<DewanTeserWsol> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-
-
                       SizedBox(
-                        width:  260,
+                        width: 260,
                         child: Divider(
                           color: Colors.teal,
                           thickness: 1.5,
@@ -892,7 +906,7 @@ class _DewanTeserWsolState extends State<DewanTeserWsol> {
                               fontFamily: "Cairo",
                               fontWeight: FontWeight.bold)),
                       SvgPicture.asset(
-                        "assets/ico/ic_ksaed.svg",
+                        "assets/images/icons/ic_ksaed.svg",
                         height: 25,
                         width: 25,
                       ),
@@ -905,8 +919,7 @@ class _DewanTeserWsolState extends State<DewanTeserWsol> {
 
                 Container(
                   width: 375,
-                  height: height/1.55,
-
+                  height: height / 1.55,
                   child: FutureBuilder(
                     future: readData2("assets/json/dewantaeser.json"),
                     builder: (contect, snapshot) {
@@ -914,20 +927,26 @@ class _DewanTeserWsolState extends State<DewanTeserWsol> {
                         filtared = snapshot.data;
                         print("${filtared.length} S");
                         if (selector == "" && SearchValue != "") {
-                          items = filtared.where((element) => element['Kname'].toString()
-                              .toLowerCase()
-                              .contains(SearchValue.toLowerCase()))
+                          items = filtared
+                              .where((element) => element['Kname']
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(SearchValue.toLowerCase()))
                               .toList();
-                          itemsKaseda = filtared.where((element) => element['Kaseyda'].toString().contains(SearchValue)).toList();
-
+                          itemsKaseda = filtared
+                              .where((element) => element['Kaseyda']
+                                  .toString()
+                                  .contains(SearchValue))
+                              .toList();
                         } else if (selector != "" && SearchValue == "") {
                           items = filtared
                               .where((element) => element['letter']
                                   .toString()
                                   .toLowerCase()
-                                  .contains(selector.toLowerCase())).toList();
+                                  .contains(selector.toLowerCase()))
+                              .toList();
                         } else {
-                          items=filtared;
+                          items = filtared;
                           // items = filtared
                           //     .where((element) => element['Kname']
                           //         .toString()
@@ -935,153 +954,204 @@ class _DewanTeserWsolState extends State<DewanTeserWsol> {
                           //         .contains(SearchValue.toLowerCase()))
                           //     .toList();
                         }
-                        return SearchValue.isEmpty?
-                            ListView.builder(
-                            itemCount: items.length,
-                            shrinkWrap: true,
-                            padding: EdgeInsets.only(top: 10),
-                            physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (BuildContext context, index) {
-                              return InkWell(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Container(
-                                        color: Colors.white,
-                                        child: ListTile(
-                                          trailing: SvgPicture.asset(
-                                            "assets/ico/ic_ksaed.svg",
-                                            height: 30,
-                                            width: 30,
-                                            fit: BoxFit.fill,
-                                          ),
-                                          title: Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            children: [
-                                              SizedBox(
-                                                width: 280,
-                                                child: SearchValue.isNotEmpty?
-                                                  ColoredText(
-                                                    text: items[index]['Kname'],
-                                                    value: SearchValue,
-                                                    context: context,
-                                                  ):Text(
-                                                  items[index]['KnameT'],
-                                                  textAlign: TextAlign.right,
-                                                  softWrap: true,
-                                                  maxLines: 2,
-                                                  style: TextStyle(
-                                                      color: Colors.teal,
-                                                      fontFamily: "Cairo"),
-                                                ),
+                        return SearchValue.isEmpty
+                            ? ListView.builder(
+                                itemCount: items.length,
+                                shrinkWrap: true,
+                                padding: EdgeInsets.only(top: 10),
+                                physics: NeverScrollableScrollPhysics(),
+                                itemBuilder: (BuildContext context, index) {
+                                  return InkWell(
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Container(
+                                            color: Colors.white,
+                                            child: ListTile(
+                                              trailing: SvgPicture.asset(
+                                                "assets/images/icons/ic_ksaed.svg",
+                                                height: 30,
+                                                width: 30,
+                                                fit: BoxFit.fill,
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Visibility(
-                                        visible: (items.length-1)==index,
-                                        child: SizedBox(height: 10,))
-
-                                  ],
-                                ),
-                                onTap: () {
-                                  items=filtared;
-                                  setState(() {});
-                                  navigateTo(context, KasydaDetails(
-                                        kasyeda: items[index]['Kaseyda'],
-                                        KName: items[index]['Kname'],
-                                        kasyedaT: items[index]['KaseydaT'],
-                                        kasyedaTRepeat: items[index]['KaseydaT'],
-                                        KNameT: items[index]['KnameT'],
-                                        DName: "",
-                                      ));
-                                },
-                              );
-                            })
-                            :ListView.builder(
-                            padding: EdgeInsets.all(0),
-                            itemCount: itemsKaseda.length,
-                            itemBuilder: (BuildContext context, index) {
-                              return InkWell(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Container(
-                                    margin: EdgeInsets.symmetric(horizontal: width / 40),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                      color: Colors.white,
-                                    ),
-                                    child: ListTile(
-                                      trailing: SvgPicture.asset(
-                                        "assets/ico/ic_ksaed.svg",
-                                        height: width / 10,
-                                        width: width / 10,
-                                      ),
-                                      title: Directionality(
-                                        textDirection: TextDirection.rtl,
-                                        child:SearchValue.isNotEmpty?
-                                        Column(
-                                          children: [
-                                            ColoredText(
-                                              text: itemsKaseda[index]['Kaseyda'],
-                                              value: SearchValue,
-                                              context: context,
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text("الديوان : ", style: TextStyle(color: Constants.primary,fontFamily: "Cairo",fontWeight: FontWeight.w500)),
-                                                Text('ديوان تيسير الوصول', style: TextStyle(color: Constants.primary,fontFamily: "Cairo")),
-                                              ],
-                                            ),
-                                            Visibility(
-                                              visible: false,
-                                              child: Row(
+                                              title: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
                                                 children: [
-                                                  Text("القصيدة : ", style: TextStyle(color: Constants.primary,fontFamily: "Cairo",fontWeight: FontWeight.w500)),
-                                                  Expanded(child: Text(itemsKaseda[index]['KnameT'], style: TextStyle(color: Constants.primary,fontFamily: "Cairo"))),
+                                                  SizedBox(
+                                                    width: 280,
+                                                    child: SearchValue
+                                                            .isNotEmpty
+                                                        ? ColoredText(
+                                                            text: items[index]
+                                                                ['Kname'],
+                                                            value: SearchValue,
+                                                            context: context,
+                                                          )
+                                                        : Text(
+                                                            items[index]
+                                                                ['KnameT'],
+                                                            textAlign:
+                                                                TextAlign.right,
+                                                            softWrap: true,
+                                                            maxLines: 2,
+                                                            style: TextStyle(
+                                                                color:
+                                                                    Colors.teal,
+                                                                fontFamily:
+                                                                    "Cairo"),
+                                                          ),
+                                                  ),
                                                 ],
                                               ),
                                             ),
-
-
-                                          ],
-                                        ) :
-                                        Text(
-                                          itemsKaseda[index]['Kaseyda'],
-                                          style: TextStyle(
-                                              color: Colors.black87,
-                                              fontSize: width / 25,
-
-                                              fontFamily: "Cairo"),
+                                          ),
+                                        ),
+                                        Visibility(
+                                            visible:
+                                                (items.length - 1) == index,
+                                            child: SizedBox(
+                                              height: 10,
+                                            ))
+                                      ],
+                                    ),
+                                    onTap: () {
+                                      items = filtared;
+                                      setState(() {});
+                                      navigateTo(
+                                          context,
+                                          KasydaDetails(
+                                            kasyeda: items[index]['Kaseyda'],
+                                            KName: items[index]['Kname'],
+                                            kasyedaT: items[index]['KaseydaT'],
+                                            kasyedaTRepeat: items[index]
+                                                ['KaseydaT'],
+                                            KNameT: items[index]['KnameT'],
+                                            DName: "",
+                                          ));
+                                    },
+                                  );
+                                })
+                            : ListView.builder(
+                                padding: EdgeInsets.all(0),
+                                itemCount: itemsKaseda.length,
+                                itemBuilder: (BuildContext context, index) {
+                                  return InkWell(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: width / 40),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          color: Colors.white,
+                                        ),
+                                        child: ListTile(
+                                          trailing: SvgPicture.asset(
+                                            "assets/images/icons/ic_ksaed.svg",
+                                            height: width / 10,
+                                            width: width / 10,
+                                          ),
+                                          title: Directionality(
+                                            textDirection: TextDirection.rtl,
+                                            child: SearchValue.isNotEmpty
+                                                ? Column(
+                                                    children: [
+                                                      ColoredText(
+                                                        text: itemsKaseda[index]
+                                                            ['Kaseyda'],
+                                                        value: SearchValue,
+                                                        context: context,
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Text("الديوان : ",
+                                                              style: TextStyle(
+                                                                  color: Constants
+                                                                      .primary,
+                                                                  fontFamily:
+                                                                      "Cairo",
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500)),
+                                                          Text(
+                                                              'ديوان تيسير الوصول',
+                                                              style: TextStyle(
+                                                                  color: Constants
+                                                                      .primary,
+                                                                  fontFamily:
+                                                                      "Cairo")),
+                                                        ],
+                                                      ),
+                                                      Visibility(
+                                                        visible: false,
+                                                        child: Row(
+                                                          children: [
+                                                            Text("القصيدة : ",
+                                                                style: TextStyle(
+                                                                    color: Constants
+                                                                        .primary,
+                                                                    fontFamily:
+                                                                        "Cairo",
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500)),
+                                                            Expanded(
+                                                                child: Text(
+                                                                    itemsKaseda[
+                                                                            index]
+                                                                        [
+                                                                        'KnameT'],
+                                                                    style: TextStyle(
+                                                                        color: Constants
+                                                                            .primary,
+                                                                        fontFamily:
+                                                                            "Cairo"))),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Text(
+                                                    itemsKaseda[index]
+                                                        ['Kaseyda'],
+                                                    style: TextStyle(
+                                                        color: Colors.black87,
+                                                        fontSize: width / 25,
+                                                        fontFamily: "Cairo"),
+                                                  ),
+                                          ),
                                         ),
                                       ),
-
                                     ),
-                                  ),
-                                ),
-                                onTap: () {
-                                  navigateTo(
-                                      context,
-                                      KasydaDetails(
-                                        kasyeda: itemsKaseda[index]['Kaseyda'],
-                                        kasyedaT: itemsKaseda[index]['KaseydaT'],
-                                        kasyedaTRepeat: itemsKaseda[index]['KaseydaT'],
-                                        KName: itemsKaseda[index]['Kname'],
-                                        KNameT: itemsKaseda[index]['KnameT'],
-                                        DName: "",
-                                      ));
-
-                                },
-                              );
-                            });
+                                    onTap: () {
+                                      navigateTo(
+                                          context,
+                                          KasydaDetails(
+                                            kasyeda: itemsKaseda[index]
+                                                ['Kaseyda'],
+                                            kasyedaT: itemsKaseda[index]
+                                                ['KaseydaT'],
+                                            kasyedaTRepeat: itemsKaseda[index]
+                                                ['KaseydaT'],
+                                            KName: itemsKaseda[index]['Kname'],
+                                            KNameT: itemsKaseda[index]
+                                                ['KnameT'],
+                                            DName: "",
+                                          ));
+                                    },
+                                  );
+                                });
                       } else {
                         return Container(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height,
-                          child: Center(child: SpinKitCircle(color: Constants.primary,)),
+                          child: Center(
+                              child: SpinKitCircle(
+                            color: Constants.primary,
+                          )),
                         );
                       }
                     },
@@ -1102,8 +1172,7 @@ class ExpandableText extends StatefulWidget {
     this.text, {
     Key? key,
     this.trimLines = 2,
-  })  : assert(text != null),
-        super(key: key);
+  }) : super(key: key);
 
   final String text;
   final int trimLines;

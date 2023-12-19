@@ -1,13 +1,13 @@
+import 'dart:convert';
 
 import 'package:dwaween/core/nav.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 import '../../Knanish/KasayedDetails/KasydaDetails.dart';
+
 class DewanGabrElksr extends StatefulWidget {
   const DewanGabrElksr({super.key});
 
@@ -15,9 +15,7 @@ class DewanGabrElksr extends StatefulWidget {
   State<DewanGabrElksr> createState() => _DewanGabrElksrState();
 }
 
-
 class _DewanGabrElksrState extends State<DewanGabrElksr> {
-
   TextEditingController _searchController = TextEditingController();
 
   String SearchValue = "";
@@ -35,7 +33,6 @@ class _DewanGabrElksrState extends State<DewanGabrElksr> {
 
   String selector = "";
   bool _first = true;
-
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +93,9 @@ class _DewanGabrElksrState extends State<DewanGabrElksr> {
                         borderSide: BorderSide(width: 3, color: Colors.white),
                         borderRadius: BorderRadius.circular(20.0),
                       ),
-                      hintStyle: TextStyle(fontFamily: 'Cairo',),
+                      hintStyle: TextStyle(
+                        fontFamily: 'Cairo',
+                      ),
 
                       // Add a clear button to the search bar
                       suffixIcon: IconButton(
@@ -174,7 +173,7 @@ class _DewanGabrElksrState extends State<DewanGabrElksr> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Visibility(
-                        visible: selector!="",
+                        visible: selector != "",
                         child: IconButton(
                           icon: const Icon(Icons.clear),
                           onPressed: () {
@@ -184,9 +183,8 @@ class _DewanGabrElksrState extends State<DewanGabrElksr> {
                           },
                         ),
                       ),
-
                       SizedBox(
-                        width:  selector!=""?230:260,
+                        width: selector != "" ? 230 : 260,
                         child: Divider(
                           color: Colors.teal,
                           thickness: 1.5,
@@ -201,7 +199,7 @@ class _DewanGabrElksrState extends State<DewanGabrElksr> {
                               fontFamily: "Cairo",
                               fontWeight: FontWeight.bold)),
                       SvgPicture.asset(
-                        "assets/ico/ic_ksaed.svg",
+                        "assets/images/icons/ic_ksaed.svg",
                         height: 25,
                         width: 25,
                       ),
@@ -863,10 +861,8 @@ class _DewanGabrElksrState extends State<DewanGabrElksr> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-
-
                       SizedBox(
-                        width:  260,
+                        width: 260,
                         child: Divider(
                           color: Colors.teal,
                           thickness: 1.5,
@@ -881,7 +877,7 @@ class _DewanGabrElksrState extends State<DewanGabrElksr> {
                               fontFamily: "Cairo",
                               fontWeight: FontWeight.bold)),
                       SvgPicture.asset(
-                        "assets/ico/ic_ksaed.svg",
+                        "assets/images/icons/ic_ksaed.svg",
                         height: 25,
                         width: 25,
                       ),
@@ -915,7 +911,7 @@ class _DewanGabrElksrState extends State<DewanGabrElksr> {
                                   .contains(selector.toLowerCase()))
                               .toList();
                         } else {
-                          items=filtared;
+                          items = filtared;
                           // items = filtared
                           //     .where((element) => element['Kname']
                           //         .toString()
@@ -938,7 +934,7 @@ class _DewanGabrElksrState extends State<DewanGabrElksr> {
                                         color: Colors.white,
                                         child: ListTile(
                                           trailing: SvgPicture.asset(
-                                            "assets/ico/ic_ksaed.svg",
+                                            "assets/images/icons/ic_ksaed.svg",
                                             height: 25,
                                             width: 25,
                                           ),
@@ -964,9 +960,10 @@ class _DewanGabrElksrState extends State<DewanGabrElksr> {
                                       ),
                                     ),
                                     Visibility(
-                                        visible: (items.length-1)==index,
-                                        child: SizedBox(height: 10,))
-
+                                        visible: (items.length - 1) == index,
+                                        child: SizedBox(
+                                          height: 10,
+                                        ))
                                   ],
                                 ),
                                 onTap: () {
@@ -1005,8 +1002,7 @@ class ExpandableText extends StatefulWidget {
     this.text, {
     Key? key,
     this.trimLines = 2,
-  })  : assert(text != null),
-        super(key: key);
+  }) : super(key: key);
 
   final String text;
   final int trimLines;

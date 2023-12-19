@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
@@ -36,7 +37,7 @@ class _aboutState extends State<about> {
               Stack(
                 children: [
                   SvgPicture.asset(
-                    "assets/img/img_heade_home.svg",
+                    "assets/images/paintings/img_head_home.svg",
                     alignment: Alignment.topCenter,
                     width: MediaQuery.of(context).size.width * 4,
                     height: MediaQuery.of(context).size.height / 2,
@@ -108,7 +109,8 @@ class _aboutState extends State<about> {
                                 "باختصار:كان نورا ساطعا وسيفا قاطعا وأعجوبة زمانه، ويومه له ما بعده، غرس الإيمان في القلوب وسقاهم بمحبة قائد الأمة ومؤسسها صلى عليه وسلم حتى تجمعت القلوب حوله، وأحاطته بمشاعر الحب والتقدير، فكان مُجَلي الصدق وعين إبراز الحق، فتراهم يرقبون ظهوره وتفيض أعينهم دمعا مما عرفوا فيه من الحق، يتسابقون لخدمته والتقرب إليه والقرب منه والحظوة لديه، يجمعهم بإطراقه وينير بواطنهم بإشراقه،.",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.teal,fontSize: 20,
+                                color: Colors.teal,
+                                fontSize: 20,
                                 fontFamily: "Amiri Regular"),
                           ),
                           maxLines: 10,
@@ -127,7 +129,8 @@ class _aboutState extends State<about> {
                                 " فطُبِعَت فيهم محبة ذاته، فإنه الشيخ حقا بجميع مراتبه، شيخ الإسلام الشيخ إبراهيم نياس",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.teal,fontSize: 20,
+                                color: Colors.teal,
+                                fontSize: 20,
                                 fontFamily: "Amiri Regular"),
                           ),
                           maxLines: 10,
@@ -163,7 +166,8 @@ class _aboutState extends State<about> {
                             text: " :حياته",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.teal,fontSize: 20,
+                                color: Colors.teal,
+                                fontSize: 20,
                                 fontFamily: "Amiri Regular"),
                           ),
                           maxLines: 10,
@@ -182,7 +186,8 @@ class _aboutState extends State<about> {
                                 " كان مولد هذا المجدد الغطمطم والمفرد الأعظم، يوم الخميس 15 رجب من عام 1318 من هجرته صلى الله عليه وسلم، الموافق: 08 نوفمبر 1900م، بالقرية المعروفة بطيبة من إقليم نياسين سين سالم شرقي الجمهورية السنغالية، من أب هو الحاج عبد الله نياس مرجعية هذا الإقليم الدينية والعلمية، جاهد الفرنسيين،  بينما كانت عائشة بنت السيد إبراهيم هي المحظية بحمل واحتضان وتنشئة هذا العلم الفذ الشيخ إبراهيم نياس ، مع العلم أن الأمير الرضى العربي من ذرية عقبة بن نافع الفهري القرشي هو أول أجداده توطنا بالسنغال.",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.teal,fontSize: 20,
+                                color: Colors.teal,
+                                fontSize: 20,
                                 fontFamily: "Amiri Regular"),
                           ),
                           maxLines: 10,
@@ -218,7 +223,8 @@ class _aboutState extends State<about> {
                             text: " :نشأته",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.teal,fontSize: 20,
+                                color: Colors.teal,
+                                fontSize: 20,
                                 fontFamily: "Amiri Regular"),
                           ),
                           maxLines: 10,
@@ -237,7 +243,8 @@ class _aboutState extends State<about> {
                                 " نشأ الشيخ إبراهيم نياس محفوفا في كنه تربية علمية بحتة فريدة من نوعها، حيث كانت تنشئته دباغها القرآن العظيم وعلوم الآلة والفقه وشتى الفنون العربية الإسلامية التي كانت محظرة والده العلم المجاهد الحاج عبد الله نياس مهدا لإشعاعها في تيلك الأقاليم، بحيث كانت هذه الأسرة أسرة متعلمة ومن نوع أكاديمي.وقد خص الله هذا الشيخ من بين محيطه الذي يزخر بالنجباء، بخصوصية الشمس على الكواكب، حيث سمت به مواهب النبوغ الخارق للعوائد وأشرقت بطلعته منذ نعومة أظافره حتى ظهرت شمس تفرده وتميزه العلمي والدعوي والديني سريعا على المعمورة.",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.teal,fontSize: 20,
+                                color: Colors.teal,
+                                fontSize: 20,
                                 fontFamily: "Amiri Regular"),
                           ),
                           maxLines: 10,
@@ -273,7 +280,8 @@ class _aboutState extends State<about> {
                             text: " :مكانته العلمية",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.teal,fontSize: 20,
+                                color: Colors.teal,
+                                fontSize: 20,
                                 fontFamily: "Amiri Regular"),
                           ),
                           maxLines: 10,
@@ -292,7 +300,8 @@ class _aboutState extends State<about> {
                                 " لم يمر الشيخ ببلد عبر رحلاته التي جاب فيها كوكبنا الأرضي من أقاصيه إلى دانيه، إلا وخلًّف فيه ذكرا ووسما وتأثيرا، فبعد أن التفَّت جموع إفريقية كثيرة عبر مختلف أقاليمها وبلدانها ودخول عشرات الملايين من الوثنيين والمشركين الإسلام على يديه، لم يقتصر نور هذا الشيخ وهديه وأثره في القلوب على القارة السمراء فقط، بل تجاوزها إلى قارات أخرى نسج فيها علاقات روحية وصلات أخوية إسلامية متميزة ألصقت به لقب بشيخ الإسلام.",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.teal,fontSize: 20,
+                                color: Colors.teal,
+                                fontSize: 20,
                                 fontFamily: "Amiri Regular"),
                           ),
                           maxLines: 10,
@@ -312,7 +321,8 @@ class _aboutState extends State<about> {
                                 "، ثم لقبوه بشيخ الإسلام..",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.teal,fontSize: 20,
+                                color: Colors.teal,
+                                fontSize: 20,
                                 fontFamily: "Amiri Regular"),
                           ),
                           maxLines: 10,
@@ -331,7 +341,8 @@ class _aboutState extends State<about> {
                                 "مع أن الشيخ كان قدوة ودليلا وناصحا لكثير من رؤساء العالم الإسلامي وملوكه وكانت تربطه بهم صلات مناصحة قوية وودية أمثال الرئيس جمال عبد الناصر الذي نصحه برسالة مشهورة في قضية السيد قطب وزملائه، والسلطان زايد آل نهيان، والملك محمد الخامس والحسن الثاني وغيرهم...",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.teal,fontSize: 20,
+                                color: Colors.teal,
+                                fontSize: 20,
                                 fontFamily: "Amiri Regular"),
                           ),
                           maxLines: 10,
@@ -350,7 +361,8 @@ class _aboutState extends State<about> {
                                 "، والحجة البالغة في كون إذاعة القرآن بالراديو سائغة، والصارم الأحمدي، و سبل السلام في إبقاء المقام ",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.teal,fontSize: 20,
+                                color: Colors.teal,
+                                fontSize: 20,
                                 fontFamily: "Amiri Regular"),
                           ),
                           maxLines: 10,
@@ -369,7 +381,8 @@ class _aboutState extends State<about> {
                                 "، ولقد ألف الشيخ إبراهيم نياس كذلك في جميع الفنون العلمية، ورد على الكنيسة، من ذلك رده على الأفيغر رئيس كنيسة إفريقيا، وعنوانه: إفريقيا للإفريقيين، ثم إن للشيخ رأيه المستنير البارز في كبريات أحداث زمنه كقضية فلسطين، ومسألة غزو الفضاء التي ألف فيها رسالته المسماة الإيمان بالقضاء في مسألة غزو الفضاء، إلى جانب كثير من الفتاوى النيرة المصيبة، ودواوين شعرية كثيرة في مدح سيد الأولين والآخرين طالت أكثر من ستة آلاف (6.000) بيت، كما ترك خطبا في كل المناسبات الدينية كانت جمعا لشتات القلوب وهداية للشاردين والضالين من أبناء المسلمين وسيفا قاطعا على أعداء دين محمد صلى الله عليه وسلم، ونبراسا يُهتدى به في محبة الله ورسوله، مع مجاميع من رسائل تتناول جميع الأغراض الدينية والشرعية والصوفية، إلخ.. مع أن الشيخ أولى تفسير القرآن الكريم عناية خاصة حيث فسره عدة مرات بالعربية الفصحى وباللغة السنغالية المحلية لغير العرب(الولوفية)، قام تلامذته بتسجيله من صوته مباشرة، وجمعه خليفة الشيخ عبد الله الشيخ محمد بن الشيخ عبد الله في مجلدات محققة ومطبوعة، تحت عنوان  في رياض التفسير.",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                color: Colors.teal,fontSize: 20,
+                                color: Colors.teal,
+                                fontSize: 20,
                                 fontFamily: "Amiri Regular"),
                           ),
                           maxLines: 50,

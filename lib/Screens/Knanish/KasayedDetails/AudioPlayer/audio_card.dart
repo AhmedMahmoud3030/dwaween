@@ -1,7 +1,10 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
+import 'package:dwaween/features/Base/provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AudioCard extends StatefulWidget {
@@ -39,98 +42,70 @@ class _AudioCardState extends State<AudioCard> {
 
   @override
   Widget build(BuildContext context) {
+    var x = Provider.of<BaseProvider>(context, listen: false);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return StreamBuilder<PositionData>(
       stream: _postionDataStream,
       builder: (context, snapshot) {
         final positionData = snapshot.data;
-        return Card(
-          semanticContainer: true,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          margin: const EdgeInsets.all(10),
-          // color: Colors.transparent,
-          // shadowColor: Colors.blueGrey,
-          // elevation: 10,
-          child: SizedBox(
-            height: height / 4.1,
-            width: width,
-            child: Stack(
-              children: <Widget>[
-                Image.asset(
-                  "assets/img/banner.png",
-                  height: height / 4.1,
-                  width: width,
-                  fit: BoxFit.fill,
-                ),
-                Container(
-                    child: Column(
+        return Container(
+          decoration: BoxDecoration(
+              color: Color(0xff51DECF),
+              borderRadius: BorderRadius.circular(10)),
+          height: height / 4.06,
+          width: width * .92,
+          child: Stack(
+            children: <Widget>[
+              Image.asset(
+                "assets/img/banner.png",
+                height: height / 4.1,
+                width: width,
+                fit: BoxFit.fill,
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Column(
                   children: [
-                    Container(
-                      height: 75,
-                      width: 380,
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Row(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              width: 250,
+                            Text(
+                              "Audible_poems".tr(),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "Cairo"),
                             ),
-                            Column(
-                              children: [
-                                Container(
-                                  height: 20,
-                                ),
-                                Text(
-                                  "صوت القصيدة",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: "Amiri Regular"),
-                                ),
-                                Text(
-                                  " ",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
+                            Text(
+                              " مدح الرسول صلى الله عليه وسلم",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal,
+                                  fontFamily: "Cairo"),
                             ),
                           ],
                         ),
-                      ),
+                      ],
                     ),
-                    Container(
-                      height: 50,
-                    ),
+                    Spacer(),
                     Row(
                       children: [
-                        SizedBox(
-                          height: 60,
-                          width: 60,
-                          child: IconButton(
-                              onPressed: () {
-                                if (p == false) {
-                                  _audioPlayer.play();
-                                  p = true;
-                                } else {
-                                  _audioPlayer.pause();
-                                  p = false;
-                                }
-                              },
-                              icon: !p
-                                  ? SvgPicture.asset("assets/img/ic_play.svg")
-                                  : SvgPicture.asset(
-                                      "assets/img/ic_pause.svg")),
-                        ),
-                        SizedBox(
-                          width: 250,
-                          child: SizedBox(
-                            width: 75,
+                        Expanded(
+                          child: Visibility(
+                            visible: p,
                             child: ProgressBar(
-                              barHeight: 8,
+                              barHeight: 2,
                               baseBarColor: Colors.grey[600],
-                              bufferedBarColor: Colors.grey,
+                              bufferedBarColor: Colors.white,
                               progressBarColor: Colors.teal[600],
-                              thumbColor: Colors.teal[600],
+                              thumbColor: Colors.white,
+                              thumbGlowRadius: 8,
+                              thumbGlowColor: Colors.teal[600],
+                              thumbRadius: 5,
                               timeLabelTextStyle: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,
@@ -143,30 +118,44 @@ class _AudioCardState extends State<AudioCard> {
                             ),
                           ),
                         ),
-                        Column(
-                          children: [
-                            SizedBox(
-                              height: 20,
-                            ),
-                            SizedBox(
-                              height: 50,
-                              width: 60,
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  "",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          ],
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          child: Text(
+                            "الشيخ إبراهيم إنياس",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        Spacer(),
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          iconSize: 35,
+                          onPressed: () {
+                            if (p == false) {
+                              _audioPlayer.play();
+                              p = true;
+                            } else {
+                              _audioPlayer.pause();
+                              p = false;
+                            }
+                          },
+                          icon: !p
+                              ? SvgPicture.asset("assets/img/ic_play.svg")
+                              : SvgPicture.asset("assets/img/ic_pause.svg"),
                         )
                       ],
                     ),
                   ],
-                )),
-              ],
-            ),
+                ),
+              ),
+            ],
           ),
         );
       },

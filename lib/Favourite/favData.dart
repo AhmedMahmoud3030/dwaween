@@ -1,8 +1,9 @@
+import 'package:dwaween/Hive_Services/boxes.dart';
 import 'package:dwaween/core/constants.dart';
 import 'package:dwaween/core/nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:dwaween/Hive_Services/boxes.dart';
+
 import '../Screens/Knanish/KasayedDetails/KasydaDetails.dart';
 import '../models/favourite.dart';
 
@@ -34,7 +35,7 @@ class _favDataState extends State<favData> {
               Stack(
                 children: [
                   SvgPicture.asset(
-                    "assets/img/img_heade_home.svg",
+                    "assets/images/paintings/img_head_home.svg",
                     alignment: Alignment.topCenter,
                     width: MediaQuery.of(context).size.width * 4,
                     height: MediaQuery.of(context).size.height / 2,
@@ -52,9 +53,7 @@ class _favDataState extends State<favData> {
                         // Use a Material design search bar
                         child: TextField(
                           controller: _searchController,
-                          onChanged: (value) {
-
-                          },
+                          onChanged: (value) {},
                           textAlign: TextAlign.right,
                           decoration: InputDecoration(
                             hintText: 'البحث فى الديوان',
@@ -101,29 +100,34 @@ class _favDataState extends State<favData> {
                             child: Container(
                               color: Colors.white,
                               child: ListTile(
-                                onTap: (){
-                                  navigateTo(context,KasydaDetails(
-                                    DName: '', kasyeda:  fa.Kname, KName: fa.Dname,
-                                  ));
+                                onTap: () {
+                                  navigateTo(
+                                      context,
+                                      KasydaDetails(
+                                        DName: '',
+                                        kasyeda: fa.Kname,
+                                        KName: fa.Dname,
+                                      ));
                                 },
-                                leading: Icon(Icons.book,color: Constants.primary,),
+                                leading: Icon(
+                                  Icons.book,
+                                  color: Constants.primary,
+                                ),
                                 title: Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
                                     fa.Dname,
                                     style: TextStyle(
                                         color: Colors.teal,
-                                        fontFamily: "Cairo"
-                                    ),
+                                        fontFamily: "Cairo"),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                   ),
                                 ),
-                                subtitle:  Text(
+                                subtitle: Text(
                                   fa.Kname,
-                                  style: TextStyle(color: Colors.teal,
-                                        fontFamily: "Cairo"
-                                  ),
+                                  style: TextStyle(
+                                      color: Colors.teal, fontFamily: "Cairo"),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),

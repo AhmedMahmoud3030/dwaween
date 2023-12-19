@@ -1,0 +1,25 @@
+<svg id="ic_more" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="96" height="96" viewBox="0 0 96 96">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_12811" data-name="Rectangle 12811" width="96" height="96" transform="translate(190 123)" fill="#fff" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="Mask_Group_149" data-name="Mask Group 149" transform="translate(-190 -123)" clip-path="url(#clip-path)">
+    <g id="but_more" transform="translate(-576 -1040)">
+      <g id="Group_29815" data-name="Group 29815" transform="translate(1628 2422) rotate(180)">
+        <g id="Ellipse_64" data-name="Ellipse 64" transform="translate(808 1186)" fill="rgba(81,222,207,0.4)" stroke="#1c7e89" stroke-width="3">
+          <circle cx="6" cy="6" r="6" stroke="none"/>
+          <circle cx="6" cy="6" r="4.5" fill="none"/>
+        </g>
+        <g id="Ellipse_65" data-name="Ellipse 65" transform="translate(808 1205)" fill="rgba(81,222,207,0.4)" stroke="#1c7e89" stroke-width="3">
+          <circle cx="6" cy="6" r="6" stroke="none"/>
+          <circle cx="6" cy="6" r="4.5" fill="none"/>
+        </g>
+        <g id="Ellipse_66" data-name="Ellipse 66" transform="translate(808 1224)" fill="rgba(81,222,207,0.4)" stroke="#1c7e89" stroke-width="3">
+          <circle cx="6" cy="6" r="6" stroke="none"/>
+          <circle cx="6" cy="6" r="4.5" fill="none"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -20,6 +20,7 @@ class _KnanishState extends State<Knanish> {
     super.initState();
     readData();
   }
+
   final TextEditingController _searchController = TextEditingController();
   String SearchValue = "";
   var filtared;
@@ -73,7 +74,8 @@ class _KnanishState extends State<Knanish> {
                               Text("",
                                   style: TextStyle(
                                       fontFamily: "Cairo",
-                                      fontSize: 20, color: Colors.white)),
+                                      fontSize: 20,
+                                      color: Colors.white)),
                             ],
                           ),
                         ),
@@ -96,13 +98,12 @@ class _KnanishState extends State<Knanish> {
                             textAlign: TextAlign.right,
                             decoration: InputDecoration(
                               hintText: 'البحث فى القصائد',
-                              hintStyle: TextStyle(
-                                fontFamily: 'Cairo'
-                              ),
+                              hintStyle: TextStyle(fontFamily: 'Cairo'),
                               filled: true,
                               fillColor: Colors.white,
                               enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(width: 3, color: Colors.white),
+                                borderSide:
+                                    BorderSide(width: 3, color: Colors.white),
                                 borderRadius: BorderRadius.circular(20.0),
                               ),
 
@@ -127,16 +128,15 @@ class _KnanishState extends State<Knanish> {
                   ],
                 ),
               ),
-
               Padding(
-                padding:EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   children: [
                     SizedBox(
                       height: 250,
                     ),
                     Container(
-                      height: height/1.55,
+                      height: height / 1.55,
                       width: width,
                       child: FutureBuilder(
                         future: readData(),
@@ -144,11 +144,16 @@ class _KnanishState extends State<Knanish> {
                           if (snapshot.hasData) {
                             filtared = snapshot.data;
                             items = filtared
-                                .where((element) => element['Kname'].toString().toLowerCase().contains(SearchValue.toLowerCase())).toList();
+                                .where((element) => element['Kname']
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(SearchValue.toLowerCase()))
+                                .toList();
 
                             return GridView.builder(
                                 shrinkWrap: true,
-                                gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2,
                                   mainAxisSpacing: height / 100,
                                   crossAxisSpacing: width / 50,
@@ -162,7 +167,8 @@ class _KnanishState extends State<Knanish> {
                                         height: 75,
                                         width: 175,
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10.0),
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
                                           color: Colors.white,
                                         ),
                                         child: Align(
@@ -173,34 +179,48 @@ class _KnanishState extends State<Knanish> {
                                                   height: 15,
                                                 ),
                                                 Row(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
                                                   children: [
                                                     SvgPicture.asset(
-                                                      "assets/ico/ic_ksaed.svg",
+                                                      "assets/images/icons/ic_ksaed.svg",
                                                       height: 40,
                                                       width: 40,
                                                     ),
                                                     Container(
-                                                      width: width/3.2,
-                                                      alignment: Alignment.topRight,
-                                                      child: SearchValue.isNotEmpty?
-                                                          ColoredText(
-                                                            text: items[index]['Kname'],
-                                                            value: SearchValue,
-                                                            context: context,
-                                                          )
-                                                          : Text(items[index]['Kname'],
-                                                        textDirection: TextDirection.rtl,
-                                                        style: TextStyle(
-                                                          overflow: TextOverflow.ellipsis,
-
-                                                          color: Colors.black87,fontSize: 12,fontFamily: "Cairo",
-                                                        ),
-                                                        overflow: TextOverflow.ellipsis,
-
-                                                      ),
+                                                      width: width / 3.2,
+                                                      alignment:
+                                                          Alignment.topRight,
+                                                      child: SearchValue
+                                                              .isNotEmpty
+                                                          ? ColoredText(
+                                                              text: items[index]
+                                                                  ['Kname'],
+                                                              value:
+                                                                  SearchValue,
+                                                              context: context,
+                                                            )
+                                                          : Text(
+                                                              items[index]
+                                                                  ['Kname'],
+                                                              textDirection:
+                                                                  TextDirection
+                                                                      .rtl,
+                                                              style: TextStyle(
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                                color: Colors
+                                                                    .black87,
+                                                                fontSize: 12,
+                                                                fontFamily:
+                                                                    "Cairo",
+                                                              ),
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            ),
                                                     ),
-
                                                   ],
                                                 ),
                                                 // SizedBox(
@@ -223,14 +243,14 @@ class _KnanishState extends State<Knanish> {
                                             context,
                                             KasydaDetails(
                                               kasyeda: items[index]['Kaseyda'],
-                                              kasyedaT: items[index]['KaseydaT'],
-                                              kasyedaTRepeat: items[index]['KaseydaT'],
-
+                                              kasyedaT: items[index]
+                                                  ['KaseydaT'],
+                                              kasyedaTRepeat: items[index]
+                                                  ['KaseydaT'],
                                               KName: items[index]['Kname'],
                                               KNameT: items[index]['KnameT'],
                                               DName: "",
                                             ));
-
                                       },
                                     ),
                                   );
@@ -247,13 +267,13 @@ class _KnanishState extends State<Knanish> {
                   ],
                 ),
               ),
-
             ],
           ),
         ),
       ),
     );
   }
+
   Future<List> readData() async {
     final String res = await rootBundle.loadString('assets/json/knansh.json');
     final loadedData = await json.decode(res);
@@ -261,16 +281,14 @@ class _KnanishState extends State<Knanish> {
     print("object ${_dawaweenList.length}");
     return _dawaweenList;
   }
-
 }
-
 
 class ColoredText extends StatelessWidget {
   String text;
   String value;
   BuildContext context;
 
-  ColoredText({required this.text,required this.value,required this.context});
+  ColoredText({required this.text, required this.value, required this.context});
 
   @override
   Widget build(BuildContext context) {
@@ -302,21 +320,15 @@ class ColoredText extends StatelessWidget {
           TextSpan(
             text: '$word ',
             style: TextStyle(
-                color: Colors.teal,
-                fontSize: 12,
-                fontFamily: "Cairo"
-            ),
+                color: Colors.teal, fontSize: 12, fontFamily: "Cairo"),
           ),
         );
       } else {
         spans.add(
           TextSpan(
             text: '$word ',
-            style:  TextStyle(
-                color: Colors.black87,
-                fontSize: 12,
-                fontFamily: "Cairo"
-            ),
+            style: TextStyle(
+                color: Colors.black87, fontSize: 12, fontFamily: "Cairo"),
           ),
         );
       }

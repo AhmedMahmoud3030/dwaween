@@ -1,4 +1,3 @@
-
 import 'package:dwaween/Screens/Comment/Comment.dart';
 import 'package:dwaween/core/constants.dart';
 import 'package:dwaween/core/help/database_helper_notification.dart';
@@ -25,11 +24,12 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
 
 int _selectedIndex = 0;
 
-TextEditingController controllerTitle=TextEditingController();
-TextEditingController controllerDesc=TextEditingController();
+TextEditingController controllerTitle = TextEditingController();
+TextEditingController controllerDesc = TextEditingController();
+
 class _noteDataState extends State<noteData> {
   DatabaseHelperNotificarion dbNotify = new DatabaseHelperNotificarion();
-  List<NoteModel> allNotes= <NoteModel>[];
+  List<NoteModel> allNotes = <NoteModel>[];
 
   @override
   void initState() {
@@ -38,22 +38,21 @@ class _noteDataState extends State<noteData> {
     getAllData();
   }
 
-  getAllData()async{
-    allNotes =  <NoteModel>[];
-    await dbNotify.getAllDuaa().then((duaaModels){
-      setState((){
-        duaaModels.forEach((duaaModel){
+  getAllData() async {
+    allNotes = <NoteModel>[];
+    await dbNotify.getAllDuaa().then((duaaModels) {
+      setState(() {
+        duaaModels.forEach((duaaModel) {
           allNotes.add(NoteModel.fromMap(duaaModel));
         });
       });
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
-    double width=MediaQuery.of(context).size.width;
-    double height=MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -63,7 +62,7 @@ class _noteDataState extends State<noteData> {
               Stack(
                 children: [
                   SvgPicture.asset(
-                    "assets/img/img_heade_home.svg",
+                    "assets/images/paintings/img_head_home.svg",
                     alignment: Alignment.topCenter,
                     width: MediaQuery.of(context).size.width * 4,
                     height: MediaQuery.of(context).size.height / 2,
@@ -79,16 +78,18 @@ class _noteDataState extends State<noteData> {
                         margin: EdgeInsets.symmetric(horizontal: 20),
                         alignment: Alignment.center,
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
-
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(color: Colors.grey, spreadRadius: 0.3),
-                            ],
-
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(color: Colors.grey, spreadRadius: 0.3),
+                          ],
                         ),
-                        child: Text('قائمة ملاحظاتى',style: TextStyle(fontFamily: "Cairo",fontSize: width/25),),
+                        child: Text(
+                          'قائمة ملاحظاتى',
+                          style: TextStyle(
+                              fontFamily: "Cairo", fontSize: width / 25),
+                        ),
                       ),
                     ],
                   )
@@ -103,7 +104,7 @@ class _noteDataState extends State<noteData> {
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount:allNotes.length,
+                      itemCount: allNotes.length,
                       itemBuilder: (BuildContext context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(4.0),
@@ -112,54 +113,68 @@ class _noteDataState extends State<noteData> {
                             child: Container(
                               color: Colors.white,
                               child: ListTile(
-                                onTap: (){
-                                  navigateTo(context,KasydaDetails(
-                                    DName: '',KName :  allNotes[index].kName, kasyeda: allNotes[index].kText,
-                                    KNameT :  allNotes[index].kNameT, kasyedaTRepeat: allNotes[index].kTextT,
-                                  ));
+                                onTap: () {
+                                  navigateTo(
+                                      context,
+                                      KasydaDetails(
+                                        DName: '',
+                                        KName: allNotes[index].kName,
+                                        kasyeda: allNotes[index].kText,
+                                        KNameT: allNotes[index].kNameT,
+                                        kasyedaTRepeat: allNotes[index].kTextT,
+                                      ));
                                 },
-                                leading: Icon(Icons.book,color: Constants.primary,),
+                                leading: Icon(
+                                  Icons.book,
+                                  color: Constants.primary,
+                                ),
                                 title: Align(
                                   alignment: Alignment.centerRight,
                                   child: Text(
                                     allNotes[index].title,
                                     style: TextStyle(
                                         color: Colors.teal,
-                                        fontFamily: "Cairo"
-                                    ),
+                                        fontFamily: "Cairo"),
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                   ),
                                 ),
-                                subtitle:  Text(
+                                subtitle: Text(
                                   allNotes[index].body,
-                                  style: TextStyle(color: Colors.teal,
-                                      fontFamily: "Cairo"
-                                  ),
+                                  style: TextStyle(
+                                      color: Colors.teal, fontFamily: "Cairo"),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),
                                 trailing: SizedBox(
-                                  width: width/6,
+                                  width: width / 6,
                                   child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       InkWell(
-                                          onTap: (){
-                                            controllerTitle.text=allNotes[index].title;
-                                            controllerDesc.text=allNotes[index].body;
+                                          onTap: () {
+                                            controllerTitle.text =
+                                                allNotes[index].title;
+                                            controllerDesc.text =
+                                                allNotes[index].body;
                                             setState(() {});
-                                            showDialogEditNote(context,allNotes[index]);
+                                            showDialogEditNote(
+                                                context, allNotes[index]);
                                           },
-                                          child: Icon(Icons.edit_calendar_rounded,color: Constants.primary,)),
+                                          child: Icon(
+                                            Icons.edit_calendar_rounded,
+                                            color: Constants.primary,
+                                          )),
                                       InkWell(
-                                          onTap: (){
+                                          onTap: () {
                                             deleteFav(allNotes[index]);
-
                                           },
-                                          child: Icon(Icons.delete,color: Colors.red,)),
+                                          child: Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
+                                          )),
                                     ],
-
                                   ),
                                 ),
                               ),
@@ -179,111 +194,106 @@ class _noteDataState extends State<noteData> {
   }
 
   showDialogEditNote(BuildContext context, NoteModel note) async {
-    double width=MediaQuery.of(context).size.width;
-    double height=MediaQuery.of(context).size.height;
-
-
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
 
     /////
     showDialog(
         context: context,
         builder: (_) => Directionality(
-          textDirection: TextDirection.rtl,
-          child: Theme(
-            data: ThemeData(dialogBackgroundColor: Colors.white),
-            child: Builder(
-              builder: (context) {
-                return AlertDialog(
-                  backgroundColor: Colors.white,
-
-                  contentPadding: const EdgeInsets.all(16.0),
-                  content: Container(
-                    height: height/7,
-                    color: Colors.white,
-                    child: Column(
-                      children: [
-                        new Row(
-                          children: <Widget>[
-                            new Expanded(
-                              child: new TextField(
-                                autofocus: true,
-                                controller: controllerTitle,
-                                decoration: new InputDecoration(
-                                    // hintText: 'eg. John Smith',
+              textDirection: TextDirection.rtl,
+              child: Theme(
+                data: ThemeData(dialogBackgroundColor: Colors.white),
+                child: Builder(builder: (context) {
+                  return AlertDialog(
+                    backgroundColor: Colors.white,
+                    contentPadding: const EdgeInsets.all(16.0),
+                    content: Container(
+                      height: height / 7,
+                      color: Colors.white,
+                      child: Column(
+                        children: [
+                          new Row(
+                            children: <Widget>[
+                              new Expanded(
+                                child: new TextField(
+                                  autofocus: true,
+                                  controller: controllerTitle,
+                                  decoration: new InputDecoration(
+                                      // hintText: 'eg. John Smith',
+                                      ),
                                 ),
-                              ),
-                            )
-                          ],
-                        ),
-                        new Row(
-                          children: <Widget>[
-                            new Expanded(
-                              child: new TextField(
-                                controller: controllerDesc,
-                                decoration: new InputDecoration(
-                                  // hintText: 'eg. John Smith',
+                              )
+                            ],
+                          ),
+                          new Row(
+                            children: <Widget>[
+                              new Expanded(
+                                child: new TextField(
+                                  controller: controllerDesc,
+                                  decoration: new InputDecoration(
+                                      // hintText: 'eg. John Smith',
+                                      ),
                                 ),
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    actions: <Widget>[
+                      Align(
+                        alignment: Alignment.center,
+                        child: new DefaultElevatedButton(
+                          height: height / 20,
+                          width: width / 2,
+                          onPressed: () {
+                            EditZikr(context, note);
+                          },
+                          title: 'حفظ',
+                          titleSize: width / 27,
+                          color: Constants.primary,
+                          borderRadius: 10,
                         ),
-                      ],
-                    ),
-                  ),
-                  actions: <Widget>[
-                    Align(
-                      alignment: Alignment.center,
-                      child: new DefaultElevatedButton(
-                        height: height/20,
-                        width: width/2,
-                        onPressed: () {
-                          EditZikr(context,note);
-                        },
-                        title: 'حفظ',
-                        titleSize: width/27,
-                        color:Constants.primary,
-                        borderRadius: 10,),
-                    ),
-
-                  ],
-                );
-              }
-            ),
-          ),
-        ));
+                      ),
+                    ],
+                  );
+                }),
+              ),
+            ));
   }
 
-  void EditZikr(BuildContext context, NoteModel note){
-    if(controllerTitle.text.trim().isEmpty){
+  void EditZikr(BuildContext context, NoteModel note) {
+    if (controllerTitle.text.trim().isEmpty) {
       displayToastMessage("من فضلك ادخل العنوان");
       return;
-    }else if(controllerDesc.text.trim().isEmpty){
+    } else if (controllerDesc.text.trim().isEmpty) {
       displayToastMessage("من فضلك ادخل الوصف");
       return;
     }
 
     //اضافة للفيو
-    note.title=controllerTitle.text;
-    note.body=controllerDesc.text;
-    setState(() {
-
-    });
+    note.title = controllerTitle.text;
+    note.body = controllerDesc.text;
+    setState(() {});
     //اضافة للفيو
-    dbNotify.updateDuaa(NoteModel.fromMap({
-      'id' : note.id,
-      'title' : controllerTitle.text,
-      'body' : controllerDesc.text,
-      'kName' : note.kName,
-      'kText' : note.kText,
-      'kNameT' : note.kNameT,
-      'kTextT' : note.kTextT,
-    })).then((_){
+    dbNotify
+        .updateDuaa(NoteModel.fromMap({
+      'id': note.id,
+      'title': controllerTitle.text,
+      'body': controllerDesc.text,
+      'kName': note.kName,
+      'kText': note.kText,
+      'kNameT': note.kNameT,
+      'kTextT': note.kTextT,
+    }))
+        .then((_) {
       Navigator.pop(context);
       displayToastMessage("تم التعديل");
-
     });
   }
-  void deleteFav(NoteModel currentNote) async{
+
+  void deleteFav(NoteModel currentNote) async {
     await dbNotify.deleteDuaa(currentNote.id);
     displayToastMessage("تم الحذف");
     getAllData();
@@ -303,7 +313,7 @@ class _noteDataState extends State<noteData> {
               Stack(
                 children: [
                   SvgPicture.asset(
-                    "assets/img/img_heade_home.svg",
+                    "assets/images/paintings/img_head_home.svg",
                     alignment: Alignment.topCenter,
                     width: MediaQuery.of(context).size.width * 4,
                     height: MediaQuery.of(context).size.height / 2,

@@ -3,16 +3,15 @@ import 'package:dwaween/Screens/Knanish/Knanish.dart';
 import 'package:dwaween/core/constants.dart';
 import 'package:dwaween/core/nav.dart';
 import 'package:dwaween/core/utils.dart';
-import 'package:dwaween/features/DewanDetails/provider.dart';
 import 'package:dwaween/features/DewanDetails/view.dart';
 import 'package:dwaween/features/Dwaween/view.dart';
+import 'package:dwaween/features/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import 'provider.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -23,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     Future(() =>
-        Provider.of<HomeProvider>(context, listen: false).readDwaweenData());
+        Provider.of<BaseProvider>(context, listen: false).readDwaweenData());
     super.initState();
   }
 
@@ -31,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
 
-    return Consumer<HomeProvider>(
+    return Consumer<BaseProvider>(
       builder: (BuildContext context, provider, Widget? child) => Stack(
         children: [
           SvgPicture.asset(
@@ -86,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                     suffixIcon: Visibility(
-                      visible: provider.searchController.text.length > 0,
+                      visible: provider?.searchController.text.length > 0,
                       child: IconButton(
                         icon: const Icon(
                           Icons.clear,
@@ -275,7 +274,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ),
                                     onTap: () {
-                                      Provider.of<DewanDetailsProvider>(context,
+                                      Provider.of<
+                                      >(context,
                                                   listen: false)
                                               .dawawen =
                                           provider.dewanBody!.dawawen![index];

@@ -1,7 +1,7 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:dwaween/Screens/Drawer/drawer.dart';
 import 'package:dwaween/core/constants.dart';
-import 'package:dwaween/features/Base/provider.dart';
+import 'package:dwaween/features/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,10 +12,8 @@ class BaseScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext contextx) {
-    
     return Consumer<BaseProvider>(
       builder: (BuildContext context, provider, Widget? child) => Scaffold(
-
         key: provider.scaffoldKey,
         endDrawer: DrawerFb1(),
         body: Container(

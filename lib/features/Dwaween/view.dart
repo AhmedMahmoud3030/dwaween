@@ -1,15 +1,13 @@
 import 'package:dwaween/core/constants.dart';
 import 'package:dwaween/core/utils.dart';
-import 'package:dwaween/features/DewanDetails/provider.dart';
 import 'package:dwaween/features/DewanDetails/view.dart';
-import 'package:dwaween/features/Home/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import 'provider.dart';
+import '../provider.dart';
 
 class DwaweenScreen extends StatefulWidget {
   @override
@@ -17,19 +15,13 @@ class DwaweenScreen extends StatefulWidget {
 }
 
 class _DwaweenScreenState extends State<DwaweenScreen> {
-  @override
-  void initState() {
-    // Future(() =>
-    //     Provider.of<HomeProvider>(context, listen: false).readDwaweenData());
-    super.initState();
-  }
+
 
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
-    var x = Provider.of<HomeProvider>(context, listen: false);
 
-    return Consumer<DwaweenProvider>(
+    return Consumer<BaseProvider>(
       builder: (BuildContext context, provider, Widget? child) => Stack(
         children: [
           Stack(
@@ -154,7 +146,7 @@ class _DwaweenScreenState extends State<DwaweenScreen> {
                   Container(
                     height: mediaQuery.size.height / 1.55,
                     width: mediaQuery.size.height,
-                    child: x.dewanBodyLoading
+                    child: provider.dewanBodyLoading
                         ? Container(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height,
@@ -163,7 +155,7 @@ class _DwaweenScreenState extends State<DwaweenScreen> {
                               color: Constants.primary,
                             )),
                           )
-                        : x.dewanBody!.dawawen!.isEmpty
+                        : provider.dewanBody!.dawawen!.isEmpty
                             ? Center(
                                 child: Card(
                                 child: Text('عذرا لا يوجد دواويين'),
@@ -172,11 +164,11 @@ class _DwaweenScreenState extends State<DwaweenScreen> {
                                 padding: EdgeInsets.zero,
                                 physics: BouncingScrollPhysics(),
                                 shrinkWrap: true,
-                                itemCount: x.dewanBody?.dawawen?.length ?? 0,
+                                itemCount: provider.dewanBody?.dawawen?.length ?? 0,
                                 itemBuilder: (BuildContext context, index) {
                                   return InkWell(
                                     child: Visibility(
-                                      visible: x.dewanBody!.dawawen![index]
+                                      visible: provider.dewanBody!.dawawen![index]
                                           .kasaed!.isNotEmpty,
                                       child: Padding(
                                         padding: const EdgeInsets.all(4.0),
@@ -217,7 +209,7 @@ class _DwaweenScreenState extends State<DwaweenScreen> {
                                                       MainAxisSize.min,
                                                   children: [
                                                     Text(
-                                                      x
+                                                      provider
                                                               .dewanBody
                                                               ?.dawawen?[index]
                                                               .name ??
@@ -234,7 +226,7 @@ class _DwaweenScreenState extends State<DwaweenScreen> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      '${'number_of_poems'.tr()} ${context.locale.languageCode == 'ar' ? Utils().convertToArabicNumber((x.dewanBody!.dawawen![index].kasaed!.length).toString()) : x.dewanBody?.dawawen?[index].kasaed!.length} ${'poem'.tr()}',
+                                                      '${'number_of_poems'.tr()} ${context.locale.languageCode == 'ar' ? Utils().convertToArabicNumber((provider.dewanBody!.dawawen![index].kasaed!.length).toString()) : provider.dewanBody?.dawawen?[index].kasaed!.length} ${'poem'.tr()}',
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.normal,
@@ -254,15 +246,16 @@ class _DwaweenScreenState extends State<DwaweenScreen> {
                                     ),
                                     onTap: () {
                                       // Get.to(() => const DewanDetails());
-                                      Provider.of<DewanDetailsProvider>(context,
+                                      Provider.of<BaseProvider>(context,
                                                   listen: false)
                                               .dawawen =
-                                          x.dewanBody!.dawawen![index];
+
+                                          provider.dewanBody!.dawawen![index];
 
                                       List<String> kafya = [];
                                       List<String> listOfKafya() {
                                         kafya = [];
-                                        for (var element in x.dewanBody!
+                                        for (var element in provider.dewanBody!
                                             .dawawen![index].kasaed!) {
                                           if (!kafya.contains(element.letter)) {
                                             kafya.add(element.letter!);

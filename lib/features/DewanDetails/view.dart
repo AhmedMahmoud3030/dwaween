@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-import 'provider.dart';
+import '../provider.dart';
 
 class DewanDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
 
-    return Consumer<DewanDetailsProvider>(
+    return Consumer<BaseProvider>(
       builder: (BuildContext context, provider, Widget? child) {
         return Scaffold(
           body: SingleChildScrollView(
@@ -46,7 +46,7 @@ class DewanDetailsPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                ' ${'dewan'.tr()}${provider.dawawen?.nameT}',
+                                ' ${'dewan'.tr()}${provider.dawawenTemp?.nameT}',
                                 style: TextStyle(
                                   fontSize: 12,
                                   // fontFamily: "Cairo",
@@ -55,7 +55,7 @@ class DewanDetailsPage extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                  ' ${'number_of_poems'.tr()} ${provider.dawawen?.kasaed!.length} ${'poem'.tr()}',
+                                  ' ${'number_of_poems'.tr()} ${provider.dawawenTemp?.kasaed?.length} ${'poem'.tr()}',
                                   style: TextStyle(
                                     fontSize: 12,
                                     // fontFamily: "Cairo",
@@ -203,14 +203,15 @@ class DewanDetailsPage extends StatelessWidget {
                                     builder: (context) {
                                       return Center(
                                         child: Hero(
-                                          tag: provider.dawawen!.dec!,
+                                          tag: provider.dawawenTemp?.dec ?? '',
                                           child: SimpleDialog(
                                             children: [
                                               Padding(
                                                 padding:
                                                     const EdgeInsets.all(16.0),
                                                 child: Text(
-                                                  provider.dawawen!.dec!,
+                                                  provider.dawawenTemp?.dec ??
+                                                      '',
                                                   textAlign: TextAlign.center,
                                                 ),
                                               ),
@@ -222,7 +223,7 @@ class DewanDetailsPage extends StatelessWidget {
                                   );
                                 },
                                 child: Text(
-                                  provider.dawawen!.dec!,
+                                  provider.dawawenTemp?.dec ?? '',
                                   style: TextStyle(
                                     fontSize: 13,
                                     color: Colors.black54,

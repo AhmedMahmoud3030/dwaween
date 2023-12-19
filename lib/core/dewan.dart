@@ -43,8 +43,8 @@ class DawawenBody {
             ? []
             : List<dynamic>.from(dawawen!.map((x) => x.toJson())),
         // "Kenashat": kenashat == null
-            // ? []
-            // : List<dynamic>.from(kenashat!.map((x) => x.toJson())),
+        // ? []
+        // : List<dynamic>.from(kenashat!.map((x) => x.toJson())),
       };
 }
 
@@ -85,8 +85,7 @@ class Dawawen {
   factory Dawawen.fromJson(Map<String, dynamic> json) => Dawawen(
         id: json["id"],
         name: json["name"],
-        nameT: json["nameT"],        
-
+        nameT: json["nameT"],
         dec: json["dec"],
         type: json["type"],
         kasaed: json["kasaed"] == null
@@ -99,7 +98,6 @@ class Dawawen {
         "id": id,
         "name": name,
         "nameT": nameT,
-
         "dec": dec,
         "type": type,
         "kasaed": kasaed == null
@@ -124,7 +122,7 @@ class Kenashat {
     this.name,
     this.nameT,
     this.purpose,
-    this.kaseyda,   
+    this.kaseyda,
     this.kaseydaT,
     this.letter,
   });

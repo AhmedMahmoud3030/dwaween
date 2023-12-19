@@ -1,4 +1,5 @@
 import 'package:dwaween/features/Base/provider.dart';
+import 'package:dwaween/features/DewanDetails/provider.dart';
 import 'package:dwaween/features/Dwaween/provider.dart';
 import 'package:dwaween/features/Home/provider.dart';
 import 'package:dwaween/features/Splash/splash.dart';
@@ -44,6 +45,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => DwaweenProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DewanDetailsProvider(),
         )
       ],
       child: MaterialApp(

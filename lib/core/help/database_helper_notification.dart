@@ -1,9 +1,5 @@
 import 'dart:async';
 import 'package:dwaween/models/NoteModel.dart';
-import 'package:dwaween/models/NoteModel.dart';
-import 'package:dwaween/models/NoteModel.dart';
-import 'package:dwaween/models/NoteModel.dart';
-import 'package:dwaween/models/NoteModel.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 

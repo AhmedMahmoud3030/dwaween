@@ -1,10 +1,10 @@
-import 'package:dwaween/Screens/DwawenList/DewanDetails/DewanTeserWsol.dart';
 import 'package:dwaween/Screens/Knanish/KasayedDetails/AudioPlayer/audio_card.dart';
 import 'package:dwaween/Screens/Knanish/Knanish.dart';
 import 'package:dwaween/core/constants.dart';
 import 'package:dwaween/core/nav.dart';
 import 'package:dwaween/core/utils.dart';
-import 'package:dwaween/features/Base/provider.dart';
+import 'package:dwaween/features/DewanDetails/provider.dart';
+import 'package:dwaween/features/DewanDetails/view.dart';
 import 'package:dwaween/features/Dwaween/view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +14,22 @@ import 'package:provider/provider.dart';
 
 import 'provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    Future(() =>
+        Provider.of<HomeProvider>(context, listen: false).readDwaweenData());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
-    var x = Provider.of<BaseProvider>(context, listen: true);
 
     return Consumer<HomeProvider>(
       builder: (BuildContext context, provider, Widget? child) => Stack(
@@ -93,7 +104,7 @@ class HomeScreen extends StatelessWidget {
               Expanded(
                 child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
-                  child: x.dewanBodyLoading
+                  child: provider.dewanBodyLoading
                       ? Center(
                           child: Container(
                             padding: EdgeInsets.only(
@@ -202,8 +213,8 @@ class HomeScreen extends StatelessWidget {
                                           title: Align(
                                             alignment: Alignment.centerRight,
                                             child: Text(
-                                              x.dewanBody?.dawawen?[index]
-                                                      .name ??
+                                              provider.dewanBody
+                                                      ?.dawawen?[index].name ??
                                                   '',
                                               style: TextStyle(
                                                   color: Colors.teal,
@@ -229,8 +240,8 @@ class HomeScreen extends StatelessWidget {
                                                 child: Text(
                                                   context.locale.languageCode ==
                                                           'ar'
-                                                      ? Utils()
-                                                          .convertToArabicNumber(x
+                                                      ? Utils().convertToArabicNumber(
+                                                          provider
                                                                   .dewanBody
                                                                   ?.dawawen?[
                                                                       index]
@@ -238,7 +249,7 @@ class HomeScreen extends StatelessWidget {
                                                                   ?.length
                                                                   .toString() ??
                                                               "0")
-                                                      : x
+                                                      : provider
                                                               .dewanBody
                                                               ?.dawawen?[index]
                                                               .kasaed
@@ -264,20 +275,43 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                     ),
                                     onTap: () {
+                                      Provider.of<DewanDetailsProvider>(context,
+                                                  listen: false)
+                                              .dawawen =
+                                          provider.dewanBody!.dawawen![index];
+
+                                      List<String> kafya = [];
+                                      List<String> listOfKafya() {
+                                        kafya = [];
+                                        for (var element in provider.dewanBody!
+                                            .dawawen![index].kasaed!) {
+                                          if (!kafya.contains(element.letter)) {
+                                            kafya.add(element.letter!);
+                                          }
+                                        }
+
+                                        return kafya;
+                                      }
+
+                                      Provider.of<DewanDetailsProvider>(context,
+                                              listen: false)
+                                          .kafya = listOfKafya();
+
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              DewanTeserWsol(),
+                                              DewanDetailsPage(),
                                         ),
                                       );
                                     },
                                   ),
                                 );
                               },
-                              itemCount: x.dewanBody!.dawawen!.length > 15
-                                  ? 15
-                                  : x.dewanBody?.dawawen?.length,
+                              itemCount:
+                                  provider.dewanBody!.dawawen!.length > 15
+                                      ? 15
+                                      : provider.dewanBody?.dawawen?.length,
                             ),
                             SizedBox(
                               height: 10,
@@ -341,9 +375,9 @@ class HomeScreen extends StatelessWidget {
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2, childAspectRatio: 2),
-                              itemCount: x.groupedBy.length > 15
+                              itemCount: provider.groupedBy.length > 15
                                   ? 15
-                                  : x.groupedBy.length,
+                                  : provider.groupedBy.length,
                               itemBuilder: (context, index) {
                                 return Card(
                                   margin: EdgeInsets.all(6),
@@ -378,7 +412,8 @@ class HomeScreen extends StatelessWidget {
                                                 child: Text(
                                                     maxLines: 1,
                                                     overflow: TextOverflow.fade,
-                                                    x.groupedBy[index].purpose,
+                                                    provider.groupedBy[index]
+                                                        .purpose,
                                                     style: TextStyle(
                                                         color: Colors.teal,
                                                         fontFamily:
@@ -395,7 +430,7 @@ class HomeScreen extends StatelessWidget {
                                                 alignment:
                                                     Alignment.centerRight,
                                                 child: Text(
-                                                  "${context.locale.languageCode == 'ar' ? Utils().convertToArabicNumber(x.groupedBy[index].kenshat.length.toString()) : x.groupedBy[index].kenshat.length}  ${'poem'.tr()}",
+                                                  "${context.locale.languageCode == 'ar' ? Utils().convertToArabicNumber(provider.groupedBy[index].kenshat.length.toString()) : provider.groupedBy[index].kenshat.length}  ${'poem'.tr()}",
                                                   style: TextStyle(
                                                       color: Colors.grey,
                                                       fontFamily:

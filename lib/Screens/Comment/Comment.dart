@@ -21,7 +21,7 @@ class _CommentState extends State<Comment> {
       path: 'imp4com@gmail.com',
       queryParameters: {
         'subject': 'تطبيق_دواوين',
-        'body': tECComment.text ?? ''
+        'body': tECComment.text
       },
     );
     launchUrl(emailLaunchUri);

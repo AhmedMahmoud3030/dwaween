@@ -1,10 +1,8 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
-import 'package:dwaween/features/Base/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
 class AudioCard extends StatefulWidget {
@@ -42,7 +40,6 @@ class _AudioCardState extends State<AudioCard> {
 
   @override
   Widget build(BuildContext context) {
-    var x = Provider.of<BaseProvider>(context, listen: false);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return StreamBuilder<PositionData>(

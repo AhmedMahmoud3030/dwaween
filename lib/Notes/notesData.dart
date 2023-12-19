@@ -15,14 +15,12 @@ class noteData extends StatefulWidget {
   State<noteData> createState() => _noteDataState();
 }
 
-final TextEditingController _searchController = TextEditingController();
 String SearchValue = "";
 var filtared;
 var items;
 
 final scaffoldKey = GlobalKey<ScaffoldState>();
 
-int _selectedIndex = 0;
 
 TextEditingController controllerTitle = TextEditingController();
 TextEditingController controllerDesc = TextEditingController();
@@ -52,7 +50,6 @@ class _noteDataState extends State<noteData> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(

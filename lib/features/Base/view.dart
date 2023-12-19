@@ -7,24 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-class BaseScreen extends StatefulWidget {
+class BaseScreen extends StatelessWidget {
   const BaseScreen({Key? key}) : super(key: key);
-
-  @override
-  State<BaseScreen> createState() => _BaseScreenState();
-}
-
-class _BaseScreenState extends State<BaseScreen> {
-  @override
-  void initState() {
-    Future(() {
-      var x = Provider.of<BaseProvider>(context, listen: false);
-      x.readDwaweenData();
-      
-    });
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext contextx) {

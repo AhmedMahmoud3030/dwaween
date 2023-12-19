@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:dwaween/Hive_Services/boxes.dart';
 import 'package:dwaween/Models/FavModel.dart';
 import 'package:dwaween/core/constants.dart';
@@ -7,19 +6,16 @@ import 'package:dwaween/core/help/database_helper_notification.dart';
 import 'package:dwaween/core/nav.dart';
 import 'package:dwaween/models/NoteModel.dart';
 import 'package:dwaween/models/favourite.dart';
-import 'package:dwaween/share/share2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:share_plus/share_plus.dart';
 import '../../../Test/TestShare.dart';
 import 'AudioPlayer/audiobar.dart';
 import 'mainkasyeda.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:path_provider/path_provider.dart';
 
 class KasydaDetails extends StatefulWidget {
   String kasyeda;
@@ -187,7 +183,6 @@ class _KasydaDetailsState extends State<KasydaDetails> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     double d1 = width / 12;
-    double d2 = width / 20;
     double d3 = width / 25;
     double d4 = height / 40;
     return WillPopScope(

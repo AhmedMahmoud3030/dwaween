@@ -1,7 +1,5 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class DwaweenProvider extends ChangeNotifier {
   final TextEditingController searchController = TextEditingController();
@@ -16,7 +14,6 @@ class DwaweenProvider extends ChangeNotifier {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  int _selectedIndex = 0;
 
   
 }

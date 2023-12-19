@@ -9,6 +9,7 @@
     "Al_Faydah_Tijaniya_Heritage_Network":"شبكة تراث الفيضة التجانية",
     "Main":"الرئيسية",
     "dwaween":"الدواوين",
+    "dewan":"ديوان",
     "kanash":"الكناش",
     "shikkh":"الشيخ",  
     "more":"المزيد",
@@ -16,9 +17,14 @@
     "Audible_poems":"القصائد المسموعة",
     "view_all":"عرض الكل ",
     "poems":"القصائد",
-    "poem":"قصيده",
+    "poem":"قصيدة",
     "number_of_poems":"عدد القصائد :",
-    "search_all_dwaween":"تصفح جميع الدواوين"
+    "search_all_dwaween":"تصفح جميع الدواوين",
+    "search_in_poems":". . . بحث في القصائد",
+    "brief_about_dewan":"نبذة عن الديوان :",
+    "kwafy":"القوافي"
+
+
 
 
 

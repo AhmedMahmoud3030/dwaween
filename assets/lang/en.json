@@ -9,6 +9,8 @@
     "Al_Faydah_Tijaniya_Heritage_Network":"Al-Faydah Tijaniya Heritage Network",
     "Main":"Main",
     "dwaween":"Dwaween",
+    "dewan":"Dewen",
+
     "kanash":"Kanash",
     "shikkh":"Shikkh",
     "more":"More",
@@ -18,7 +20,13 @@
     "poems":"Poems",
     "poem":"Poem",
     "number_of_poems":"Number of Poems:",
-    "search_all_dwaween":"Search All Dwaween"
+    "search_all_dwaween":"Search All Dwaween",
+    "search_in_poems":"Search All Poems",
+    "brief_about_dewan":"Brief About Dewan:",
+    "kwafy":"Kwafy"
+
+
+
 
 
 

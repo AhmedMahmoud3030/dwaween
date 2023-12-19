@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:dwaween/Models/FavModel.dart';
 import 'package:dwaween/core/constants.dart';
 import 'package:dwaween/core/help/database_helper_fav.dart';
 import 'package:dwaween/core/nav.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../Screens/Knanish/KasayedDetails/KasydaDetails.dart';
 
@@ -14,7 +15,6 @@ class FavDataBase extends StatefulWidget {
   State<FavDataBase> createState() => _FavDataBaseState();
 }
 
-final TextEditingController _searchController = TextEditingController();
 String SearchValue = "";
 var filtared;
 var items;
@@ -51,7 +51,6 @@ class _FavDataBaseState extends State<FavDataBase> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(

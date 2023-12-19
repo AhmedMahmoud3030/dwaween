@@ -26,7 +26,6 @@ class _audioplayerxState extends State<audioplayerx> {
     return StreamBuilder(
       stream: _audioPlayer.positionStream,
       builder: (context, snapshot) {
-        final playerState = snapshot.data;
         // final processingState = playerState?.processingState;
         // final playing = playerState?.playing;
         return IconButton(

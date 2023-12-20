@@ -55,7 +55,7 @@ class _AudioCardState extends State<AudioCard> {
           child: Stack(
             children: <Widget>[
               Image.asset(
-                "assets/img/banner.png",
+                "assets/images/paintings/banner.png",
                 height: height / 4.1,
                 width: width,
                 fit: BoxFit.fill,

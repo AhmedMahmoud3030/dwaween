@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:dwaween/features/Base/view.dart';
+import 'package:dwaween/features/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -14,7 +16,11 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
-    Timer(Duration(seconds: 3), () {
+
+    Future(() =>
+        Provider.of<BaseProvider>(context, listen: false).readDwaweenData());
+    
+    Timer(Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

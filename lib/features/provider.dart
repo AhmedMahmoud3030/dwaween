@@ -30,31 +30,60 @@ class BaseProvider extends ChangeNotifier {
 
   int selectedIndex = 0;
 
-  Dawawen? dawawen;
+  Dawawen? _dawawen;
+
+  Dawawen? get dawawen => _dawawen;
+
+  void setDawawen(Dawawen? value) {
+    _dawawen = value;
+    notifyListeners();
+  }
 
   Dawawen? dawawenTemp;
 
-  List<String> kafya = [];
+  List<String> _kafya = [];
 
+  List<String> get kafya => _kafya;
   int? kafyaIndex;
+
+  setKafya(int index) {
+    _kafya.clear();
+    for (var element in dewanBody!.dawawen![index].kasaed!) {
+      if (!_kafya.contains(element.letter)) {
+        _kafya.add(element.letter!);
+      }
+    }
+    print('_kafya.length');
+
+    print(_kafya.length);
+
+    notifyListeners();
+  }
 
   void setSelectedIndex({required int index}) {
     selectedIndex = index;
     notifyListeners();
   }
 
-  void selectKafya({required int selectValue, required String letter}) {
-    print(letter);
-    kafyaIndex = selectValue;
+  void selectKafya({required int selectValue}) {
     dawawenTemp = dawawen;
 
-    if (letter.isNotEmpty) {
-      // dawawenTemp!.kasaed!.clear();
-      dawawenTemp!.kasaed!.addAll(
-          dawawenTemp!.kasaed!.where((element) => element.letter == letter));
-    }
+    if (selectValue!=kafyaIndex||kafyaIndex==null) {
+      dawawen!.kasaed!.addAll(
+        dawawen!.kasaed!.where(
+          (element) => element.letter == _kafya[selectValue],
+        ),
+      );
+      kafyaIndex = selectValue;
+    } 
 
-    print(dawawenTemp?.kasaed?.length);
+
+    if (kafyaIndex == selectValue) {
+      
+
+      setDawawen(dawawenTemp);
+      kafyaIndex = null;
+    } 
 
     notifyListeners();
   }

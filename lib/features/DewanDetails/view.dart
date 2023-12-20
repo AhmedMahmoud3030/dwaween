@@ -34,7 +34,7 @@ class DewanDetailsPage extends StatelessWidget {
                   Column(
                     children: [
                       const SizedBox(
-                        height: 70,
+                        height: 60,
                       ),
                       Row(
                         children: [
@@ -46,18 +46,18 @@ class DewanDetailsPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                ' ${'dewan'.tr()}${provider.dawawenTemp?.nameT}',
+                                ' ${'dewan'.tr()}${provider.dawawen?.nameT}',
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: 14,
                                   // fontFamily: "Cairo",
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
                               ),
                               Text(
-                                  ' ${'number_of_poems'.tr()} ${provider.dawawenTemp?.kasaed?.length} ${'poem'.tr()}',
+                                  ' ${'number_of_poems'.tr()} ${provider.dawawen?.kasaed?.length} ${'poem'.tr()}',
                                   style: TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 14,
                                     // fontFamily: "Cairo",
                                     fontWeight: FontWeight.normal,
                                     color: Colors.white,
@@ -203,15 +203,14 @@ class DewanDetailsPage extends StatelessWidget {
                                     builder: (context) {
                                       return Center(
                                         child: Hero(
-                                          tag: provider.dawawenTemp?.dec ?? '',
+                                          tag: provider.dawawen?.dec ?? '',
                                           child: SimpleDialog(
                                             children: [
                                               Padding(
                                                 padding:
                                                     const EdgeInsets.all(16.0),
                                                 child: Text(
-                                                  provider.dawawenTemp?.dec ??
-                                                      '',
+                                                  provider.dawawen?.dec ?? '',
                                                   textAlign: TextAlign.center,
                                                 ),
                                               ),
@@ -223,7 +222,7 @@ class DewanDetailsPage extends StatelessWidget {
                                   );
                                 },
                                 child: Text(
-                                  provider.dawawenTemp?.dec ?? '',
+                                  provider.dawawen?.dec ?? '',
                                   style: TextStyle(
                                     fontSize: 13,
                                     color: Colors.black54,
@@ -294,7 +293,7 @@ class DewanDetailsPage extends StatelessWidget {
                                 onTap: () {
                                   provider.selectKafya(
                                       selectValue: indexGrid,
-                                      letter: provider.kafya[indexGrid]);
+                                      );
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(

@@ -12,19 +12,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    Future(() =>
-        Provider.of<BaseProvider>(context, listen: false).readDwaweenData());
-    super.initState();
-  }
-
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
@@ -184,136 +172,162 @@ class _HomeScreenState extends State<HomeScreen> {
                             SizedBox(
                               height: 10,
                             ),
-                            ListView.builder(
-                              padding: EdgeInsets.zero,
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  width: mediaQuery.size.width,
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal: mediaQuery.size.width / 30),
-                                  child: InkWell(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          color: Colors.white,
-                                        ),
-                                        child: ListTile(
-                                          trailing: SvgPicture.asset(
-                                            "assets/images/icons/ic_ksaed.svg",
-                                            height: 25,
-                                            width: 25,
-                                          ),
-                                          title: Align(
-                                            alignment: Alignment.centerRight,
-                                            child: Text(
-                                              provider.dewanBody
-                                                      ?.dawawen?[index].name ??
-                                                  '',
-                                              style: TextStyle(
-                                                  color: Colors.teal,
-                                                  fontFamily: "Cairo"),
-                                            ),
-                                          ),
-                                          subtitle: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "number_of_poems".tr(),
-                                                style: TextStyle(
-                                                  color: Colors.teal,
-                                                ),
-                                              ),
-                                              Text('  '),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    bottom: 4.0),
-                                                child: Text(
-                                                  context.locale.languageCode ==
-                                                          'ar'
-                                                      ? Utils().convertToArabicNumber(
-                                                          provider
-                                                                  .dewanBody
-                                                                  ?.dawawen?[
-                                                                      index]
-                                                                  .kasaed
-                                                                  ?.length
-                                                                  .toString() ??
-                                                              "0")
-                                                      : provider
-                                                              .dewanBody
-                                                              ?.dawawen?[index]
-                                                              .kasaed
-                                                              ?.length
-                                                              .toString() ??
-                                                          "0",
-                                                  style: TextStyle(
-                                                    color: Colors.teal,
-                                                    fontFamily: "Cairo",
-                                                  ),
-                                                ),
-                                              ),
-                                              Text('  '),
-                                              Text(
-                                                "poem".tr(),
-                                                style: TextStyle(
-                                                  color: Colors.teal,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                            Visibility(
+                              visible: provider.dewanBody!.dawawen!.length > 0
+                                  ? false
+                                  : true,
+                              child: Container(
+                                width: mediaQuery.size.width,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: mediaQuery.size.width / 30),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Container(
+                                    padding: EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      color: Colors.white,
+                                    ),
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        'عذرا لا يوجد دواويين',
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.teal,
+                                          fontFamily: "Cairo",
                                         ),
                                       ),
                                     ),
-                                    onTap: () {
-                                      Provider.of<BaseProvider>(context,
-                                                  listen: false)
-                                              .dawawen =
-                                          provider.dewanBody!.dawawen![index];
-
-                                      List<String> kafya = [];
-                                      List<String> listOfKafya() {
-                                        kafya = [];
-                                        for (var element in provider.dewanBody!
-                                            .dawawen![index].kasaed!) {
-                                          if (!kafya.contains(element.letter)) {
-                                            kafya.add(element.letter!);
-                                          }
-                                        }
-
-                                        return kafya;
-                                      }
-
-                                      Provider.of<BaseProvider>(context,
-                                              listen: false)
-                                          .kafya = listOfKafya();
-
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              DewanDetailsPage(),
-                                        ),
-                                      );
-                                    },
                                   ),
-                                );
-                              },
-                              itemCount:
-                                  provider.dewanBody!.dawawen!.length > 15
-                                      ? 15
-                                      : provider.dewanBody?.dawawen?.length,
+                                ),
+                              ),
+                            ),
+                            Visibility(
+                              visible: provider.dewanBody!.dawawen!.length > 0
+                                  ? true
+                                  : false,
+                              child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    width: mediaQuery.size.width,
+                                    margin: EdgeInsets.symmetric(
+                                        horizontal: mediaQuery.size.width / 30),
+                                    child: InkWell(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            color: Colors.white,
+                                          ),
+                                          child: ListTile(
+                                            trailing: SvgPicture.asset(
+                                              "assets/images/icons/ic_ksaed.svg",
+                                              height: 25,
+                                              width: 25,
+                                            ),
+                                            title: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                provider
+                                                        .dewanBody
+                                                        ?.dawawen?[index]
+                                                        .name ??
+                                                    '',
+                                                style: TextStyle(
+                                                    color: Colors.teal,
+                                                    fontFamily: "Cairo"),
+                                              ),
+                                            ),
+                                            subtitle: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "number_of_poems".tr(),
+                                                  style: TextStyle(
+                                                    color: Colors.teal,
+                                                  ),
+                                                ),
+                                                Text('  '),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 4.0),
+                                                  child: Text(
+                                                    context.locale
+                                                                .languageCode ==
+                                                            'ar'
+                                                        ? Utils().convertToArabicNumber(
+                                                            provider
+                                                                    .dewanBody
+                                                                    ?.dawawen?[
+                                                                        index]
+                                                                    .kasaed
+                                                                    ?.length
+                                                                    .toString() ??
+                                                                "0")
+                                                        : provider
+                                                                .dewanBody
+                                                                ?.dawawen?[
+                                                                    index]
+                                                                .kasaed
+                                                                ?.length
+                                                                .toString() ??
+                                                            "0",
+                                                    style: TextStyle(
+                                                      color: Colors.teal,
+                                                      fontFamily: "Cairo",
+                                                    ),
+                                                  ),
+                                                ),
+                                                Text('  '),
+                                                Text(
+                                                  "poem".tr(),
+                                                  style: TextStyle(
+                                                    color: Colors.teal,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        provider.setDawawen(provider
+                                            .dewanBody!.dawawen![index]);
+
+                                        provider.setKafya(index);
+
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                DewanDetailsPage(),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                                itemCount:
+                                    provider.dewanBody!.dawawen!.length > 15
+                                        ? 15
+                                        : provider.dewanBody?.dawawen?.length,
+                              ),
                             ),
                             SizedBox(
                               height: 10,
                             ),
+
+                            //todo from here you need to handel
                             SizedBox(
                               height: 35,
                               child: Row(

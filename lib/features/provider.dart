@@ -29,8 +29,6 @@ class BaseProvider extends ChangeNotifier {
 
   int selectedIndex = 0;
 
-  Dawawen? dawawen;
-
   List<String> _kafya = [];
 
   List<String> get kafya => _kafya;
@@ -40,9 +38,9 @@ class BaseProvider extends ChangeNotifier {
   setKafya(int index) {
     dewanIndex = index;
     _kafya.clear();
-    for (var element in dewanBody!.dawawen![index].kasaed!) {
+    for (var element in dewanBodyTemp!.dawawen[index].kasaed) {
       if (!_kafya.contains(element.letter)) {
-        _kafya.add(element.letter!);
+        _kafya.add(element.letter);
       }
     }
     print('_kafya.length  ${_kafya.length}');
@@ -55,29 +53,23 @@ class BaseProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void selectKafya({required int selectValue}) {
-    Map<String, dynamic> json = jsonDecode(jsonEncode(dewanBody));
-    DawawenBody dewanBodyTemp = DawawenBody.fromJson(json);
-    print('changed');
-    print('-----------------------------------------');
-    print(dewanBody.hashCode);
-    print(dewanBodyTemp.hashCode);
+  Future<void> selectKafya({required int selectValue}) async {
+    Map<String, dynamic> json = jsonDecode(jsonEncode(dewanBodyTemp));
+    dewanBody = DawawenBody.fromJson(json);
 
     if (selectValue != kafyaIndex || kafyaIndex == null) {
-      var filtered = dewanBody!.dawawen![dewanIndex!].kasaed!
-          .where(
-            (element) => element.letter == _kafya[selectValue],
-          )
-          .toList();
-      dawawen!.kasaed!.clear();
-      dawawen!.kasaed!.addAll(filtered);
+      dewanBody!.dawawen[dewanIndex!].kasaed.clear();
+
+      dewanBody!.dawawen[dewanIndex!].kasaed.addAll(dewanBodyTemp!.dawawen[dewanIndex!].kasaed.where(
+                (element) => element.letter == _kafya[selectValue],
+              )
+              .toList());
 
       kafyaIndex = selectValue;
     } else if (kafyaIndex == selectValue) {
       kafyaIndex = null;
-      dawawen = dewanBody!.dawawen![dewanIndex!];
+      dewanBody = dewanBodyTemp;
     }
-    print(dawawen!.kasaed!.length);
     notifyListeners();
   }
 
@@ -94,15 +86,15 @@ class BaseProvider extends ChangeNotifier {
 
     var loadedData = await json.decode(res);
 
-    dewanBody = await dawawenBodyFromJson(loadedData);
-    dewanBodyTemp = await dawawenBodyFromJson(loadedData);
+    dewanBody = await DawawenBody.fromJson(loadedData);
+    dewanBodyTemp = await DawawenBody.fromJson(loadedData);
 
     print('-----------------------------------------');
     print(dewanBody.hashCode);
     print(dewanBodyTemp.hashCode);
 
     dewanBodyLoading = false;
-    groupByPurpose(dewanBody!.dawawen!);
+    groupByPurpose(dewanBody!.dawawen);
     notifyListeners();
   }
 
@@ -110,8 +102,8 @@ class BaseProvider extends ChangeNotifier {
     Map<String, List<Kenashat>> grouped = {};
 
     for (var dawawen in dawawenList) {
-      for (var kaseda in dawawen.kasaed!) {
-        grouped.putIfAbsent(kaseda.purpose!, () => []);
+      for (var kaseda in dawawen.kasaed) {
+        grouped.putIfAbsent(kaseda.purpose, () => []);
         grouped[kaseda.purpose]!.add(kaseda);
       }
     }

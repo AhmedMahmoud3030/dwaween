@@ -191,7 +191,7 @@ class HomeScreen extends StatelessWidget {
                                     child: Align(
                                       alignment: Alignment.centerRight,
                                       child: Text(
-                                        'عذرا لا يوجد دواويين',
+                                        'there_is_no_Dwaween'.tr(),
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: Colors.teal,
@@ -301,9 +301,6 @@ class HomeScreen extends StatelessWidget {
                                         ),
                                       ),
                                       onTap: () {
-                                        provider.dawawen =
-                                            provider.dewanBody!.dawawen![index];
-
                                         provider.setKafya(index);
 
                                         Navigator.push(

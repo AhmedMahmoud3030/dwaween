@@ -19,10 +19,9 @@ class BaseProvider extends ChangeNotifier {
   List<groupByClass> groupedBy = [];
 
   DawawenBody? dewanBody;
+  DawawenBody? dewanBodyTemp;
 
   List<groupByClass> tempGroupedBy = [];
-
-  DawawenBody? tempDewanBody;
 
   bool dewanBodyLoading = true;
 
@@ -30,32 +29,23 @@ class BaseProvider extends ChangeNotifier {
 
   int selectedIndex = 0;
 
-  Dawawen? _dawawen;
-
-  Dawawen? get dawawen => _dawawen;
-
-  void setDawawen(Dawawen? value) {
-    _dawawen = value;
-    notifyListeners();
-  }
-
-  Dawawen? dawawenTemp;
+  Dawawen? dawawen;
 
   List<String> _kafya = [];
 
   List<String> get kafya => _kafya;
   int? kafyaIndex;
+  int? dewanIndex;
 
   setKafya(int index) {
+    dewanIndex = index;
     _kafya.clear();
     for (var element in dewanBody!.dawawen![index].kasaed!) {
       if (!_kafya.contains(element.letter)) {
         _kafya.add(element.letter!);
       }
     }
-    print('_kafya.length');
-
-    print(_kafya.length);
+    print('_kafya.length  ${_kafya.length}');
 
     notifyListeners();
   }
@@ -66,25 +56,28 @@ class BaseProvider extends ChangeNotifier {
   }
 
   void selectKafya({required int selectValue}) {
-    dawawenTemp = dawawen;
+    Map<String, dynamic> json = jsonDecode(jsonEncode(dewanBody));
+    DawawenBody dewanBodyTemp = DawawenBody.fromJson(json);
+    print('changed');
+    print('-----------------------------------------');
+    print(dewanBody.hashCode);
+    print(dewanBodyTemp.hashCode);
 
-    if (selectValue!=kafyaIndex||kafyaIndex==null) {
-      dawawen!.kasaed!.addAll(
-        dawawen!.kasaed!.where(
-          (element) => element.letter == _kafya[selectValue],
-        ),
-      );
+    if (selectValue != kafyaIndex || kafyaIndex == null) {
+      var filtered = dewanBody!.dawawen![dewanIndex!].kasaed!
+          .where(
+            (element) => element.letter == _kafya[selectValue],
+          )
+          .toList();
+      dawawen!.kasaed!.clear();
+      dawawen!.kasaed!.addAll(filtered);
+
       kafyaIndex = selectValue;
-    } 
-
-
-    if (kafyaIndex == selectValue) {
-      
-
-      setDawawen(dawawenTemp);
+    } else if (kafyaIndex == selectValue) {
       kafyaIndex = null;
-    } 
-
+      dawawen = dewanBody!.dawawen![dewanIndex!];
+    }
+    print(dawawen!.kasaed!.length);
     notifyListeners();
   }
 
@@ -100,7 +93,13 @@ class BaseProvider extends ChangeNotifier {
         await rootBundle.loadString('assets/json/dewanlist.json');
 
     var loadedData = await json.decode(res);
+
     dewanBody = await dawawenBodyFromJson(loadedData);
+    dewanBodyTemp = await dawawenBodyFromJson(loadedData);
+
+    print('-----------------------------------------');
+    print(dewanBody.hashCode);
+    print(dewanBodyTemp.hashCode);
 
     dewanBodyLoading = false;
     groupByPurpose(dewanBody!.dawawen!);

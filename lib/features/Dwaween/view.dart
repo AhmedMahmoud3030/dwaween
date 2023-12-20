@@ -253,8 +253,8 @@ class DwaweenScreen extends StatelessWidget {
                                           )),
                                     ),
                                     onTap: () {
-                                      provider.setDawawen(
-                                          provider.dewanBody!.dawawen![index]);
+                                      provider.dawawen =
+                                          provider.dewanBody!.dawawen![index];
 
                                       provider.setKafya(index);
 

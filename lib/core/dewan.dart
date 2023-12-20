@@ -2,30 +2,20 @@
 //
 //     final dawawenBody = dawawenBodyFromJson(jsonString);
 
-import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
 
 DawawenBody dawawenBodyFromJson(Map<String, dynamic> str) =>
     DawawenBody.fromJson(str);
 
-String dawawenBodyToJson(DawawenBody data) => json.encode(data.toJson());
-
+@JsonSerializable()
 class DawawenBody {
   List<Dawawen>? dawawen;
-  // List<Kenashat>? kenashat;
+  List<Kenashat>? kenashat;
 
   DawawenBody({
     this.dawawen,
-    // this.kenashat,
+    this.kenashat,
   });
-
-  DawawenBody copyWith({
-    List<Dawawen>? dawawen,
-    // List<Kenashat>? kenashat,
-  }) =>
-      DawawenBody(
-        dawawen: dawawen ?? this.dawawen,
-        // kenashat: kenashat ?? this.kenashat,
-      );
 
   factory DawawenBody.fromJson(Map<String, dynamic> json) => DawawenBody(
         dawawen: json["Dawawen"] == null
@@ -37,17 +27,9 @@ class DawawenBody {
         //     : List<Kenashat>.from(
         //         json["Kenashat"]!.map((x) => Kenashat.fromJson(x))),
       );
-
-  Map<String, dynamic> toJson() => {
-        "Dawawen": dawawen == null
-            ? []
-            : List<dynamic>.from(dawawen!.map((x) => x.toJson())),
-        // "Kenashat": kenashat == null
-        // ? []
-        // : List<dynamic>.from(kenashat!.map((x) => x.toJson())),
-      };
 }
 
+@JsonSerializable()
 class Dawawen {
   String? id;
   String? name;
@@ -65,23 +47,6 @@ class Dawawen {
     this.kasaed,
   });
 
-  Dawawen copyWith({
-    String? id,
-    String? name,
-    String? nameT,
-    String? dec,
-    String? type,
-    List<Kenashat>? kasaed,
-  }) =>
-      Dawawen(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        nameT: nameT ?? this.nameT,
-        dec: dec ?? this.dec,
-        type: type ?? this.type,
-        kasaed: kasaed ?? this.kasaed,
-      );
-
   factory Dawawen.fromJson(Map<String, dynamic> json) => Dawawen(
         id: json["id"],
         name: json["name"],
@@ -93,19 +58,9 @@ class Dawawen {
             : List<Kenashat>.from(
                 json["kasaed"]!.map((x) => Kenashat.fromJson(x))),
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "nameT": nameT,
-        "dec": dec,
-        "type": type,
-        "kasaed": kasaed == null
-            ? []
-            : List<dynamic>.from(kasaed!.map((x) => x.toJson())),
-      };
 }
 
+@JsonSerializable()
 class Kenashat {
   String? id;
   Type? type;
@@ -127,27 +82,6 @@ class Kenashat {
     this.letter,
   });
 
-  Kenashat copyWith({
-    String? id,
-    Type? type,
-    String? name,
-    String? nameT,
-    String? purpose,
-    String? kaseyda,
-    String? kaseydaT,
-    String? letter,
-  }) =>
-      Kenashat(
-        id: id ?? this.id,
-        type: type ?? this.type,
-        name: name ?? this.name,
-        nameT: nameT ?? this.nameT,
-        purpose: purpose ?? this.purpose,
-        kaseyda: kaseyda ?? this.kaseyda,
-        kaseydaT: kaseydaT ?? this.kaseydaT,
-        letter: letter ?? this.letter,
-      );
-
   factory Kenashat.fromJson(Map<String, dynamic> json) => Kenashat(
         id: json["id"],
         type: typeValues.map[json["type"]]!,
@@ -158,17 +92,6 @@ class Kenashat {
         kaseydaT: json["kaseydaT"],
         letter: json["letter"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "type": typeValues.reverse[type],
-        "name": name,
-        "nameT": nameT,
-        "purpose": purpose,
-        "kaseyda": kaseyda,
-        "kaseydaT": kaseydaT,
-        "letter": letter,
-      };
 }
 
 enum Type { KASEYDA, KENASH }

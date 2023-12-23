@@ -2,13 +2,14 @@
 import 'dart:convert';
 
 import 'package:dwaween/Screens/About/about.dart';
-import 'package:dwaween/Screens/Knanish/Knanish.dart';
 import 'package:dwaween/core/dewan.dart';
 import 'package:dwaween/features/Dwaween/view.dart';
 import 'package:dwaween/features/Home/view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'Kasaed/kasaed.dart';
 
 class BaseProvider extends ChangeNotifier {
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -25,7 +26,12 @@ class BaseProvider extends ChangeNotifier {
 
   bool dewanBodyLoading = true;
 
-  List<Widget> screens = [HomeScreen(), DwaweenScreen(), Knanish(), about()];
+  List<Widget> screens = [
+    HomeScreen(),
+    DwaweenScreen(),
+    KasaedScreen(),
+    about()
+  ];
 
   int selectedIndex = 0;
 
@@ -60,7 +66,9 @@ class BaseProvider extends ChangeNotifier {
     if (selectValue != kafyaIndex || kafyaIndex == null) {
       dewanBody!.dawawen[dewanIndex!].kasaed.clear();
 
-      dewanBody!.dawawen[dewanIndex!].kasaed.addAll(dewanBodyTemp!.dawawen[dewanIndex!].kasaed.where(
+      dewanBody!.dawawen[dewanIndex!].kasaed
+          .addAll(dewanBodyTemp!.dawawen[dewanIndex!].kasaed
+              .where(
                 (element) => element.letter == _kafya[selectValue],
               )
               .toList());

@@ -48,7 +48,7 @@ class DewanDetailsPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                ' ${'dewan'.tr()}${provider.dewanBody!.dawawen![provider.dewanIndex!]?.nameT}',
+                                ' ${'dewan'.tr()} ${provider.dewanBody!.dawawen![provider.dewanIndex!]?.nameT}',
                                 style: TextStyle(
                                   fontSize: 14,
                                   // fontFamily: "Cairo",

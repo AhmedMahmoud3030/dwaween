@@ -1,10 +1,7 @@
 import 'package:dwaween/Screens/Knanish/KasayedDetails/AudioPlayer/audio_card.dart';
-import 'package:dwaween/Screens/Knanish/Knanish.dart';
 import 'package:dwaween/core/constants.dart';
-import 'package:dwaween/core/nav.dart';
 import 'package:dwaween/core/utils.dart';
 import 'package:dwaween/features/DewanDetails/view.dart';
-import 'package:dwaween/features/Dwaween/view.dart';
 import 'package:dwaween/features/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -147,12 +144,7 @@ class HomeScreen extends StatelessWidget {
                                   Spacer(),
                                   InkWell(
                                     onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => DwaweenScreen(),
-                                        ),
-                                      );
+                                      provider.setSelectedIndex(index: 1);
                                     },
                                     child: Text(
                                       "view_all".tr(),
@@ -359,7 +351,7 @@ class HomeScreen extends StatelessWidget {
                                   Spacer(),
                                   InkWell(
                                     onTap: () {
-                                      navigateTo(context, Knanish());
+                                      provider.setSelectedIndex(index: 2);
                                     },
                                     child: Text(
                                       "view_all".tr(),
@@ -388,68 +380,74 @@ class HomeScreen extends StatelessWidget {
                                   ? 15
                                   : provider.groupedBy.length,
                               itemBuilder: (context, index) {
-                                return Card(
-                                  margin: EdgeInsets.all(6),
-                                  child: InkWell(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(12.0),
-                                        color: Colors.white,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 15,
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                width: 6,
-                                              ),
-                                              SvgPicture.asset(
-                                                "assets/images/icons/ic_ksaed.svg",
-                                                height: 25,
-                                                width: 25,
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Container(
-                                                child: Text(
+                                return GestureDetector(
+                                  onTap: () {},
+                                  child: Card(
+                                    margin: EdgeInsets.all(6),
+                                    child: InkWell(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                          color: Colors.white,
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  width: 6,
+                                                ),
+                                                SvgPicture.asset(
+                                                  "assets/images/icons/ic_ksaed.svg",
+                                                  height: 25,
+                                                  width: 25,
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Container(
+                                                  child: Text(
                                                     maxLines: 1,
                                                     overflow: TextOverflow.fade,
                                                     provider.groupedBy[index]
                                                         .purpose,
                                                     style: TextStyle(
-                                                        color: Colors.teal,
-                                                        fontFamily:
-                                                            "Amiri Regular")),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(right: 22),
-                                            child: Align(
-                                                alignment:
-                                                    Alignment.centerRight,
-                                                child: Text(
-                                                  "${context.locale.languageCode == 'ar' ? Utils().convertToArabicNumber(provider.groupedBy[index].kenshat.length.toString()) : provider.groupedBy[index].kenshat.length}  ${'poem'.tr()}",
-                                                  style: TextStyle(
-                                                      color: Colors.grey,
+                                                      color: Colors.teal,
                                                       fontFamily:
-                                                          "Amiri Regular"),
-                                                )),
-                                          ),
-                                        ],
+                                                          "Amiri Regular",
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 22),
+                                              child: Align(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  child: Text(
+                                                    "${context.locale.languageCode == 'ar' ? Utils().convertToArabicNumber(provider.groupedBy[index].kenshat.length.toString()) : provider.groupedBy[index].kenshat.length}  ${'poem'.tr()}",
+                                                    style: TextStyle(
+                                                        color: Colors.grey,
+                                                        fontFamily:
+                                                            "Amiri Regular"),
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
                                       ),
+                                      onTap: () {},
                                     ),
-                                    onTap: () {},
                                   ),
                                 );
                               },

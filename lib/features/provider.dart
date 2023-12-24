@@ -1,10 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:dwaween/Screens/About/about.dart';
 import 'package:dwaween/core/dewan.dart';
+import 'package:dwaween/features/About/about.dart';
 import 'package:dwaween/features/Dwaween/view.dart';
 import 'package:dwaween/features/Home/view.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -30,7 +31,7 @@ class BaseProvider extends ChangeNotifier {
     HomeScreen(),
     DwaweenScreen(),
     KasaedScreen(),
-    about()
+    AboutScreen()
   ];
 
   int selectedIndex = 0;
@@ -40,6 +41,17 @@ class BaseProvider extends ChangeNotifier {
   List<String> get kafya => _kafya;
   int? kafyaIndex;
   int? dewanIndex;
+
+  void changeLang({required BuildContext context}) {
+    print('changeLang');
+    print(context.locale.languageCode);
+    if (context.locale.languageCode == 'ar') {
+      EasyLocalization.of(context)!.setLocale(Locale('en'));
+    } else {
+      EasyLocalization.of(context)!.setLocale(Locale('ar'));
+    }
+    notifyListeners();
+  }
 
   setKafya(int index) {
     dewanIndex = index;
@@ -59,30 +71,47 @@ class BaseProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> selectKafya({required int selectValue}) async {
+  Future<void> searchMethod({
+    int? selectIndex,
+    String? searchValue,
+  }) async {
     Map<String, dynamic> json = jsonDecode(jsonEncode(dewanBodyTemp));
     dewanBody = DawawenBody.fromJson(json);
 
-    if (selectValue != kafyaIndex || kafyaIndex == null) {
+    if (selectIndex != null) {
+      // Search by Dawawen name
+      String lowerCaseSearchValue = (searchValue ?? '').toLowerCase();
       dewanBody!.dawawen[dewanIndex!].kasaed.clear();
 
-      dewanBody!.dawawen[dewanIndex!].kasaed
-          .addAll(dewanBodyTemp!.dawawen[dewanIndex!].kasaed
-              .where(
-                (element) => element.letter == _kafya[selectValue],
-              )
-              .toList());
+      dewanBody!.dawawen[dewanIndex!].kasaed.addAll(
+        dewanBodyTemp!.dawawen[dewanIndex!].kasaed.where(
+          (element) =>
+              element.letter == _kafya[selectIndex] &&
+              (element.name.toLowerCase().contains(lowerCaseSearchValue) ||
+                  element.kaseyda.toLowerCase().contains(lowerCaseSearchValue)),
+        ),
+      );
 
-      kafyaIndex = selectValue;
-    } else if (kafyaIndex == selectValue) {
+      kafyaIndex = selectIndex;
+    } else {
+      // Reset to the original state
+
+      // Search by Dawawen name
+      String lowerCaseSearchValue = (searchValue ?? '').toLowerCase();
+      dewanBody!.dawawen[dewanIndex!].kasaed.clear();
+
+      dewanBody!.dawawen[dewanIndex!].kasaed.addAll(
+        dewanBodyTemp!.dawawen[dewanIndex!].kasaed.where(
+          (element) =>
+              element.name.toLowerCase().contains(lowerCaseSearchValue),
+        ),
+      );
       kafyaIndex = null;
-      dewanBody = dewanBodyTemp;
+      // dewanBody = dewanBodyTemp;
     }
-    notifyListeners();
-  }
 
-  void setSearchValue({required String value}) {
-    searchValue = value;
+    groupByPurpose(dewanBody!.dawawen);
+
     notifyListeners();
   }
 

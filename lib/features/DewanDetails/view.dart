@@ -48,7 +48,7 @@ class DewanDetailsPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                ' ${'dewan'.tr()} ${provider.dewanBody!.dawawen![provider.dewanIndex!]?.nameT}',
+                                ' ${'dewan'.tr()} ${provider.dewanBody!.dawawen[provider.dewanIndex!].nameT}',
                                 style: TextStyle(
                                   fontSize: 14,
                                   // fontFamily: "Cairo",
@@ -57,7 +57,7 @@ class DewanDetailsPage extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                  ' ${'number_of_poems'.tr()} ${provider.dewanBody!.dawawen![provider.dewanIndex!]?.kasaed?.length} ${'poem'.tr()}',
+                                  ' ${'number_of_poems'.tr()} ${provider.dewanBody!.dawawen[provider.dewanIndex!].kasaed.length} ${'poem'.tr()}',
                                   style: TextStyle(
                                     fontSize: 14,
                                     // fontFamily: "Cairo",
@@ -92,7 +92,7 @@ class DewanDetailsPage extends StatelessWidget {
                           cursorRadius: Radius.circular(10),
                           controller: provider.searchController,
                           onChanged: (value) {
-                            provider.setSearchValue(value: value);
+                            provider.searchMethod(searchValue: value);
                           },
                           cursorColor: Constants.primary,
                           decoration: InputDecoration(
@@ -135,7 +135,7 @@ class DewanDetailsPage extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   provider.searchController.clear();
-                                  provider.setSearchValue(value: '');
+                                  provider.searchMethod(searchValue: '');
                                 },
                               ),
                             ),
@@ -207,9 +207,8 @@ class DewanDetailsPage extends StatelessWidget {
                                         child: Hero(
                                           tag: provider
                                                   .dewanBody!
-                                                  .dawawen![
-                                                      provider.dewanIndex!]
-                                                  ?.dec ??
+                                                  .dawawen[provider.dewanIndex!]
+                                                  .dec ??
                                               '',
                                           child: SimpleDialog(
                                             children: [
@@ -219,9 +218,9 @@ class DewanDetailsPage extends StatelessWidget {
                                                 child: Text(
                                                   provider
                                                           .dewanBody!
-                                                          .dawawen![provider
+                                                          .dawawen[provider
                                                               .dewanIndex!]
-                                                          ?.dec ??
+                                                          .dec ??
                                                       '',
                                                   textAlign: TextAlign.center,
                                                 ),
@@ -234,10 +233,8 @@ class DewanDetailsPage extends StatelessWidget {
                                   );
                                 },
                                 child: Text(
-                                  provider
-                                          .dewanBody!
-                                          .dawawen![provider.dewanIndex!]
-                                          ?.dec ??
+                                  provider.dewanBody!
+                                          .dawawen[provider.dewanIndex!].dec ??
                                       '',
                                   style: TextStyle(
                                     fontSize: 13,
@@ -306,8 +303,8 @@ class DewanDetailsPage extends StatelessWidget {
                               padding: const EdgeInsets.all(3.0),
                               child: GestureDetector(
                                 onTap: () async {
-                                  await provider.selectKafya(
-                                    selectValue: indexGrid,
+                                  await provider.searchMethod(
+                                    selectIndex: indexGrid,
                                   );
                                 },
                                 child: Container(
@@ -397,7 +394,7 @@ class DewanDetailsPage extends StatelessWidget {
                                           color: Colors.white,
                                         ),
                                         child: Align(
-                                          alignment: Alignment.centerRight,
+                                          alignment: Alignment.topRight,
                                           child: Text(
                                             'there_is_no_Kasayed'.tr(),
                                             style: TextStyle(
@@ -415,11 +412,10 @@ class DewanDetailsPage extends StatelessWidget {
                                     physics: BouncingScrollPhysics(),
                                     shrinkWrap: true,
                                     itemCount: provider
-                                            .dewanBody!
-                                            .dawawen[provider.dewanIndex!]
-                                            .kasaed
-                                            .length ??
-                                        0,
+                                        .dewanBody!
+                                        .dawawen[provider.dewanIndex!]
+                                        .kasaed
+                                        .length,
                                     itemBuilder: (BuildContext context, index) {
                                       return InkWell(
                                         child: Padding(
@@ -480,7 +476,7 @@ class DewanDetailsPage extends StatelessWidget {
                                                       ),
                                                     ),
                                                     Text(
-                                                      '${'number_of_poems'.tr()} ${context.locale.languageCode == 'ar' ? Utils().convertToArabicNumber((provider.dewanBody!.dawawen[provider.dewanIndex!].kasaed.length).toString()) : provider.dewanBody!.dawawen[provider.dewanIndex!].kasaed!.length} ${'poem'.tr()}',
+                                                      '${'number_of_poems'.tr()} ${context.locale.languageCode == 'ar' ? Utils().convertToArabicNumber((provider.dewanBody!.dawawen[provider.dewanIndex!].kasaed.length).toString()) : provider.dewanBody!.dawawen[provider.dewanIndex!].kasaed.length} ${'poem'.tr()}',
                                                       style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.normal,
@@ -499,18 +495,15 @@ class DewanDetailsPage extends StatelessWidget {
                                           ),
                                         ),
                                         onTap: () {
-                                          provider.setKafya(index);
+                                          // provider.setKafya(index);
 
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DewanDetailsPage(),
-                                            ),
-                                          );
+                                          
+
+                                          
                                         },
                                       );
-                                    }),
+                                    },
+                                  ),
                       ),
                     ],
                   )

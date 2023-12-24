@@ -1,5 +1,5 @@
 {
-   "Favourit": "Favourit",
+   "Favourite": "Favourite",
     "Notes":"Notes",
     "Share":"Share",
     "Language":"Language",
@@ -10,22 +10,49 @@
     "Main":"Main",
     "dwaween":"Dwaween",
     "dewan":"Dewen",
-
-    "kanash":"Kanash",
+    "kanash":"Poems",
     "shikkh":"Shikkh",
     "more":"More",
     "search_in_dwaween":"Search in Dwaween . . .",
     "Audible_poems":"Audible Poems",
     "view_all":"View All",
     "poems":"Poems",
+    "poemsx":"Poems about",
     "poem":"Poem",
     "number_of_poems":"Number of Poems:",
     "search_all_dwaween":"Search All Dwaween",
     "search_in_poems":"Search All Poems",
     "brief_about_dewan":"Brief About Dewan:",
     "kwafy":"Kwafy",
- "there_is_no_Dwaween": "There is no Dwaween",
- "there_is_no_Kasayed": "There is no Kasayed"
+   "there_is_no_Dwaween": "There is no Dwaween",
+   "there_is_no_Kasayed": "There is no Kasayed",
+   "search_Kasaed_catagories":"Search Kasayed Catagories",
+   "his_birth_and_upbringing":"His birth and upbringing",
+   "brief_about_him":"Sheikh Ibrahim Abdullah Niass was born on Thursday, Rajab 15, 1318 AH, in Taiba, a small village near the city of Kolkh in Senegal. He grew up in his father’s lap, and the Qur’an was read to him until he memorized it well, according to Warsh’s narration on the authority of Nafi’. His virtuosity appeared in him when he was young, and after he memorized the Qur’an, he worked hard and diligently in acquiring knowledge, both spoken and understood, and he attained his desires and desires in it, and mastered it and mastered all its arts.",
+   "his_elders":"His elders",
+    "his_elders_brief":"His father, the scholar and Mujahid, Hajj Abdullah bin Muhammad bin Mudammab, undertook his education. He increased his knowledge and knowledge in it with his high enthusiasm and constant preoccupation with the pursuit of knowledge, and he did not read to anyone except his father. After he excelled at an early age in interpretation and the sciences of the Qur’an, Hadith and its sciences, jurisprudence and its principles, language and its arts, and Sufism, he was a reference in all of that, issued for the benefit of creation before he reached the age of thirty, and people came to him from various countries, Arabs and non-Arabs, to benefit from his knowledge.",
+    "scholars_granted_him_permission":"Scholars granted him permission",
+    "there_are_very_many":"There are very many of them, and these are examples of them",
+    "scholars_1":"1- The first person to authorize him was his father, Hajj Abdullah Aniyas. The Sheikh said: “He was the first to authorize me to teach the Qur’an and learn about its chains of transmission.” ",
+    "scholars_2":"2- He authorized it with the narration of Warsh: Muhammad Al-Amin bin Bad. ",
+    "scholars_3":"3- The judge of Morocco, Sidi Ahmed Sakiraj, approved it in his work entitled (Qadm Larsukh) among the sheikhs of its author, about six hundred sheikhs. He said after he finished writing it: “The first one to authorize all of these chains of transmission is the Caliph Hajj Ibrahim Aniyas,” and it was written on 23/Safar/1358 AH. ",
+    "scholars_4":"4- He also authorized it on the day of Ashura in the year 1355 AH with the serial hadith of Ashura and the hadith (the merciful will have mercy on them, the Most Merciful), both of which are linked in its chain of transmission to the Messenger of God, may God bless him and grant him peace.",
+    "scholars_5":"5- Sheikh Saleh bin al-Fadhil al-Tunisi, a teacher at the Prophet’s Mosque, authorized it with all that was included in the record of the Egyptian scholar through Sayyid Badr. Al-Din Al-Hasani Al-Shami, Moroccan, Fassi origin, dated Wednesday 18/Dhul-Hijjah / 1355 AH, facing the Kaaba, in the same permissible script. ",
+    "scholars_6":"6- Authorization of Sayyed Muhammad Abd al-Hay Al-Kattani, Moroccan, Fassi origin, saying: I authorize, His Honor, the above-mentioned eminent, with praiseworthy endeavors and rewarded work, with all my narrations, readings, and audio recordings. And a reward of five hundred souls between men and women.",
+    "scholars_7":"7- Muhammad ibn al-Fadhil, author of the Bright Dawn on the Sahih al-Jami’ / Ahmad ibn Talib, author of the Commentaries on the Sahih/ Humaid ibn Muhammad, Qadi of Meknes / Ahmad ibn Muhammad al-Khayyat: Sheikh of the Community in Fez / Judge of Fez, reciter Abdullah al-Hashimi ibn Green/Al-Saiqa Muhammad bin Ibrahim Al-Sibai Al-Marrakshi.",
+    "scholars_8":"8- In Algeria: its chain of narration is Abu Al-Hasan Ali bin Musa Al-Jazairi.",
+    "scholars_9":"9- And from Tunisia: the sheikh of the group there, Abu Hafs Omar bin Al-Sheikh / Tunisian judge Al-Musnad Muhammad bin Al-Tayyib bin Muhammad Al-Naifer.",
+    "scholars_10":"10- In Egypt: Al-Shehab Ahmed Al-Rifai / Al-Sayyid Al-Saleh Al-Banna Al-Iskandari / Mufti of Endowments. Sheikh Hussein Minqara Al-Tarabulsi Al-Hanafi.",
+    "scholars_11":"11- In Hijaz: Al-Sayyid Habib Al-Rahman Al-Hindi / Musnad Al-Hijaz Abu Al-Hasan Ali bin Dhahir Al-Wathari / Mufti of Mecca Sheikh Saleh Hussein bin Muhammad Al-Haisi Al-Ba’alawi / Scholar of Hijaz Sheikh Muhammad bin Suleiman, known as the Love of God Al-Shafi’i Al-Makki Al-Darir / Preacher of the Holy Mosque in Mecca Abu Al-Khair Mirdad Al-Hanafi Mecca.",
+    "scholars_12":"12- In the Levant: Sheikh Saeed Al-Hattaal / Sheikh Nasrallah bin Abdul Qadir / Abdul Razzaq Al-Bitar Al-Dimashqi / Sheikh Abdullah Soufan Al-Nabulsi Al-Qadoumi.",
+    "scholars_13":"13- In India: Hussein bin Mohsen Al-Ansari Al-Yamani, then Al-Hindi / Sheikh Khadr bin Othman Al-Radawi / Sheikh Muhammad Ali Akbar Al-Arwa.",
+    "scholars_14":"14- In Yemen: Al-Musnad Muhammad bin Salem Al-Tara’i in Hadramaut / Al-Sayyid Ali Al-Ahdal Al-Zubaidi. And others."
+
+    
+
+
+
+
 
 
 

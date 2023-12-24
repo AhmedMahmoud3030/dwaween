@@ -124,7 +124,7 @@ class DwaweenScreen extends StatelessWidget {
                         ),
                         onPressed: () {
                           provider.searchController.clear();
-                          provider.setSearchValue(value: '');
+                          provider.searchMethod(searchValue: '');
                         },
                       ),
                     ),

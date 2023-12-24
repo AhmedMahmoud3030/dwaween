@@ -2,20 +2,16 @@ import 'dart:convert';
 
 class DawawenBody {
   final List<Dawawen> dawawen;
-  final List<Kenashat> kenashat;
 
   DawawenBody({
     required this.dawawen,
-    required this.kenashat,
   });
 
   DawawenBody copyWith({
     List<Dawawen>? dawawen,
-    List<Kenashat>? kenashat,
   }) =>
       DawawenBody(
         dawawen: dawawen ?? this.dawawen,
-        kenashat: kenashat ?? this.kenashat,
       );
 
   factory DawawenBody.fromRawJson(String str) =>
@@ -26,13 +22,10 @@ class DawawenBody {
   factory DawawenBody.fromJson(Map<String, dynamic> json) => DawawenBody(
         dawawen:
             List<Dawawen>.from(json["Dawawen"].map((x) => Dawawen.fromJson(x))),
-        kenashat: List<Kenashat>.from(
-            json["Kenashat"].map((x) => Kenashat.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "Dawawen": List<dynamic>.from(dawawen.map((x) => x.toJson())),
-        "Kenashat": List<dynamic>.from(kenashat.map((x) => x.toJson())),
       };
 }
 

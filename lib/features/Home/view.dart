@@ -1,6 +1,6 @@
-import 'package:dwaween/Screens/Knanish/KasayedDetails/AudioPlayer/audio_card.dart';
 import 'package:dwaween/core/constants.dart';
 import 'package:dwaween/core/utils.dart';
+import 'package:dwaween/core/widgits/audio_card.dart';
 import 'package:dwaween/features/DewanDetails/view.dart';
 import 'package:dwaween/features/KasayedByCategory/kasayed_by_category.dart';
 import 'package:dwaween/features/provider.dart';
@@ -462,12 +462,13 @@ class HomeScreen extends StatelessWidget {
                                         ),
                                       ),
                                       onTap: () {
-                                        
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                KasaedByCategoryScreen(indexList: index, ),
+                                                KasaedByCategoryScreen(
+                                              indexList: index,
+                                            ),
                                           ),
                                         );
                                       },

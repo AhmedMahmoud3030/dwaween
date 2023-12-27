@@ -14,8 +14,8 @@ import 'package:rxdart/rxdart.dart';
 import 'package:screenshot/screenshot.dart';
 
 import '../../../Test/TestShare.dart';
-import '../../Screens/Knanish/KasayedDetails/AudioPlayer/audio_card.dart';
 import '../../Screens/Knanish/KasayedDetails/mainkasyeda.dart';
+import '../../core/widgits/audio_card.dart';
 
 class KasydaDetails extends StatefulWidget {
   String kasyeda;

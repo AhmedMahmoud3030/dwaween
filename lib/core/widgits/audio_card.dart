@@ -133,7 +133,6 @@ class _AudioCardState extends State<AudioCard> {
                         Spacer(),
                         IconButton(
                           padding: EdgeInsets.zero,
-                          iconSize: 22,
                           onPressed: () {
                             if (p == false) {
                               _audioPlayer.play();
@@ -145,9 +144,15 @@ class _AudioCardState extends State<AudioCard> {
                           },
                           icon: !p
                               ? SvgPicture.asset(
-                                  "assets/images/icons/ic_play.svg")
+                                  "assets/images/icons/ic_play.svg",
+                                  width: 40,
+                                  height: 40,
+                                )
                               : SvgPicture.asset(
-                                  "assets/images/icons/ic_pause.svg"),
+                                  "assets/images/icons/ic_pause.svg",
+                                  width: 40,
+                                  height: 40,
+                                ),
                         )
                       ],
                     ),

@@ -1,6 +1,7 @@
 import 'package:dwaween/core/constants.dart';
 import 'package:dwaween/core/utils.dart';
 import 'package:dwaween/core/widgits/audio_card.dart';
+import 'package:dwaween/core/widgits/customTextFormField.dart';
 import 'package:dwaween/features/DewanDetails/view.dart';
 import 'package:dwaween/features/KasayedByCategory/kasayed_by_category.dart';
 import 'package:dwaween/features/provider.dart';
@@ -14,7 +15,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
-    FocusNode? textFieldFocus;
 
     return GestureDetector(
       onTap: () {
@@ -37,54 +37,17 @@ class HomeScreen extends StatelessWidget {
               ),
               Consumer<BaseProvider>(
                 builder: (BuildContext context, provider, Widget? child) =>
-                    Container(
-                  height: 60,
-                  width: mediaQuery.size.width * .9,
-                  child: TextFormField(
-                    focusNode: textFieldFocus,
-                    cursorRadius: Radius.circular(10),
-                    controller: provider.searchController,
-                    onChanged: (value) {
-                      provider.searchMethod(searchValue: value);
-                    },
-                    cursorColor: Constants.primary,
-                    decoration: InputDecoration(
-                      prefixIconColor: Color(0xff8C8C8C),
-                      hintText: 'search_in_dwaween'.tr(),
-                      filled: true,
-                      fillColor: Colors.white,
-                      focusColor: Constants.primary,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 3, color: Colors.white),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(width: 3, color: Colors.white),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      hintStyle: TextStyle(
-                        color: Color(0xff8C8C8C),
-                        fontFamily: 'Cairo',
-                      ),
-                      prefixIcon: Icon(
-                        Icons.search,
-                        size: 30,
-                      ),
-                      suffixIcon: Visibility(
-                        visible: provider.searchController.text.length > 0,
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.clear,
-                            color: Constants.primary,
-                          ),
-                          onPressed: () {
-                            provider.searchController.clear();
-                            provider.searchMethod(searchValue: '');
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
+                    CustomTextFormFiled(
+                  mediaQuery: mediaQuery,
+                  textEditingController: provider.homeController,
+                  onChanged: (value) {
+                    provider.searchHomeMethod(searchValue: value);
+                  },
+                  searchText: 'search_in_dwaween',
+                  onPressed: () {
+                    provider.homeController.clear();
+                    provider.searchHomeMethod(searchValue: '');
+                  },
                 ),
               ),
               Consumer<BaseProvider>(
@@ -111,17 +74,19 @@ class HomeScreen extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               SizedBox(
-                                height: 10,
+                                height: provider.homeController.text.isEmpty
+                                    ? mediaQuery.size.height * .02
+                                    : 0,
                               ),
                               Visibility(
-                                  visible:
-                                      provider.searchController.text.isEmpty,
-                                  child: AudioCard()),
+                                visible: provider.homeController.text.isEmpty,
+                                child: AudioCard(),
+                              ),
                               SizedBox(
-                                height: 10,
+                                height: mediaQuery.size.height * .02,
                               ),
                               Container(
-                                height: 35,
+                                height: mediaQuery.size.height * .07,
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
@@ -154,8 +119,9 @@ class HomeScreen extends StatelessWidget {
                                     InkWell(
                                       onTap: () {
                                         provider.setSelectedIndex(index: 1);
-                                        provider.searchMethod(searchValue: '');
-                                        provider.searchController.text = '';
+                                        provider.searchHomeMethod(
+                                            searchValue: '');
+                                        provider.homeController.clear();
                                       },
                                       child: Text(
                                         "view_all".tr(),

@@ -13,6 +13,42 @@ import 'package:flutter/services.dart';
 import 'Kasaed/kasaed.dart';
 
 class BaseProvider extends ChangeNotifier {
+  //!-----------------------HomeScreen-------------------------------------------
+  TextEditingController homeController = TextEditingController();
+
+  searchHomeMethod({
+    required String searchValue,
+  }) {
+    Map<String, dynamic> json = jsonDecode(jsonEncode(dewanBodyTemp));
+    dewanBody = DawawenBody.fromJson(json);
+
+    if (searchValue.isNotEmpty) {
+      dewanBody = searchByNameOrKaseyda(searchValue);
+    }
+
+    groupByPurpose(dewanBody!.dawawen);
+
+    notifyListeners();
+  }
+
+  DawawenBody searchByNameOrKaseyda(String searchTerm) {
+    // Filter Dawawen objects based on the provided search term
+    List<Dawawen> filteredDawawen = dewanBodyTemp!.dawawen.where((dawawen) {
+      // Check if Dawawen Name or any Kaseyda matches the search term
+      bool nameMatch =
+          dawawen.name.toLowerCase().contains(searchTerm.toLowerCase());
+      bool kaseydaMatch = dawawen.kasaed.every((kenashat) =>
+          kenashat.kaseyda.toLowerCase().contains(searchTerm.toLowerCase()));
+
+      // Return true if either condition is met
+      return nameMatch || kaseydaMatch;
+    }).toList();
+
+    // Return a new DawawenBody instance with the filtered Dawawen objects
+    return DawawenBody(dawawen: filteredDawawen);
+  }
+
+  //!----------------------------------------------------------------------------
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   TextEditingController searchController = TextEditingController();
@@ -125,10 +161,6 @@ class BaseProvider extends ChangeNotifier {
 
     dewanBody = await DawawenBody.fromJson(loadedData);
     dewanBodyTemp = await DawawenBody.fromJson(loadedData);
-
-    print('-----------------------------------------');
-    print(dewanBody.hashCode);
-    print(dewanBodyTemp.hashCode);
 
     dewanBodyLoading = false;
     groupByPurpose(dewanBody!.dawawen);

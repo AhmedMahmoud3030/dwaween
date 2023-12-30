@@ -31,7 +31,6 @@ class _noteDataState extends State<noteData> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getAllData();
   }

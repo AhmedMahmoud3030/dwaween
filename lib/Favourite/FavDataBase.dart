@@ -32,7 +32,6 @@ class _FavDataBaseState extends State<FavDataBase> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getAllData();
   }

@@ -16,7 +16,6 @@ class Knanish extends StatefulWidget {
 class _KnanishState extends State<Knanish> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     readData();
   }

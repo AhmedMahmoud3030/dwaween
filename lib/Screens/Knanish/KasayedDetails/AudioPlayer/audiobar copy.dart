@@ -1,8 +1,6 @@
 import 'package:dwaween/Screens/Knanish/KasayedDetails/AudioPlayer/audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
-import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
 class Audiobar extends StatefulWidget {

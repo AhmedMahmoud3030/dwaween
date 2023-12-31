@@ -35,7 +35,7 @@ class BaseScreen extends StatelessWidget {
             if (index == 4) {
               provider.scaffoldKey.currentState!.openDrawer();
             } else {
-              provider.setSelectedIndex(index: index);
+              provider.setSelectedIndex(index: index, x: false);
             }
           },
           items: [

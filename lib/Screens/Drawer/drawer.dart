@@ -1,15 +1,10 @@
-import 'package:dwaween/Favourite/favData.dart';
-import 'package:dwaween/Hive_Services/boxes.dart';
 import 'package:dwaween/Notes/notesData.dart';
 import 'package:dwaween/Screens/AboutUs/AboutUs.dart';
 import 'package:dwaween/Screens/Comment/Comment.dart';
 import 'package:dwaween/core/constants.dart';
-import 'package:dwaween/core/help/app_localization/app_local.dart';
 import 'package:dwaween/core/nav.dart';
-import 'package:dwaween/share/share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../Favourite/FavDataBase.dart';
@@ -118,7 +113,7 @@ class _DrawerFb1State extends State<DrawerFb1> {
                   SizedBox(height: d4),
                   InkWell(
                     onTap: () {
-                      selectedItem(context,2);
+                      selectedItem(context, 2);
                     },
                     child: Row(
                       children: [
@@ -182,9 +177,7 @@ class _DrawerFb1State extends State<DrawerFb1> {
                       ),
                     ),
                   ),
-                  Visibility(
-                      visible: false,
-                      child: SizedBox(height: d4)),
+                  Visibility(visible: false, child: SizedBox(height: d4)),
                   InkWell(
                     onTap: () {
                       selectedItem(context, 4);
@@ -257,7 +250,7 @@ class _DrawerFb1State extends State<DrawerFb1> {
     );
   }
 
-  void selectedItem(BuildContext context, int index)async {
+  void selectedItem(BuildContext context, int index) async {
     // boxNotes = await Hive.openBox<Notes>("notesBox");
     //
     // setState(() {});
@@ -278,17 +271,15 @@ class _DrawerFb1State extends State<DrawerFb1> {
       case 5:
         navigateTo(context, AboutUs());
         break;
-
     }
-
   }
-  shareText()async{
+
+  shareText() async {
     final box = context.findRenderObject() as RenderBox;
-    await Share.share("\nرابط التطبيق للاندرويد : \n # \nرابط التطبيق للايفون : \n #\n\n",
+    await Share.share(
+        "\nرابط التطبيق للاندرويد : \n # \nرابط التطبيق للايفون : \n #\n\n",
         subject: "",
-        sharePositionOrigin:
-        box.localToGlobal(Offset.zero) &
-        box.size);
+        sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size);
   }
 }
 

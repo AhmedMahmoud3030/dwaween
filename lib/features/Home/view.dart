@@ -48,6 +48,7 @@ class HomeScreen extends StatelessWidget {
                     provider.homeController.clear();
                     provider.searchHomeMethod(searchValue: '');
                   },
+                  onFieldSubmitted: (String) {},
                 ),
               ),
               Consumer<BaseProvider>(
@@ -121,7 +122,8 @@ class HomeScreen extends StatelessWidget {
                                         FocusManager.instance.primaryFocus
                                             ?.unfocus();
 
-                                        provider.setSelectedIndex(index: 1);
+                                        provider.setSelectedIndex(
+                                            index: 1, x: false);
                                         provider.searchHomeMethod(
                                             searchValue: '');
                                         provider.homeController.clear();
@@ -283,6 +285,8 @@ class HomeScreen extends StatelessWidget {
                                                     .length >
                                                 0
                                             ? () {
+                                                provider.seDewanIndex(index);
+
                                                 provider.setKafya(index);
 
                                                 Navigator.push(
@@ -346,7 +350,8 @@ class HomeScreen extends StatelessWidget {
                                         FocusManager.instance.primaryFocus
                                             ?.unfocus();
 
-                                        provider.setSelectedIndex(index: 2);
+                                        provider.setSelectedIndex(
+                                            index: 2, x: false);
                                         provider.searchHomeMethod(
                                             searchValue: '');
                                         provider.homeController.clear();
@@ -485,13 +490,13 @@ class HomeScreen extends StatelessWidget {
                                                     .length >
                                                 0
                                             ? () {
+                                                provider.setGroupedByIndex(
+                                                    index: index);
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
-                                                        KasaedByCategoryScreen(
-                                                      indexList: index,
-                                                    ),
+                                                        KasaedByCategoryScreen(),
                                                   ),
                                                 );
                                               }

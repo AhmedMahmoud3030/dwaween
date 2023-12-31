@@ -11,6 +11,7 @@ class CustomTextFormFiled extends StatelessWidget {
     required this.onChanged,
     required this.searchText,
     required this.onPressed,
+    required this.onFieldSubmitted,
   });
 
   final MediaQueryData mediaQuery;
@@ -20,12 +21,15 @@ class CustomTextFormFiled extends StatelessWidget {
   final Function(String)? onChanged;
   final Function()? onPressed;
 
+  final Function(String) onFieldSubmitted;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: mediaQuery.size.height * .08,
       width: mediaQuery.size.width * .9,
       child: TextFormField(
+        onFieldSubmitted: onFieldSubmitted,
         cursorRadius: Radius.circular(10),
         controller: textEditingController,
         onChanged: onChanged,

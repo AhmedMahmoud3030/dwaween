@@ -1,3 +1,4 @@
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:dwaween/Hive_Services/boxes.dart';
 import 'package:dwaween/Models/FavModel.dart';
 import 'package:dwaween/Test/TestShare.dart';
@@ -8,14 +9,13 @@ import 'package:dwaween/core/nav.dart';
 import 'package:dwaween/models/NoteModel.dart';
 import 'package:dwaween/models/favourite.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:screenshot/screenshot.dart';
-import 'AudioPlayer/audiobar.dart';
-import 'mainkasyeda.dart';
-import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:screenshot/screenshot.dart';
+
+import 'AudioPlayer/audiobar.dart';
+import 'mainkasyeda.dart';
 
 class KasydaDetails extends StatefulWidget {
   String kasyeda;
@@ -24,29 +24,23 @@ class KasydaDetails extends StatefulWidget {
   String kasyedaTRepeat;
   String KNameT;
 
-
   String DName;
 
   bool p = false;
 
-  KasydaDetails(
-      {Key? key,
-      required this.kasyeda,
-      required this.KName,
-      required this.DName,
-      this.kasyedaT='',
-      this.kasyedaTRepeat='',
-      this.KNameT='',
-      })
-      : super(key: key);
-
-
+  KasydaDetails({
+    Key? key,
+    required this.kasyeda,
+    required this.KName,
+    required this.DName,
+    this.kasyedaT = '',
+    this.kasyedaTRepeat = '',
+    this.KNameT = '',
+  }) : super(key: key);
 
   @override
   State<KasydaDetails> createState() => _KasydaDetailsState();
 }
-
-
 
 class _KasydaDetailsState extends State<KasydaDetails> {
   DatabaseHelperNotificarion dbNotify = new DatabaseHelperNotificarion();
@@ -69,11 +63,10 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                 duration ?? Duration.zero,
               ));
 
+  bool isFav = false;
+  int favIndex = 0;
 
-  bool isFav=false;
-  int favIndex=0;
-
-  String color="";
+  String color = "";
 
   TextEditingController tc_title = TextEditingController();
   TextEditingController tc_body = TextEditingController();
@@ -84,8 +77,8 @@ class _KasydaDetailsState extends State<KasydaDetails> {
 
   ScreenshotController screenshotController = ScreenshotController();
 
-  List<FavModel> allFav =  <FavModel>[];
-  FavModel favModel=FavModel('','','','');
+  List<FavModel> allFav = <FavModel>[];
+  FavModel favModel = FavModel('', '', '', '');
 
   List<String> allTexts = [];
 
@@ -99,78 +92,74 @@ class _KasydaDetailsState extends State<KasydaDetails> {
     readData2();
   }
 
-
-  getAllData()async{
-    allFav =  <FavModel>[];
-    await dbFav.getAllFav().then((duaaModels){
-      setState((){
-        duaaModels.forEach((duaaModel){
+  getAllData() async {
+    allFav = <FavModel>[];
+    await dbFav.getAllFav().then((duaaModels) {
+      setState(() {
+        duaaModels.forEach((duaaModel) {
           allFav.add(FavModel.fromMap(duaaModel));
         });
       });
     });
 
-    for(int i=0;i<allFav.length;i++){
-      if(allFav[i].kName==widget.KName){
+    for (int i = 0; i < allFav.length; i++) {
+      if (allFav[i].kName == widget.KName) {
         setState(() {
-          favModel=allFav[i];
-          isFav=true;
+          favModel = allFav[i];
+          isFav = true;
         });
       }
     }
   }
+
   readData2() async {
     var k = widget.kasyeda.toString().split(".");
     var kT = widget.kasyedaTRepeat.toString().split(".");
-    widget.kasyedaT='';
+    widget.kasyedaT = '';
 
-
-    if(SearchValue.isNotEmpty){
-      for(int i=0;i<k.length;i++){
-        if(k[i].contains(SearchValue)){
-          widget.kasyedaT+=kT[i]+'.';
+    if (SearchValue.isNotEmpty) {
+      for (int i = 0; i < k.length; i++) {
+        if (k[i].contains(SearchValue)) {
+          widget.kasyedaT += kT[i] + '.';
         }
       }
-    }else{
-      widget.kasyedaT=widget.kasyedaTRepeat;
+    } else {
+      widget.kasyedaT = widget.kasyedaTRepeat;
 
       //للمشاركة
-      for(int i=0;i<kT.length;i++){
+      for (int i = 0; i < kT.length; i++) {
         allTexts.add(kT[i]);
       }
-
     }
     print('${SearchValue}');
     print('${widget.kasyedaT}');
 
     setState(() {});
-
   }
 
   void getFavourite() {
-    for(int i=0;i<boxFavourite.length;i++){
-      Favourite favourite=boxFavourite.getAt(i);
+    for (int i = 0; i < boxFavourite.length; i++) {
+      Favourite favourite = boxFavourite.getAt(i);
 
-      if(widget.KName==favourite.Dname){
+      if (widget.KName == favourite.Dname) {
         setState(() {
-          favIndex=i;
-          isFav=true;
+          favIndex = i;
+          isFav = true;
         });
       }
     }
   }
+
   Future<void> onSetRepeatMode() async {
     setState(() {
-        if(loobMode){
-          _audioPlayer.setLoopMode(LoopMode.off);
-          loobMode=false;
-
-        }else{
-          _audioPlayer.setLoopMode(LoopMode.all);
-          loobMode=true;
-        }
+      if (loobMode) {
+        _audioPlayer.setLoopMode(LoopMode.off);
+        loobMode = false;
+      } else {
+        _audioPlayer.setLoopMode(LoopMode.all);
+        loobMode = true;
+      }
     });
-
   }
 
   onBackPressed(BuildContext context) {
@@ -183,10 +172,8 @@ class _KasydaDetailsState extends State<KasydaDetails> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     double d1 = width / 12;
-    double d3 = width / 25;
-    double d4 = height / 40;
     return WillPopScope(
-      onWillPop:()=>onBackPressed(context),
+      onWillPop: () => onBackPressed(context),
       child: Scaffold(
         body: Screenshot(
           controller: screenshotController,
@@ -229,7 +216,10 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                           fontWeight: FontWeight.bold,
                                           fontFamily: "Amiri Regular",
                                           color: Colors.white)),
-                                  Text(widget.KNameT==''?widget.KName:widget.KNameT,
+                                  Text(
+                                      widget.KNameT == ''
+                                          ? widget.KName
+                                          : widget.KNameT,
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
@@ -246,13 +236,13 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                             height: height / 15,
                             color: backColor,
                             // Add padding around the search bar
-                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0),
                             // Use a Material design search bar
                             child: TextField(
                               controller: _searchController,
                               onChanged: (value) {
                                 setState(() {
-
                                   SearchValue = value;
                                   readData2();
                                 });
@@ -264,7 +254,8 @@ class _KasydaDetailsState extends State<KasydaDetails> {
 
                                 fillColor: Colors.white,
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(width: 3, color: Colors.white),
+                                  borderSide:
+                                      BorderSide(width: 3, color: Colors.white),
                                   borderRadius: BorderRadius.circular(20.0),
                                 ),
 
@@ -283,7 +274,6 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                             SearchValue = "";
                                           });
                                           readData2();
-
                                         },
                                       )
                                     : null,
@@ -303,7 +293,7 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                     Container(
                       height: height / 1.75,
                       child: kasyedaArea(
-                        value:SearchValue,
+                        value: SearchValue,
                         kasyeda: widget.kasyedaT,
                         textcolor: textcolor,
                         size: textsize,
@@ -339,18 +329,22 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                               ),
                               onPressed: () {
                                 if (_isSnackbarActive) {
-                                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
                                   _isSnackbarActive = false;
                                 } else {
                                   _isSnackbarActive = true;
                                   //Bottom Sheet
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(
+                                        SnackBar(
                                           duration: const Duration(minutes: 5),
                                           content: Container(
                                             padding: EdgeInsets.all(10),
                                             height: height / 1.8,
-                                            width: MediaQuery.of(context).size.width,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
                                             decoration: BoxDecoration(
                                               color: Colors.white,
                                               borderRadius:
@@ -359,53 +353,80 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                             child: Column(
                                               children: [
                                                 InkWell(
-                                                  onTap:(){
+                                                  onTap: () {
                                                     print("object");
                                                     setState(() {
-                                                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .hideCurrentSnackBar();
                                                     });
                                                   },
                                                   child: SizedBox(
                                                     height: 15,
                                                     child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.start,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
                                                       children: [
-                                                        Icon(Icons.close,size: width/15,)
+                                                        Icon(
+                                                          Icons.close,
+                                                          size: width / 15,
+                                                        )
                                                       ],
                                                     ),
                                                   ),
                                                 ),
                                                 Row(
-                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
                                                   children: [
                                                     TextButton(
-                                                      style: TextButton.styleFrom(
-                                                        foregroundColor: Colors.white,
-                                                        padding: const EdgeInsets.all(8.0),
-                                                        textStyle: const TextStyle(fontSize: 16),
+                                                      style:
+                                                          TextButton.styleFrom(
+                                                        foregroundColor:
+                                                            Colors.white,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        textStyle:
+                                                            const TextStyle(
+                                                                fontSize: 16),
                                                       ),
                                                       onPressed: () {
                                                         setState(() {
-                                                          if(isFav){
+                                                          if (isFav) {
                                                             deleteFav(favModel);
-                                                            displayToastMessage("تم حذف القصيدة من المفضلة");
-                                                            isFav=false;
-                                                          }else{
-                                                            saveFav(widget.KName,widget.kasyeda,widget.KNameT,widget.kasyedaTRepeat);
-                                                            displayToastMessage("تم اضافة القصيدة للمفضلة");
-                                                            isFav=true;
+                                                            displayToastMessage(
+                                                                "تم حذف القصيدة من المفضلة");
+                                                            isFav = false;
+                                                          } else {
+                                                            saveFav(
+                                                                widget.KName,
+                                                                widget.kasyeda,
+                                                                widget.KNameT,
+                                                                widget
+                                                                    .kasyedaTRepeat);
+                                                            displayToastMessage(
+                                                                "تم اضافة القصيدة للمفضلة");
+                                                            isFav = true;
                                                           }
 
                                                           getAllData();
-                                                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .hideCurrentSnackBar();
                                                         });
-
                                                       },
                                                       child: Text(
-                                                        isFav?"حذف من المفضلة":"اضافة للمفضلة",
-                                                        textAlign: TextAlign.right,
-                                                        style: TextStyle(color: Colors.teal, fontFamily: "Cairo"),
+                                                        isFav
+                                                            ? "حذف من المفضلة"
+                                                            : "اضافة للمفضلة",
+                                                        textAlign:
+                                                            TextAlign.right,
+                                                        style: TextStyle(
+                                                            color: Colors.teal,
+                                                            fontFamily:
+                                                                "Cairo"),
                                                       ),
                                                     ),
                                                     Image.asset(
@@ -428,39 +449,65 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                       MainAxisAlignment.end,
                                                   children: [
                                                     TextButton(
-                                                      style: TextButton.styleFrom(
-                                                        foregroundColor: Colors.white,
-                                                        padding: const EdgeInsets.all(8.0),
-                                                        textStyle: const TextStyle(fontSize: 16),
+                                                      style:
+                                                          TextButton.styleFrom(
+                                                        foregroundColor:
+                                                            Colors.white,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        textStyle:
+                                                            const TextStyle(
+                                                                fontSize: 16),
                                                       ),
                                                       onPressed: () {
-                                                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                                                        ScaffoldMessenger.of(context).showSnackBar(
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .hideCurrentSnackBar();
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
                                                           SnackBar(
-                                                            duration: Duration(minutes: 2),
+                                                            duration: Duration(
+                                                                minutes: 2),
                                                             content: Container(
-                                                              padding: EdgeInsets.all(16),
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .all(16),
                                                               height: 310,
-                                                              decoration: BoxDecoration(color: Colors.white,
-                                                                borderRadius: BorderRadius.all(Radius.circular(20)),
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Colors
+                                                                    .white,
+                                                                borderRadius: BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            20)),
                                                               ),
                                                               child: Container(
                                                                 child: Column(
                                                                   children: [
                                                                     SizedBox(
-                                                                      child: Text("ملحوظات",
+                                                                      child:
+                                                                          Text(
+                                                                        "ملحوظات",
                                                                         style: TextStyle(
-                                                                            fontFamily: "Cairo",
-                                                                            color: Colors.teal),
+                                                                            fontFamily:
+                                                                                "Cairo",
+                                                                            color:
+                                                                                Colors.teal),
                                                                       ),
                                                                     ),
                                                                     Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(8.0),
-                                                                      child: Row(
+                                                                      padding: const EdgeInsets
+                                                                          .all(
+                                                                          8.0),
+                                                                      child:
+                                                                          Row(
                                                                         children: [
                                                                           Flexible(
-                                                                            child: TextField(
+                                                                            child:
+                                                                                TextField(
                                                                               decoration: InputDecoration(
                                                                                 hintStyle: TextStyle(color: Colors.teal),
                                                                                 hintText: "اضف العنوان",
@@ -473,12 +520,18 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                                       ),
                                                                     ),
                                                                     Padding(
-                                                                      padding:
-                                                                          const EdgeInsets.all(8.0),
-                                                                      child: Row(
+                                                                      padding: const EdgeInsets
+                                                                          .all(
+                                                                          8.0),
+                                                                      child:
+                                                                          Row(
                                                                         children: [
                                                                           Flexible(
-                                                                            child: TextField(decoration: InputDecoration(hintStyle: TextStyle(color: Colors.teal), hintText: "اضف ملحوظه",
+                                                                            child:
+                                                                                TextField(
+                                                                              decoration: InputDecoration(
+                                                                                hintStyle: TextStyle(color: Colors.teal),
+                                                                                hintText: "اضف ملحوظه",
                                                                               ),
                                                                               controller: tc_body,
                                                                               textAlign: TextAlign.right,
@@ -489,45 +542,56 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                                       ),
                                                                     ),
                                                                     Align(
-                                                                      alignment: Alignment.center,
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .center,
                                                                       child:
-                                                                        Padding(
-                                                                          padding: const EdgeInsets.all(8.0),
-                                                                          child: Row(
-                                                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                                                            mainAxisAlignment: MainAxisAlignment.center,
-                                                                            children: [
-                                                                              ElevatedButton(
-                                                                                      onPressed: () {
-                                                                                          if(tc_title.text.isEmpty){
-                                                                                            displayToastMessage("حقل العنوان فارغ");
-                                                                                          }else if(tc_body.text.isEmpty){
-                                                                                            displayToastMessage("حقل النص فارغ");
-                                                                                          }else{
-
-                                                                                            displayToastMessage("تم اضافة الملاحظة");
-                                                                                            saveNote(tc_title.text,tc_body.text,widget.KName,widget.kasyeda,widget.KNameT,widget.kasyedaTRepeat);
-                                                                                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
-                                                                                          }
-                                                                                    },
-                                                                            child: Text("حفظ", textAlign: TextAlign.right,
-                                                                                      style: TextStyle(color: Colors.teal, fontFamily: "Cairo", fontSize: 14),),
-                                                                          )
-                                                                        ],
+                                                                          Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .all(
+                                                                            8.0),
+                                                                        child:
+                                                                            Row(
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.center,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            ElevatedButton(
+                                                                              onPressed: () {
+                                                                                if (tc_title.text.isEmpty) {
+                                                                                  displayToastMessage("حقل العنوان فارغ");
+                                                                                } else if (tc_body.text.isEmpty) {
+                                                                                  displayToastMessage("حقل النص فارغ");
+                                                                                } else {
+                                                                                  displayToastMessage("تم اضافة الملاحظة");
+                                                                                  saveNote(tc_title.text, tc_body.text, widget.KName, widget.kasyeda, widget.KNameT, widget.kasyedaTRepeat);
+                                                                                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                                                                }
+                                                                              },
+                                                                              child: Text(
+                                                                                "حفظ",
+                                                                                textAlign: TextAlign.right,
+                                                                                style: TextStyle(color: Colors.teal, fontFamily: "Cairo", fontSize: 14),
+                                                                              ),
+                                                                            )
+                                                                          ],
+                                                                        ),
                                                                       ),
-                                                                    ),
                                                                     )
                                                                   ],
                                                                 ),
                                                               ),
                                                             ),
-                                                            behavior: SnackBarBehavior.floating,
-                                                            backgroundColor: Colors.transparent,
+                                                            behavior:
+                                                                SnackBarBehavior
+                                                                    .floating,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
                                                             elevation: 0,
                                                           ),
                                                         );
-
                                                       },
                                                       child: Text(
                                                         "أضف ملاحظة",
@@ -535,7 +599,8 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                             TextAlign.right,
                                                         style: TextStyle(
                                                             color: Colors.teal,
-                                                            fontFamily: "Cairo"),
+                                                            fontFamily:
+                                                                "Cairo"),
                                                       ),
                                                     ),
                                                     Image.asset(
@@ -547,9 +612,17 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                   ],
                                                 ),
                                                 SizedBox(
-                                                  child: Divider(color: const Color.fromARGB(255, 135, 138, 138)),
+                                                  child: Divider(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              135,
+                                                              138,
+                                                              138)),
                                                 ),
-                                                SizedBox(height: 10,),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
 
                                                 //حجم الخط
                                                 Row(
@@ -557,26 +630,29 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                       MainAxisAlignment.end,
                                                   children: [
                                                     TextButton(
-                                                      style: TextButton.styleFrom(
+                                                      style:
+                                                          TextButton.styleFrom(
                                                         foregroundColor:
                                                             Colors.white,
                                                         padding:
-                                                            const EdgeInsets.all(
-                                                                8.0),
+                                                            const EdgeInsets
+                                                                .all(8.0),
                                                         textStyle:
                                                             const TextStyle(
                                                                 fontSize: 16),
                                                       ),
                                                       onPressed: () {
-                                                        if(textsize==10){
-                                                          displayToastMessage("عذرا لا يمكن تصغير حجم الخط اكثر من ذلك");
-                                                        }else{
+                                                        if (textsize == 10) {
+                                                          displayToastMessage(
+                                                              "عذرا لا يمكن تصغير حجم الخط اكثر من ذلك");
+                                                        } else {
                                                           setState(() {
                                                             textsize -= 5;
                                                           });
                                                         }
-                                                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .hideCurrentSnackBar();
                                                       },
                                                       child: Text(
                                                         "-",
@@ -585,19 +661,21 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                         style: TextStyle(
                                                             fontSize: 35,
                                                             color: Colors.teal,
-                                                            fontFamily: "Cairo"),
+                                                            fontFamily:
+                                                                "Cairo"),
                                                       ),
                                                     ),
                                                     Spacer(),
                                                     TextButton(
-                                                      style: TextButton.styleFrom(
+                                                      style:
+                                                          TextButton.styleFrom(
                                                         foregroundColor:
                                                             Colors.teal,
                                                         backgroundColor:
                                                             Colors.teal,
                                                         padding:
-                                                            const EdgeInsets.all(
-                                                                8.0),
+                                                            const EdgeInsets
+                                                                .all(8.0),
                                                         textStyle:
                                                             const TextStyle(
                                                                 fontSize: 16),
@@ -606,8 +684,9 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                         setState(() {
                                                           textsize = 20;
                                                         });
-                                                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .hideCurrentSnackBar();
                                                       },
                                                       child: Text(
                                                         "=",
@@ -615,27 +694,36 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                             TextAlign.right,
                                                         style: TextStyle(
                                                             color: Colors.white,
-                                                            fontFamily: "Cairo"),
+                                                            fontFamily:
+                                                                "Cairo"),
                                                       ),
                                                     ),
                                                     Spacer(),
                                                     TextButton(
-                                                      style: TextButton.styleFrom(
-                                                        foregroundColor: Colors.white,
-                                                        padding: const EdgeInsets.all(8.0),
-                                                        textStyle: const TextStyle(fontSize: 16),
+                                                      style:
+                                                          TextButton.styleFrom(
+                                                        foregroundColor:
+                                                            Colors.white,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        textStyle:
+                                                            const TextStyle(
+                                                                fontSize: 16),
                                                       ),
                                                       onPressed: () {
-                                                        if(textsize==50){
-                                                          displayToastMessage("عذرا لا يمكن تكبير حجم الخط اكثر من ذلك");
-                                                        }else{
+                                                        if (textsize == 50) {
+                                                          displayToastMessage(
+                                                              "عذرا لا يمكن تكبير حجم الخط اكثر من ذلك");
+                                                        } else {
                                                           setState(() {
                                                             textsize += 5;
                                                           });
                                                         }
 
-                                                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .hideCurrentSnackBar();
                                                       },
                                                       child: Text(
                                                         "+",
@@ -644,15 +732,22 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                         style: TextStyle(
                                                             color: Colors.teal,
                                                             fontSize: 25,
-                                                            fontFamily: "Cairo"),
+                                                            fontFamily:
+                                                                "Cairo"),
                                                       ),
                                                     ),
                                                     Spacer(),
                                                     TextButton(
-                                                      style: TextButton.styleFrom(
-                                                        foregroundColor: Colors.white,
-                                                        padding: const EdgeInsets.all(8.0),
-                                                        textStyle: const TextStyle(fontSize: 16),
+                                                      style:
+                                                          TextButton.styleFrom(
+                                                        foregroundColor:
+                                                            Colors.white,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        textStyle:
+                                                            const TextStyle(
+                                                                fontSize: 16),
                                                       ),
                                                       onPressed: () {
                                                         //function
@@ -663,39 +758,54 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                             TextAlign.right,
                                                         style: TextStyle(
                                                             color: Colors.teal,
-                                                            fontFamily: "Cairo"),
+                                                            fontFamily:
+                                                                "Cairo"),
                                                       ),
                                                     ),
                                                   ],
                                                 ),
                                                 SizedBox(
                                                   child: Divider(
-                                                      color: const Color.fromARGB(255, 135, 138, 138)),
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              135,
+                                                              138,
+                                                              138)),
                                                 ),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment.end,
                                                   children: [
-
                                                     TextButton(
-                                                      style: TextButton.styleFrom(
-                                                        foregroundColor: Colors.white,
-                                                        padding: const EdgeInsets.all(8.0),
-                                                        textStyle: const TextStyle(fontSize: 12),
+                                                      style:
+                                                          TextButton.styleFrom(
+                                                        foregroundColor:
+                                                            Colors.white,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        textStyle:
+                                                            const TextStyle(
+                                                                fontSize: 12),
                                                       ),
                                                       onPressed: () {
-                                                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .hideCurrentSnackBar();
 
-                                                        openSelectionDialog(context);
-
+                                                        openSelectionDialog(
+                                                            context);
                                                       },
                                                       child: Text(
                                                         "مشاركه  القصيدة",
-                                                        textAlign: TextAlign.right,
+                                                        textAlign:
+                                                            TextAlign.right,
                                                         style: TextStyle(
                                                             color: Colors.teal,
                                                             fontSize: 16,
-                                                            fontFamily: "Cairo"),
+                                                            fontFamily:
+                                                                "Cairo"),
                                                       ),
                                                     ),
                                                     Image.asset(
@@ -704,13 +814,17 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                       height: d1,
                                                       fit: BoxFit.fill,
                                                     ),
-
                                                   ],
                                                 ),
                                                 SizedBox(
                                                   child: Divider(
                                                       //height: 2,
-                                                      color: const Color.fromARGB(255, 135, 138, 138)),
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              135,
+                                                              138,
+                                                              138)),
                                                 ),
                                                 SizedBox(
                                                   height: 10,
@@ -724,59 +838,97 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                       width: 35.0,
                                                       height: 35.0,
                                                       child: InkWell(
-                                                        child: const DecoratedBox(
-                                                          decoration:
-                                                              const BoxDecoration(
-                                                                  color: Color.fromARGB(255, 81, 222, 207),
-                                                                  shape: BoxShape.circle),
-                                                        ),
-                                                        onTap: () {
-                                                          setState(() {
-                                                            textcolor = Color.fromARGB(255, 81, 222, 207);
-                                                          });
-                                                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
-                                                        },
-                                                      ),
-                                                    ),
-                                                    Spacer(),
-                                                    SizedBox(
-                                                      width: 35.0,
-                                                      height: 35.0,
-                                                      child: InkWell(
-                                                        child: const DecoratedBox(
-                                                          decoration:
-                                                              const BoxDecoration(
-                                                                  color: Color.fromARGB(255, 4, 126, 99),
-                                                                  shape: BoxShape.circle),
-                                                        ),
-                                                        onTap: () {
-                                                          setState(() {
-                                                            textcolor = Color.fromARGB(255,4,126,99);
-                                                          });
-                                                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
-                                                        },
-                                                      ),
-                                                    ),
-                                                    Spacer(),
-                                                    SizedBox(
-                                                      width: 35.0,
-                                                      height: 35.0,
-                                                      child: InkWell(
-                                                        child: const DecoratedBox(
+                                                        child:
+                                                            const DecoratedBox(
                                                           decoration:
                                                               const BoxDecoration(
                                                                   color: Color
-                                                                      .fromARGB(255, 15, 38, 76),
-                                                                  shape: BoxShape.circle),
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          81,
+                                                                          222,
+                                                                          207),
+                                                                  shape: BoxShape
+                                                                      .circle),
                                                         ),
                                                         onTap: () {
                                                           setState(() {
-                                                            textcolor = Color.fromARGB(255, 15, 38, 76);
+                                                            textcolor =
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    81,
+                                                                    222,
+                                                                    207);
                                                           });
-                                                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .hideCurrentSnackBar();
+                                                        },
+                                                      ),
+                                                    ),
+                                                    Spacer(),
+                                                    SizedBox(
+                                                      width: 35.0,
+                                                      height: 35.0,
+                                                      child: InkWell(
+                                                        child:
+                                                            const DecoratedBox(
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          4,
+                                                                          126,
+                                                                          99),
+                                                                  shape: BoxShape
+                                                                      .circle),
+                                                        ),
+                                                        onTap: () {
+                                                          setState(() {
+                                                            textcolor =
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    4,
+                                                                    126,
+                                                                    99);
+                                                          });
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .hideCurrentSnackBar();
+                                                        },
+                                                      ),
+                                                    ),
+                                                    Spacer(),
+                                                    SizedBox(
+                                                      width: 35.0,
+                                                      height: 35.0,
+                                                      child: InkWell(
+                                                        child:
+                                                            const DecoratedBox(
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          15,
+                                                                          38,
+                                                                          76),
+                                                                  shape: BoxShape
+                                                                      .circle),
+                                                        ),
+                                                        onTap: () {
+                                                          setState(() {
+                                                            textcolor =
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    15,
+                                                                    38,
+                                                                    76);
+                                                          });
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .hideCurrentSnackBar();
                                                         },
                                                       ),
                                                     ),
@@ -788,15 +940,19 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                         child: DecoratedBox(
                                                           decoration:
                                                               const BoxDecoration(
-                                                                  color: Colors.teal,
-                                                                  shape: BoxShape.circle),
+                                                                  color: Colors
+                                                                      .teal,
+                                                                  shape: BoxShape
+                                                                      .circle),
                                                         ),
                                                         onTap: () {
                                                           setState(() {
-                                                            textcolor = Colors.teal;
+                                                            textcolor =
+                                                                Colors.teal;
                                                           });
-                                                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .hideCurrentSnackBar();
                                                         },
                                                       ),
                                                     ),
@@ -808,15 +964,19 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                         child: DecoratedBox(
                                                           decoration:
                                                               const BoxDecoration(
-                                                                  color: Colors.black,
-                                                                  shape: BoxShape.circle),
+                                                                  color: Colors
+                                                                      .black,
+                                                                  shape: BoxShape
+                                                                      .circle),
                                                         ),
                                                         onTap: () {
                                                           setState(() {
-                                                            textcolor = Colors.black;
+                                                            textcolor =
+                                                                Colors.black;
                                                           });
-                                                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .hideCurrentSnackBar();
                                                         },
                                                       ),
                                                     ),
@@ -829,7 +989,8 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                             TextAlign.right,
                                                         style: TextStyle(
                                                             color: Colors.teal,
-                                                            fontFamily: "Cairo"),
+                                                            fontFamily:
+                                                                "Cairo"),
                                                       ),
                                                     ),
                                                   ],
@@ -845,18 +1006,31 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                       width: 35.0,
                                                       height: 35.0,
                                                       child: InkWell(
-                                                        child: const DecoratedBox(
+                                                        child:
+                                                            const DecoratedBox(
                                                           decoration:
                                                               const BoxDecoration(
-                                                                  color: Color.fromARGB(255, 220, 237, 241),
-                                                                  shape: BoxShape.circle),
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          220,
+                                                                          237,
+                                                                          241),
+                                                                  shape: BoxShape
+                                                                      .circle),
                                                         ),
                                                         onTap: () {
                                                           setState(() {
-                                                            backColor = Color.fromARGB(255, 220, 237, 241);
+                                                            backColor =
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    220,
+                                                                    237,
+                                                                    241);
                                                           });
-                                                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .hideCurrentSnackBar();
                                                         },
                                                       ),
                                                     ),
@@ -865,18 +1039,31 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                       width: 35.0,
                                                       height: 35.0,
                                                       child: InkWell(
-                                                        child: const DecoratedBox(
+                                                        child:
+                                                            const DecoratedBox(
                                                           decoration:
                                                               const BoxDecoration(
-                                                                  color: Color.fromARGB(255, 230, 219, 208),
-                                                                  shape: BoxShape.circle),
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          230,
+                                                                          219,
+                                                                          208),
+                                                                  shape: BoxShape
+                                                                      .circle),
                                                         ),
                                                         onTap: () {
                                                           setState(() {
-                                                            backColor = Color.fromARGB(255,230,219, 208);
+                                                            backColor =
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    230,
+                                                                    219,
+                                                                    208);
                                                           });
-                                                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .hideCurrentSnackBar();
                                                         },
                                                       ),
                                                     ),
@@ -885,18 +1072,31 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                       width: 35.0,
                                                       height: 35.0,
                                                       child: InkWell(
-                                                        child: const DecoratedBox(
+                                                        child:
+                                                            const DecoratedBox(
                                                           decoration:
                                                               const BoxDecoration(
-                                                                  color: Color.fromARGB(255, 223, 223, 223),
-                                                                  shape: BoxShape.circle),
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          223,
+                                                                          223,
+                                                                          223),
+                                                                  shape: BoxShape
+                                                                      .circle),
                                                         ),
                                                         onTap: () {
                                                           setState(() {
-                                                            backColor = Color.fromARGB(255, 223, 223, 223);
+                                                            backColor =
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    223,
+                                                                    223,
+                                                                    223);
                                                           });
-                                                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .hideCurrentSnackBar();
                                                         },
                                                       ),
                                                     ),
@@ -908,15 +1108,27 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                         child: DecoratedBox(
                                                           decoration:
                                                               const BoxDecoration(
-                                                                  color: Color.fromARGB(255, 255, 248, 233),
-                                                                  shape: BoxShape.circle),
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          255,
+                                                                          248,
+                                                                          233),
+                                                                  shape: BoxShape
+                                                                      .circle),
                                                         ),
                                                         onTap: () {
                                                           setState(() {
-                                                            backColor = Color.fromARGB(255, 255, 248, 233);
+                                                            backColor =
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    255,
+                                                                    248,
+                                                                    233);
                                                           });
-                                                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .hideCurrentSnackBar();
                                                         },
                                                       ),
                                                     ),
@@ -928,23 +1140,27 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                         child: DecoratedBox(
                                                           decoration:
                                                               const BoxDecoration(
-                                                                  color: Colors.white,
-                                                                  shape: BoxShape.circle),
+                                                                  color: Colors
+                                                                      .white,
+                                                                  shape: BoxShape
+                                                                      .circle),
                                                         ),
                                                         onTap: () {
                                                           setState(() {
-                                                            backColor = Colors.white;
+                                                            backColor =
+                                                                Colors.white;
                                                           });
-                                                          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
+                                                          ScaffoldMessenger.of(
+                                                                  context)
+                                                              .hideCurrentSnackBar();
                                                         },
                                                       ),
                                                     ),
-
                                                     Spacer(),
                                                     Text(
                                                       "لون الخلفيه",
-                                                      textAlign: TextAlign.right,
+                                                      textAlign:
+                                                          TextAlign.right,
                                                       style: TextStyle(
                                                           color: Colors.teal,
                                                           fontFamily: "Cairo"),
@@ -958,7 +1174,10 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                           backgroundColor: Colors.white,
                                           elevation: 0,
                                         ),
-                                  ).closed.then((value) {_isSnackbarActive = false;
+                                      )
+                                      .closed
+                                      .then((value) {
+                                    _isSnackbarActive = false;
                                   });
                                   //Bottom Sheet
                                 }
@@ -970,7 +1189,8 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                             height: 50,
                             child: Align(
                               alignment: Alignment.centerRight,
-                              child: Text("صوت القصيدة أبرق بدا نحو المرابع يلمع",
+                              child: Text(
+                                "صوت القصيدة أبرق بدا نحو المرابع يلمع",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: "Amiri Regular"),
@@ -1001,8 +1221,8 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                 fontWeight: FontWeight.w600,
                               ),
                               progress: positionData?.position ?? Duration.zero,
-                              buffered:
-                                  positionData?.bufferedPosition ?? Duration.zero,
+                              buffered: positionData?.bufferedPosition ??
+                                  Duration.zero,
                               total: positionData?.duration ?? Duration.zero,
                               onSeek: _audioPlayer.seek,
                             ),
@@ -1021,30 +1241,38 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                             width: 45,
                             child: IconButton(
                                 onPressed: () {
-                                  if(_audioPlayer.position.inSeconds>=0&&_audioPlayer.position.inSeconds<60){
+                                  if (_audioPlayer.position.inSeconds >= 0 &&
+                                      _audioPlayer.position.inSeconds < 60) {
                                     _audioPlayer.seek(Duration(
-                                        seconds: _audioPlayer.position.inSeconds - _audioPlayer.position.inSeconds));
-                                  }else{
+                                        seconds: _audioPlayer
+                                                .position.inSeconds -
+                                            _audioPlayer.position.inSeconds));
+                                  } else {
                                     _audioPlayer.seek(Duration(
-                                        seconds: _audioPlayer.position.inSeconds - 60));
+                                        seconds:
+                                            _audioPlayer.position.inSeconds -
+                                                60));
                                   }
                                 },
-                                icon:
-                                    SvgPicture.asset("assets/img/ic_pspeed.svg")),
+                                icon: SvgPicture.asset(
+                                    "assets/img/ic_pspeed.svg")),
                           ),
                           SizedBox(
                             height: 45,
                             width: 45,
                             child: IconButton(
                                 onPressed: () {
-                                  if(_audioPlayer.position.inSeconds>=0&&_audioPlayer.position.inSeconds<10){
+                                  if (_audioPlayer.position.inSeconds >= 0 &&
+                                      _audioPlayer.position.inSeconds < 10) {
+                                    _audioPlayer.seek(Duration(
+                                        seconds: _audioPlayer
+                                                .position.inSeconds -
+                                            _audioPlayer.position.inSeconds));
+                                  } else {
                                     _audioPlayer.seek(Duration(
                                         seconds:
-                                        _audioPlayer.position.inSeconds - _audioPlayer.position.inSeconds));
-                                  }else{
-                                    _audioPlayer.seek(Duration(
-                                        seconds:
-                                        _audioPlayer.position.inSeconds - 10));
+                                            _audioPlayer.position.inSeconds -
+                                                10));
                                   }
                                 },
                                 icon: SvgPicture.asset("assets/img/ic_p.svg")),
@@ -1064,34 +1292,40 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                 },
                                 icon: !p
                                     ? SvgPicture.asset("assets/img/ic_play.svg")
-                                    : SvgPicture.asset("assets/img/ic_pause.svg")),
+                                    : SvgPicture.asset(
+                                        "assets/img/ic_pause.svg")),
                           ),
                           SizedBox(
                             height: 45,
                             width: 45,
                             child: IconButton(
                                 onPressed: () {
-                                  if(_audioPlayer.position.inSeconds+10<=_audioPlayer.duration!.inSeconds){
+                                  if (_audioPlayer.position.inSeconds + 10 <=
+                                      _audioPlayer.duration!.inSeconds) {
                                     _audioPlayer.seek(Duration(
                                         seconds:
-                                        _audioPlayer.position.inSeconds + 10));
-                                  }
-                                },
-                                icon: SvgPicture.asset("assets/img/ic_next.svg")),
-                          ),
-                          SizedBox(
-                            height: 45,
-                            width: 45,
-                            child: IconButton(
-                                onPressed: () {
-                                  if(_audioPlayer.position.inSeconds+60<=_audioPlayer.duration!.inSeconds){
-                                    _audioPlayer.seek(Duration(
-                                        seconds:
-                                        _audioPlayer.position.inSeconds + 60));
+                                            _audioPlayer.position.inSeconds +
+                                                10));
                                   }
                                 },
                                 icon:
-                                    SvgPicture.asset("assets/img/ic_nspeed.svg")),
+                                    SvgPicture.asset("assets/img/ic_next.svg")),
+                          ),
+                          SizedBox(
+                            height: 45,
+                            width: 45,
+                            child: IconButton(
+                                onPressed: () {
+                                  if (_audioPlayer.position.inSeconds + 60 <=
+                                      _audioPlayer.duration!.inSeconds) {
+                                    _audioPlayer.seek(Duration(
+                                        seconds:
+                                            _audioPlayer.position.inSeconds +
+                                                60));
+                                  }
+                                },
+                                icon: SvgPicture.asset(
+                                    "assets/img/ic_nspeed.svg")),
                           ),
                           SizedBox(
                             height: 55,
@@ -1100,11 +1334,10 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                 onPressed: () {
                                   onSetRepeatMode();
                                 },
-                                icon:
-                                    SvgPicture.asset(
-                                        "assets/img/ic_repeat.svg",
-                                        color:loobMode?Colors.amber:Colors.white ,
-                                    )),
+                                icon: SvgPicture.asset(
+                                  "assets/img/ic_repeat.svg",
+                                  color: loobMode ? Colors.amber : Colors.white,
+                                )),
                           ),
                         ],
                       ),
@@ -1118,30 +1351,37 @@ class _KasydaDetailsState extends State<KasydaDetails> {
       ),
     );
   }
+
   void dispose() {
     super.dispose();
     _audioPlayer.stop();
   }
-  void saveNote(String title, String body, String kName, String kasyeda, String kNameT, String kasyedaT) async{
-    await  dbNotify.saveDuaa(NoteModel("$title","$body","$kName","$kasyeda","$kNameT","$kasyedaT"));
+
+  void saveNote(String title, String body, String kName, String kasyeda,
+      String kNameT, String kasyedaT) async {
+    await dbNotify.saveDuaa(NoteModel(
+        "$title", "$body", "$kName", "$kasyeda", "$kNameT", "$kasyedaT"));
   }
 
-  void saveFav(String kName, String kasyeda, String kNameT, String kasyedaT) async{
-    await  dbFav.saveFav(FavModel("$kName","$kasyeda","$kNameT","$kasyedaT"));
+  void saveFav(
+      String kName, String kasyeda, String kNameT, String kasyedaT) async {
+    await dbFav.saveFav(FavModel("$kName", "$kasyeda", "$kNameT", "$kasyedaT"));
   }
-  void deleteFav(FavModel currentNote) async{
+
+  void deleteFav(FavModel currentNote) async {
     await dbFav.deleteFav(currentNote.id);
     getAllData();
   }
-
-
 
   Future<void> openSelectionDialog(BuildContext context) async {
     List<String>? result = await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('اضف نصوص للمشاركة',style: TextStyle(fontFamily: 'Cairo'),),
+          title: Text(
+            'اضف نصوص للمشاركة',
+            style: TextStyle(fontFamily: 'Cairo'),
+          ),
           content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return Directionality(
@@ -1155,17 +1395,19 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                       bool isSelected = selectedTexts.contains(text);
 
                       return ListTile(
-                        title: Text(text,style: TextStyle(fontFamily: 'Cairo')),
+                        title:
+                            Text(text, style: TextStyle(fontFamily: 'Cairo')),
                         tileColor: isSelected ? Constants.primary : null,
                         onTap: () {
                           setState(() {
                             if (isSelected) {
-                                selectedTexts.remove(text);
+                              selectedTexts.remove(text);
                             } else {
                               if (selectedTexts.length < 4) {
                                 selectedTexts.add(text);
                               } else {
-                                displayToastMessage('يمكنك فقط اختيار 4 ابيات للمشاركة');
+                                displayToastMessage(
+                                    'يمكنك فقط اختيار 4 ابيات للمشاركة');
                               }
                             }
                           });
@@ -1187,15 +1429,16 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                   context: context,
                   builder: (BuildContext context) {
                     return CustomDialog(
-                      kasedaName: widget.KNameT,
-                      kaseda: widget.kasyedaTRepeat,
-                      allText:selectedTexts
-                    );
+                        kasedaName: widget.KNameT,
+                        kaseda: widget.kasyedaTRepeat,
+                        allText: selectedTexts);
                   },
                 );
-
-                },
-              child: Text('تأكيد',style: TextStyle(fontFamily: 'Cairo'),),
+              },
+              child: Text(
+                'تأكيد',
+                style: TextStyle(fontFamily: 'Cairo'),
+              ),
             ),
           ],
         );

@@ -94,6 +94,7 @@ class DwaweenScreen extends StatelessWidget {
                     provider.dewanController.clear();
                     provider.searchDewanMethod(searchValue: '');
                   },
+                  onFieldSubmitted: (String) {},
                 ),
                 SizedBox(
                   height: 10,
@@ -220,6 +221,8 @@ class DwaweenScreen extends StatelessWidget {
                                             )),
                                       ),
                                       onTap: () {
+                                        provider.seDewanIndex(index);
+
                                         provider.setKafya(index);
 
                                         Navigator.push(

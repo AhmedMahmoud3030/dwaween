@@ -7,6 +7,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
+import '../KasayedByCategory/kasayed_by_category.dart';
 import '../provider.dart';
 
 class KasaedScreen extends StatelessWidget {
@@ -95,6 +96,7 @@ class KasaedScreen extends StatelessWidget {
                         provider.kasayedController.clear();
                         provider.searchKasayedMethod(searchValue: '');
                       },
+                      onFieldSubmitted: (String) {},
                     ),
                     SizedBox(
                       height: 10,
@@ -223,7 +225,17 @@ class KasaedScreen extends StatelessWidget {
                                               ],
                                             ),
                                           ),
-                                          onTap: () {},
+                                          onTap: () {
+                                            provider.setGroupedByIndex(
+                                                index: index);
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    KasaedByCategoryScreen(),
+                                              ),
+                                            );
+                                          },
                                         ),
                                       ),
                                     );

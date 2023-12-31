@@ -79,11 +79,11 @@ class DrawerFb1 extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     Navigator.of(context).pop();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => noteData(),
-                        ),
-                      );
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => noteData(),
+                      ),
+                    );
                   },
                   child: Row(
                     children: [

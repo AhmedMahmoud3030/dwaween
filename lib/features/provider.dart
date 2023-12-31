@@ -13,42 +13,142 @@ import 'package:flutter/services.dart';
 import 'Kasaed/kasaed.dart';
 
 class BaseProvider extends ChangeNotifier {
+  //!-------------------------Base-----------------------------------------------
+  Future<void> readDwaweenData() async {
+    dewanBodyLoading = true;
+    notifyListeners();
+    final String res =
+        await rootBundle.loadString('assets/json/dewanlist.json');
+
+    var loadedData = await json.decode(res);
+
+    dewanBody = await DawawenBody.fromJson(loadedData);
+    dewanBodyTemp = await DawawenBody.fromJson(loadedData);
+
+    dewanBodyLoading = false;
+    groupByPurpose(dewanBody!.dawawen);
+    notifyListeners();
+  }
+
+  restJson() {
+    Map<String, dynamic> json = jsonDecode(jsonEncode(dewanBodyTemp));
+    dewanBody = DawawenBody.fromJson(json);
+  }
+
+  List<Dawawen> filterDawawenByName(String name) {
+    var de = dewanBodyTemp;
+    return de!.dawawen.where((d) {
+      return d.name.toLowerCase().contains(name.toLowerCase());
+    }).toList();
+  }
+
+  List<Dawawen> filterKaseydaByText(String text) {
+    var de = dewanBodyTemp;
+    de!.dawawen.forEach((dawawen) {
+      dawawen.kasaed = dawawen.kasaed
+          .where((kenashat) =>
+              kenashat.kaseyda.toLowerCase().contains(text.toLowerCase()))
+          .toList();
+    });
+
+    return de.dawawen;
+  }
+
+  void groupByPurpose(List<Dawawen> dawawenList) {
+    Map<String, List<Kenashat>> grouped = {};
+
+    for (var dawawen in dawawenList) {
+      for (var kaseda in dawawen.kasaed) {
+        grouped.putIfAbsent(kaseda.purpose, () => []);
+        grouped[kaseda.purpose]!.add(kaseda);
+      }
+    }
+
+    groupedBy = grouped.entries.map((entry) {
+      return groupByClass(
+        purpose: entry.key,
+        kenshat: entry.value,
+      );
+    }).toList();
+
+    notifyListeners();
+  }
+
+  //!----------------------------------------------------------------------------
   //!-----------------------HomeScreen-------------------------------------------
   TextEditingController homeController = TextEditingController();
 
   searchHomeMethod({
     required String searchValue,
   }) {
-    Map<String, dynamic> json = jsonDecode(jsonEncode(dewanBodyTemp));
-    dewanBody = DawawenBody.fromJson(json);
-
+    restJson();
     if (searchValue.isNotEmpty) {
-      dewanBody = searchByNameOrKaseyda(searchValue);
+      String lowerCaseSearchValue = (searchValue).toLowerCase();
+      List<Dawawen> filterDawawenByNameList =
+          filterDawawenByName(lowerCaseSearchValue);
+      if (filterDawawenByNameList.length > 0) {
+        dewanBody!.dawawen.clear();
+        dewanBody!.dawawen = filterDawawenByNameList;
+      } else {
+        List<Dawawen> filterKaseydaByTextList =
+            filterKaseydaByText(lowerCaseSearchValue);
+        dewanBody!.dawawen.clear();
+        dewanBody!.dawawen = filterKaseydaByTextList;
+      }
     }
-
     groupByPurpose(dewanBody!.dawawen);
-
     notifyListeners();
   }
 
-  DawawenBody searchByNameOrKaseyda(String searchTerm) {
-    // Filter Dawawen objects based on the provided search term
-    List<Dawawen> filteredDawawen = dewanBodyTemp!.dawawen.where((dawawen) {
-      // Check if Dawawen Name or any Kaseyda matches the search term
-      bool nameMatch =
-          dawawen.name.toLowerCase().contains(searchTerm.toLowerCase());
-      bool kaseydaMatch = dawawen.kasaed.every((kenashat) =>
-          kenashat.kaseyda.toLowerCase().contains(searchTerm.toLowerCase()));
+  //!----------------------------------------------------------------------------
+  //!-----------------------DewanScreen-------------------------------------------
+  TextEditingController dewanController = TextEditingController();
 
-      // Return true if either condition is met
-      return nameMatch || kaseydaMatch;
-    }).toList();
-
-    // Return a new DawawenBody instance with the filtered Dawawen objects
-    return DawawenBody(dawawen: filteredDawawen);
+  searchDewanMethod({
+    required String searchValue,
+  }) {
+    restJson();
+    if (searchValue.isNotEmpty) {
+      String lowerCaseSearchValue = (searchValue).toLowerCase();
+      List<Dawawen> filterDawawenByNameList =
+          filterDawawenByName(lowerCaseSearchValue);
+      if (filterDawawenByNameList.length > 0) {
+        dewanBody!.dawawen.clear();
+        dewanBody!.dawawen = filterDawawenByNameList;
+      } else {
+        dewanBody!.dawawen.clear();
+      }
+    }
+    groupByPurpose(dewanBody!.dawawen);
+    notifyListeners();
   }
 
   //!----------------------------------------------------------------------------
+  //!-----------------------KasayedScreen-------------------------------------------
+  TextEditingController kasayedController = TextEditingController();
+
+  searchKasayedMethod({
+    required String searchValue,
+  }) {
+    restJson();
+    if (searchValue.isNotEmpty) {
+      String lowerCaseSearchValue = (searchValue).toLowerCase();
+
+      List<Dawawen> filterKaseydaByTextList =
+          filterKaseydaByText(lowerCaseSearchValue);
+      if (filterKaseydaByTextList.length > 0) {
+        dewanBody!.dawawen.clear();
+
+        dewanBody!.dawawen = filterKaseydaByTextList;
+      } else {
+        dewanBody!.dawawen.clear();
+      }
+    } else {}
+    groupByPurpose(dewanBody!.dawawen);
+    notifyListeners();
+  }
+  //!----------------------------------------------------------------------------
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   TextEditingController searchController = TextEditingController();
@@ -104,86 +204,6 @@ class BaseProvider extends ChangeNotifier {
 
   void setSelectedIndex({required int index}) {
     selectedIndex = index;
-    notifyListeners();
-  }
-
-  Future<void> searchMethod({
-    int? selectIndex,
-    String? searchValue,
-  }) async {
-    Map<String, dynamic> json = jsonDecode(jsonEncode(dewanBodyTemp));
-    dewanBody = DawawenBody.fromJson(json);
-
-    if (selectIndex != null) {
-      // Search by Dawawen name
-      String lowerCaseSearchValue = (searchValue ?? '').toLowerCase();
-      dewanBody!.dawawen[dewanIndex!].kasaed.clear();
-
-      dewanBody!.dawawen[dewanIndex!].kasaed.addAll(
-        dewanBodyTemp!.dawawen[dewanIndex!].kasaed.where(
-          (element) =>
-              element.letter == _kafya[selectIndex] &&
-              (element.name.toLowerCase().contains(lowerCaseSearchValue) ||
-                  element.kaseyda.toLowerCase().contains(lowerCaseSearchValue)),
-        ),
-      );
-
-      kafyaIndex = selectIndex;
-    } else {
-      // Reset to the original state
-
-      // Search by Dawawen name
-      String lowerCaseSearchValue = (searchValue ?? '').toLowerCase();
-      dewanBody!.dawawen[dewanIndex!].kasaed.clear();
-
-      dewanBody!.dawawen[dewanIndex!].kasaed.addAll(
-        dewanBodyTemp!.dawawen[dewanIndex!].kasaed.where(
-          (element) =>
-              element.name.toLowerCase().contains(lowerCaseSearchValue),
-        ),
-      );
-      kafyaIndex = null;
-      // dewanBody = dewanBodyTemp;
-    }
-
-    groupByPurpose(dewanBody!.dawawen);
-
-    notifyListeners();
-  }
-
-  Future<void> readDwaweenData() async {
-    dewanBodyLoading = true;
-    notifyListeners();
-    final String res =
-        await rootBundle.loadString('assets/json/dewanlist.json');
-
-    var loadedData = await json.decode(res);
-
-    dewanBody = await DawawenBody.fromJson(loadedData);
-    dewanBodyTemp = await DawawenBody.fromJson(loadedData);
-
-    dewanBodyLoading = false;
-    groupByPurpose(dewanBody!.dawawen);
-    notifyListeners();
-  }
-
-  void groupByPurpose(List<Dawawen> dawawenList) {
-    Map<String, List<Kenashat>> grouped = {};
-
-    for (var dawawen in dawawenList) {
-      for (var kaseda in dawawen.kasaed) {
-        grouped.putIfAbsent(kaseda.purpose, () => []);
-        grouped[kaseda.purpose]!.add(kaseda);
-      }
-    }
-
-    groupedBy = grouped.entries.map((entry) {
-      return groupByClass(
-        purpose: entry.key,
-        kenshat: entry.value,
-      );
-    }).toList();
-
     notifyListeners();
   }
 }

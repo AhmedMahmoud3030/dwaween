@@ -16,10 +16,9 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   @override
   void initState() {
-
     Future(() =>
         Provider.of<BaseProvider>(context, listen: false).readDwaweenData());
-    
+
     Timer(Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,

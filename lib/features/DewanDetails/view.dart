@@ -92,7 +92,7 @@ class DewanDetailsPage extends StatelessWidget {
                           cursorRadius: Radius.circular(10),
                           controller: provider.searchController,
                           onChanged: (value) {
-                            provider.searchMethod(searchValue: value);
+                            provider.searchHomeMethod(searchValue: value);
                           },
                           cursorColor: Constants.primary,
                           decoration: InputDecoration(
@@ -135,7 +135,7 @@ class DewanDetailsPage extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   provider.searchController.clear();
-                                  provider.searchMethod(searchValue: '');
+                                  provider.searchHomeMethod(searchValue: '');
                                 },
                               ),
                             ),
@@ -302,10 +302,10 @@ class DewanDetailsPage extends StatelessWidget {
                             return Padding(
                               padding: const EdgeInsets.all(3.0),
                               child: GestureDetector(
-                                onTap: () async {
-                                  await provider.searchMethod(
-                                    selectIndex: indexGrid,
-                                  );
+                                onTap: () {
+                                  // await provider.searchHomeMethod(
+                                  //   selectIndex: indexGrid,
+                                  // );
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -496,10 +496,6 @@ class DewanDetailsPage extends StatelessWidget {
                                         ),
                                         onTap: () {
                                           // provider.setKafya(index);
-
-                                          
-
-                                          
                                         },
                                       );
                                     },

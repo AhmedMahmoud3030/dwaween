@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class DawawenBody {
-  final List<Dawawen> dawawen;
+   List<Dawawen> dawawen;
 
   DawawenBody({
     required this.dawawen,
@@ -30,12 +30,12 @@ class DawawenBody {
 }
 
 class Dawawen {
-  final String id;
-  final String name;
-  final String nameT;
-  final String dec;
-  final String type;
-  final List<Kenashat> kasaed;
+   String id;
+   String name;
+   String nameT;
+   String dec;
+   String type;
+   List<Kenashat> kasaed;
 
   Dawawen({
     required this.id,
@@ -88,14 +88,14 @@ class Dawawen {
 }
 
 class Kenashat {
-  final String id;
-  final String purpose;
-  final String type;
-  final String name;
-  final String nameT;
-  final String kaseyda;
-  final String kaseydaT;
-  final String letter;
+   String id;
+   String purpose;
+   String type;
+   String name;
+   String nameT;
+   String kaseyda;
+   String kaseydaT;
+   String letter;
 
   Kenashat({
     required this.id,

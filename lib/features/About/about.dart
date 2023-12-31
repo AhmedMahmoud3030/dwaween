@@ -121,7 +121,9 @@ class AboutScreen extends StatelessWidget {
                         ),
                         onPressed: () {
                           provider.searchController.clear();
-                          provider.searchMethod( searchValue: '', );
+                          provider.searchHomeMethod(
+                            searchValue: '',
+                          );
                         },
                       ),
                     ),

@@ -85,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                               SizedBox(
                                 height: mediaQuery.size.height * .02,
                               ),
-                              Container(
+                              SizedBox(
                                 height: mediaQuery.size.height * .07,
                                 child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -118,6 +118,9 @@ class HomeScreen extends StatelessWidget {
                                     Spacer(),
                                     InkWell(
                                       onTap: () {
+                                        FocusManager.instance.primaryFocus
+                                            ?.unfocus();
+
                                         provider.setSelectedIndex(index: 1);
                                         provider.searchHomeMethod(
                                             searchValue: '');
@@ -139,9 +142,9 @@ class HomeScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox(
-                                height: 10,
-                              ),
+                              // SizedBox(
+                              //   height: mediaQuery.size.height * .000001,
+                              // ),
                               Visibility(
                                 visible: provider.dewanBody!.dawawen.length > 0
                                     ? false
@@ -273,17 +276,27 @@ class HomeScreen extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                        onTap: () {
-                                          provider.setKafya(index);
+                                        onTap: provider
+                                                    .dewanBody!
+                                                    .dawawen[index]
+                                                    .kasaed
+                                                    .length >
+                                                0
+                                            ? () {
+                                                provider.setKafya(index);
 
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DewanDetailsPage(),
-                                            ),
-                                          );
-                                        },
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        DewanDetailsPage(),
+                                                  ),
+                                                );
+                                              }
+                                            : () {
+                                                Utils().displayToastMessage(
+                                                    'there_is_no_Kasayed'.tr());
+                                              },
                                       ),
                                     );
                                   },
@@ -293,10 +306,9 @@ class HomeScreen extends StatelessWidget {
                                           : provider.dewanBody?.dawawen.length,
                                 ),
                               ),
-                              SizedBox(
-                                height: 10,
-                              ),
-
+                              // SizedBox(
+                              //   height: 10,
+                              // ),
                               SizedBox(
                                 height: 35,
                                 child: Row(
@@ -331,9 +343,13 @@ class HomeScreen extends StatelessWidget {
                                     Spacer(),
                                     InkWell(
                                       onTap: () {
+                                        FocusManager.instance.primaryFocus
+                                            ?.unfocus();
+
                                         provider.setSelectedIndex(index: 2);
-                                        provider.searchMethod(searchValue: '');
-                                        provider.searchController.text = '';
+                                        provider.searchHomeMethod(
+                                            searchValue: '');
+                                        provider.homeController.clear();
                                       },
                                       child: Text(
                                         "view_all".tr(),
@@ -351,98 +367,140 @@ class HomeScreen extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              GridView.builder(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: mediaQuery.size.width / 30),
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2, childAspectRatio: 2),
-                                itemCount: provider.groupedBy.length > 15
-                                    ? 15
-                                    : provider.groupedBy.length,
-                                itemBuilder: (context, index) {
-                                  return Card(
-                                    margin: EdgeInsets.all(6),
-                                    child: InkWell(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                          color: Colors.white,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 15,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                  width: 6,
-                                                ),
-                                                SvgPicture.asset(
-                                                  "assets/images/icons/ic_ksaed.svg",
-                                                  height: 25,
-                                                  width: 25,
-                                                ),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Container(
-                                                  child: Text(
-                                                    maxLines: 1,
-                                                    overflow: TextOverflow.fade,
-                                                    provider.groupedBy[index]
-                                                        .purpose,
-                                                    style: TextStyle(
-                                                      color: Colors.teal,
-                                                      fontFamily:
-                                                          "Amiri Regular",
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  EdgeInsets.only(right: 22),
-                                              child: Align(
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  child: Text(
-                                                    "${context.locale.languageCode == 'ar' ? Utils().convertToArabicNumber(provider.groupedBy[index].kenshat.length.toString()) : provider.groupedBy[index].kenshat.length}  ${'poem'.tr()}",
-                                                    style: TextStyle(
-                                                        color: Colors.grey,
-                                                        fontFamily:
-                                                            "Amiri Regular"),
-                                                  )),
-                                            ),
-                                          ],
+                              Visibility(
+                                visible: provider.groupedBy.length > 0
+                                    ? false
+                                    : true,
+                                child: Container(
+                                  width: mediaQuery.size.width,
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: mediaQuery.size.width / 30),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Container(
+                                      padding: EdgeInsets.all(8),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        color: Colors.white,
+                                      ),
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          'there_is_no_Kasayed'.tr(),
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.teal,
+                                            fontFamily: "Cairo",
+                                          ),
                                         ),
                                       ),
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                KasaedByCategoryScreen(
-                                              indexList: index,
-                                            ),
-                                          ),
-                                        );
-                                      },
                                     ),
-                                  );
-                                },
+                                  ),
+                                ),
                               ),
-                              // DuelList(),
+                              Visibility(
+                                visible: provider.groupedBy.length > 0
+                                    ? true
+                                    : false,
+                                child: GridView.builder(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: mediaQuery.size.width / 30),
+                                  physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          childAspectRatio: 2),
+                                  itemCount: provider.groupedBy.length > 15
+                                      ? 15
+                                      : provider.groupedBy.length,
+                                  itemBuilder: (context, index) {
+                                    return Card(
+                                      margin: EdgeInsets.all(6),
+                                      child: InkWell(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                            color: Colors.white,
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 15,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  SizedBox(
+                                                    width: 6,
+                                                  ),
+                                                  SvgPicture.asset(
+                                                    "assets/images/icons/ic_ksaed.svg",
+                                                    height: 25,
+                                                    width: 25,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Container(
+                                                    child: Text(
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.fade,
+                                                      provider.groupedBy[index]
+                                                          .purpose,
+                                                      style: TextStyle(
+                                                        color: Colors.teal,
+                                                        fontFamily:
+                                                            "Amiri Regular",
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    EdgeInsets.only(right: 22),
+                                                child: Align(
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: Text(
+                                                      "${context.locale.languageCode == 'ar' ? Utils().convertToArabicNumber(provider.groupedBy[index].kenshat.length.toString()) : provider.groupedBy[index].kenshat.length}  ${'poem'.tr()}",
+                                                      style: TextStyle(
+                                                          color: Colors.grey,
+                                                          fontFamily:
+                                                              "Amiri Regular"),
+                                                    )),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        onTap: provider.groupedBy[index].kenshat
+                                                    .length >
+                                                0
+                                            ? () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        KasaedByCategoryScreen(
+                                                      indexList: index,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                            : null,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
                             ],
                           ),
                   ),

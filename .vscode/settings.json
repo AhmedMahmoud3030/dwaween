@@ -20,5 +20,9 @@
         "Tijaniya",
         "عربي",
         "قائمة"
-    ]
+    ],
+    "cody.codebase": "github.com/AhmedMahmoud3030/dwaween",
+    "cody.commandCodeLenses": true,
+    "cody.debug.enable": false,
+    "cody.autocomplete.formatOnAccept": true
 }

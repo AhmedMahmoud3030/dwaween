@@ -185,7 +185,7 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                   color: backColor,
                 ),
                 SvgPicture.asset(
-                  "assets/img/BG.svg",
+                  "assets/images/paintings/BG.png",
                   alignment: Alignment.topCenter,
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
@@ -194,7 +194,7 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                   child: Stack(
                     children: [
                       SvgPicture.asset(
-                        "assets/img/banner2.svg",
+                        "assets/images/paintings/img_head_internal.svg",
                         alignment: Alignment.topCenter,
                         width: MediaQuery.of(context).size.width * 4,
                         height: MediaQuery.of(context).size.height / 2,
@@ -430,7 +430,7 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                       ),
                                                     ),
                                                     Image.asset(
-                                                      "assets/img/fav.png",
+                                                      "assets/images/icons/fav.png",
                                                       width: d1,
                                                       height: d1,
                                                       fit: BoxFit.fill,
@@ -604,7 +604,7 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                       ),
                                                     ),
                                                     Image.asset(
-                                                      "assets/img/notes.png",
+                                                      "assets/images/icons/notes.png",
                                                       width: d1,
                                                       height: d1,
                                                       fit: BoxFit.fill,
@@ -809,7 +809,7 @@ class _KasydaDetailsState extends State<KasydaDetails> {
                                                       ),
                                                     ),
                                                     Image.asset(
-                                                      "assets/img/share.png",
+                                                      "assets/images/icons/share.png",
                                                       width: d1,
                                                       height: d1,
                                                       fit: BoxFit.fill,

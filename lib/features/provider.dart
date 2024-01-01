@@ -79,7 +79,7 @@ class BaseProvider extends ChangeNotifier {
         grouped.putIfAbsent(kaseda.purpose, () => []);
         grouped[kaseda.purpose]!.add(kaseda);
       }
-    }
+    } 
 
     groupedBy = grouped.entries.map((entry) {
       return groupByClass(

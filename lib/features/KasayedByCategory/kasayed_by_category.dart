@@ -244,11 +244,6 @@ class KasaedByCategoryScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => KasydaDetails(
-                                            kasyedaT: provider
-                                                .groupedBy[provider
-                                                    .groupByPurposeIndex]
-                                                .kenshat[index]
-                                                .kaseydaT,
                                             kasyeda: provider
                                                 .groupedBy[provider
                                                     .groupByPurposeIndex]
@@ -260,6 +255,21 @@ class KasaedByCategoryScreen extends StatelessWidget {
                                                 .kenshat[index]
                                                 .name,
                                             DName: provider
+                                                .groupedBy[provider
+                                                    .groupByPurposeIndex]
+                                                .kenshat[index]
+                                                .nameT,
+                                            kasyedaT: provider
+                                                .groupedBy[provider
+                                                    .groupByPurposeIndex]
+                                                .kenshat[index]
+                                                .kaseydaT,
+                                            kasyedaTRepeat: provider
+                                                .groupedBy[provider
+                                                    .groupByPurposeIndex]
+                                                .kenshat[index]
+                                                .kaseydaT,
+                                            KNameT: provider
                                                 .groupedBy[provider
                                                     .groupByPurposeIndex]
                                                 .kenshat[index]

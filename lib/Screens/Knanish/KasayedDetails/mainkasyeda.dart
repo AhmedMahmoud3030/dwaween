@@ -1,14 +1,15 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class kasyedaArea extends StatefulWidget {
   kasyedaArea(
       {super.key,
-        required this.kasyeda,
-        required this.textcolor,
-        required this.size
-        , required this.value});
+      required this.kasyeda,
+      required this.textcolor,
+      required this.size,
+      required this.value});
   String value;
   String kasyeda;
   Color textcolor;
@@ -29,7 +30,6 @@ var a = ["0"];
 var b = ["0"];
 
 class _kasyedaAreaState extends State<kasyedaArea> {
-
   @override
   Widget build(BuildContext context) {
     var k = widget.kasyeda.toString().split(".");
@@ -43,44 +43,44 @@ class _kasyedaAreaState extends State<kasyedaArea> {
             itemCount: k.length,
             itemBuilder: (context, index) {
               return Container(
-                child:index%2==0?
-                Padding(
-                  padding: const EdgeInsets.only(right: 20.0),
-                  child: ListTile(
-                    title: Align(
-                      alignment: Alignment.centerRight,
-                      child:widget.value.isNotEmpty?
-                          ColoredText(
-                            text: k[index],
-                            value: widget.value,
-                            context: context,
-                            textcolor: Colors.black87,
-                            size: widget.size,
-                          )
-                          :  Text(
-                        k[index],
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontFamily: "Amiri Regular",
-                            fontSize: widget.size),
-                        textAlign: TextAlign.right,
+                child: index % 2 == 0
+                    ? Padding(
+                        padding: const EdgeInsets.only(right: 20.0),
+                        child: ListTile(
+                          title: Align(
+                            alignment: Alignment.centerRight,
+                            child: widget.value.isNotEmpty
+                                ? ColoredText(
+                                    text: k[index],
+                                    value: widget.value,
+                                    context: context,
+                                    textcolor: Colors.black87,
+                                    size: widget.size,
+                                  )
+                                : Text(
+                                    k[index],
+                                    style: TextStyle(
+                                        color: Colors.black87,
+                                        fontFamily: "Amiri Regular",
+                                        fontSize: widget.size),
+                                    textAlign: TextAlign.right,
+                                  ),
+                          ),
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: ListTile(
+                          title: Text(
+                            k[index],
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontFamily: "Amiri Regular",
+                                fontSize: widget.size),
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ):
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0),
-                  child: ListTile(
-                    title: Text(
-                      k[index],
-                      style: TextStyle(
-                          color:Colors.black87,
-                          fontFamily: "Amiri Regular",
-                          fontSize: widget.size),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ),
               );
             },
           ),
@@ -88,9 +88,8 @@ class _kasyedaAreaState extends State<kasyedaArea> {
       ),
     );
   }
-
-
 }
+
 class ColoredText extends StatelessWidget {
   String text;
   String value;
@@ -108,9 +107,6 @@ class ColoredText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-
     return RichText(
       text: TextSpan(
         style: DefaultTextStyle.of(context).style,
@@ -120,9 +116,6 @@ class ColoredText extends StatelessWidget {
   }
 
   List<TextSpan> _buildTextSpans() {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-
     final List<TextSpan> spans = [];
 
     // Split the text by space to apply styling to individual words
@@ -136,21 +129,17 @@ class ColoredText extends StatelessWidget {
           TextSpan(
             text: '$word ',
             style: TextStyle(
-                color: textcolor,
-                fontFamily: "Amiri Regular",
-                fontSize: size
-            ),
+                color: textcolor, fontFamily: "Amiri Regular", fontSize: size),
           ),
         );
       } else {
         spans.add(
           TextSpan(
             text: '$word ',
-            style:  TextStyle(
+            style: TextStyle(
                 color: Colors.teal,
                 fontFamily: "Amiri Regular",
-                fontSize: size
-            ),
+                fontSize: size),
           ),
         );
       }

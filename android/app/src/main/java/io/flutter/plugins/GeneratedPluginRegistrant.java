@@ -26,6 +26,11 @@ public final class GeneratedPluginRegistrant {
       Log.e(TAG, "Error registering plugin audio_session, com.ryanheise.audio_session.AudioSessionPlugin", e);
     }
     try {
+      flutterEngine.getPlugins().add(new io.flutter.plugins.firebase.core.FlutterFirebaseCorePlugin());
+    } catch (Exception e) {
+      Log.e(TAG, "Error registering plugin firebase_core, io.flutter.plugins.firebase.core.FlutterFirebaseCorePlugin", e);
+    }
+    try {
       flutterEngine.getPlugins().add(new com.laoitdev.lib.exit.app.flutter_exit_app.FlutterExitAppPlugin());
     } catch (Exception e) {
       Log.e(TAG, "Error registering plugin flutter_exit_app, com.laoitdev.lib.exit.app.flutter_exit_app.FlutterExitAppPlugin", e);

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "874150026897",
+    "project_id": "dwaween-47809",
+    "storage_bucket": "dwaween-47809.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874150026897:android:629da4fa4fa010bac96930",
+        "android_client_info": {
+          "package_name": "com.example.dwaween"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu7nWz_2098f7ORbGpf1-IYAOhqqvMthA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

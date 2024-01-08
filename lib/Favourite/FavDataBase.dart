@@ -1,3 +1,4 @@
+import 'package:dwaween/features/KasydaDetails/kasyda_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -6,7 +7,6 @@ import 'package:dwaween/core/constants.dart';
 import 'package:dwaween/core/help/database_helper_fav.dart';
 import 'package:dwaween/core/nav.dart';
 
-import '../Screens/Knanish/KasayedDetails/KasydaDetails.dart';
 
 class FavDataBase extends StatefulWidget {
   const FavDataBase({super.key});

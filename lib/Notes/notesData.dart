@@ -2,11 +2,11 @@ import 'package:dwaween/Screens/Comment/Comment.dart';
 import 'package:dwaween/core/constants.dart';
 import 'package:dwaween/core/help/database_helper_notification.dart';
 import 'package:dwaween/core/nav.dart';
+import 'package:dwaween/features/KasydaDetails/kasyda_details.dart';
 import 'package:dwaween/models/NoteModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../Screens/Knanish/KasayedDetails/KasydaDetails.dart';
 
 class noteData extends StatefulWidget {
   const noteData({super.key});
